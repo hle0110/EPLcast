@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EPLcast - 2026-27 projection</title>
+<style>
+:root {
+  --bg: #0f1115;
+  --card: #171a21;
+  --line: #262b35;
+  --text: #e8eaee;
+  --muted: #9aa3b2;
+  --accent: #4ade80;
+  --warn: #f87171;
+  --bar: #2b3240;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 32px 20px 64px;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.wrap { max-width: 1040px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.01em; }
+.sub { color: var(--muted); margin: 0 0 28px; font-size: 14px; }
+.cards { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 14px 16px; flex: 1 1 180px;
+}
+.card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.card .value { font-size: 22px; font-weight: 600; margin-top: 4px; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; white-space: nowrap; }
+td.team { white-space: nowrap; }
+th.team, td.team { text-align: left; }
+td.rank { color: var(--muted); width: 40px; }
+tbody tr:last-child td { border-bottom: none; }
+tr.ucl td.rank { color: var(--accent); font-weight: 600; }
+tr.drop td.rank { color: var(--warn); font-weight: 600; }
+.legend { color: var(--muted); font-size: 13px; margin-top: 16px; }
+.footer { color: var(--muted); font-size: 13px; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 16px; }
+.footer a { color: var(--text); }
+h2 { font-size: 17px; margin: 36px 0 12px; }
+@media (max-width: 720px) {
+  body { padding: 20px 12px 48px; }
+  th.hide, td.hide { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>2026-27 projected table</h1>
+<p class="sub">20 of 380 matches played. Remaining fixtures simulated 40 times.</p>
+
+<div class="cards">
+  <div class="card"><div class="label">Matches played</div><div class="value">20 / 380</div></div>
+  <div class="card"><div class="label">Simulations</div><div class="value">40</div></div>
+  <div class="card"><div class="label">Model accuracy</div><div class="value">53.5%</div></div>
+  <div class="card"><div class="label">Data through</div><div class="value">2 September 2026</div></div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th class="rank"></th>
+<th class="team">Team</th>
+<th>Pts</th>
+<th class="hide">W</th>
+<th class="hide">D</th>
+<th class="hide">L</th>
+<th class="hide">GD</th>
+<th>Title</th>
+<th>Top 4</th>
+<th>Relegation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="ucl">
+<td class="rank">1</td>
+<td class="team">Arsenal</td>
+<td>79.6</td>
+<td class="hide">24.2</td>
+<td class="hide">7.0</td>
+<td class="hide">6.8</td>
+<td class="hide">+34.3</td>
+<td style="background:linear-gradient(to left, var(--bar) 52%, transparent 52%)">52%</td>
+<td style="background:linear-gradient(to left, var(--bar) 92%, transparent 92%)">92%</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+</tr>
+<tr class="ucl">
+<td class="rank">2</td>
+<td class="team">Manchester City</td>
+<td>75.6</td>
+<td class="hide">22.6</td>
+<td class="hide">7.9</td>
+<td class="hide">7.5</td>
+<td class="hide">+35.0</td>
+<td style="background:linear-gradient(to left, var(--bar) 35%, transparent 35%)">35%</td>
+<td style="background:linear-gradient(to left, var(--bar) 90%, transparent 90%)">90%</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+</tr>
+<tr class="ucl">
+<td class="rank">3</td>
+<td class="team">Manchester United</td>
+<td>63.4</td>
+<td class="hide">18.4</td>
+<td class="hide">8.3</td>
+<td class="hide">11.3</td>
+<td class="hide">+17.1</td>
+<td style="background:linear-gradient(to left, var(--bar) 5%, transparent 5%)">5%</td>
+<td style="background:linear-gradient(to left, var(--bar) 42%, transparent 42%)">42%</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+</tr>
+<tr class="ucl">
+<td class="rank">4</td>
+<td class="team">Bournemouth</td>
+<td>59.9</td>
+<td class="hide">16.9</td>
+<td class="hide">9.1</td>
+<td class="hide">12.0</td>
+<td class="hide">+13.8</td>
+<td style="background:linear-gradient(to left, var(--bar) 2%, transparent 2%)">2%</td>
+<td style="background:linear-gradient(to left, var(--bar) 30%, transparent 30%)">30%</td>
+<td style="background:linear-gradient(to left, var(--bar) 2%, transparent 2%)">2%</td>
+</tr>
+<tr class="">
+<td class="rank">5</td>
+<td class="team">Brighton &amp; Hove Albion</td>
+<td>56.7</td>
+<td class="hide">16.0</td>
+<td class="hide">8.7</td>
+<td class="hide">13.3</td>
+<td class="hide">+8.5</td>
+<td style="background:linear-gradient(to left, var(--bar) 5%, transparent 5%)">5%</td>
+<td style="background:linear-gradient(to left, var(--bar) 28%, transparent 28%)">28%</td>
+<td style="background:linear-gradient(to left, var(--bar) 5%, transparent 5%)">5%</td>
+</tr>
+<tr class="">
+<td class="rank">6</td>
+<td class="team">Everton</td>
+<td>53.7</td>
+<td class="hide">14.7</td>
+<td class="hide">9.8</td>
+<td class="hide">13.6</td>
+<td class="hide">-0.2</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 18%, transparent 18%)">18%</td>
+<td style="background:linear-gradient(to left, var(--bar) 8%, transparent 8%)">8%</td>
+</tr>
+<tr class="">
+<td class="rank">7</td>
+<td class="team">Brentford</td>
+<td>53.7</td>
+<td class="hide">14.8</td>
+<td class="hide">9.4</td>
+<td class="hide">13.8</td>
+<td class="hide">+0.9</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 18%, transparent 18%)">18%</td>
+<td style="background:linear-gradient(to left, var(--bar) 5%, transparent 5%)">5%</td>
+</tr>
+<tr class="">
+<td class="rank">8</td>
+<td class="team">Liverpool</td>
+<td>53.4</td>
+<td class="hide">14.4</td>
+<td class="hide">10.0</td>
+<td class="hide">13.6</td>
+<td class="hide">+1.4</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 20%, transparent 20%)">20%</td>
+<td style="background:linear-gradient(to left, var(--bar) 5%, transparent 5%)">5%</td>
+</tr>
+<tr class="">
+<td class="rank">9</td>
+<td class="team">Aston Villa</td>
+<td>52.0</td>
+<td class="hide">14.3</td>
+<td class="hide">8.9</td>
+<td class="hide">14.7</td>
+<td class="hide">0.0</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 15%, transparent 15%)">15%</td>
+<td style="background:linear-gradient(to left, var(--bar) 12%, transparent 12%)">12%</td>
+</tr>
+<tr class="">
+<td class="rank">10</td>
+<td class="team">Chelsea</td>
+<td>51.8</td>
+<td class="hide">14.4</td>
+<td class="hide">8.5</td>
+<td class="hide">15.1</td>
+<td class="hide">-9.5</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 10%, transparent 10%)">10%</td>
+<td style="background:linear-gradient(to left, var(--bar) 10%, transparent 10%)">10%</td>
+</tr>
+<tr class="">
+<td class="rank">11</td>
+<td class="team">Leeds United</td>
+<td>51.3</td>
+<td class="hide">13.7</td>
+<td class="hide">10.3</td>
+<td class="hide">14.1</td>
+<td class="hide">-2.6</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 8%, transparent 8%)">8%</td>
+<td style="background:linear-gradient(to left, var(--bar) 10%, transparent 10%)">10%</td>
+</tr>
+<tr class="">
+<td class="rank">12</td>
+<td class="team">Sunderland</td>
+<td>49.4</td>
+<td class="hide">13.4</td>
+<td class="hide">9.1</td>
+<td class="hide">15.5</td>
+<td class="hide">-4.0</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 10%, transparent 10%)">10%</td>
+<td style="background:linear-gradient(to left, var(--bar) 18%, transparent 18%)">18%</td>
+</tr>
+<tr class="">
+<td class="rank">13</td>
+<td class="team">Nottingham Forest</td>
+<td>47.2</td>
+<td class="hide">12.6</td>
+<td class="hide">9.4</td>
+<td class="hide">16.0</td>
+<td class="hide">-4.1</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 10%, transparent 10%)">10%</td>
+<td style="background:linear-gradient(to left, var(--bar) 20%, transparent 20%)">20%</td>
+</tr>
+<tr class="">
+<td class="rank">14</td>
+<td class="team">Newcastle United</td>
+<td>46.8</td>
+<td class="hide">12.4</td>
+<td class="hide">9.6</td>
+<td class="hide">16.0</td>
+<td class="hide">-7.8</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 2%, transparent 2%)">2%</td>
+<td style="background:linear-gradient(to left, var(--bar) 18%, transparent 18%)">18%</td>
+</tr>
+<tr class="">
+<td class="rank">15</td>
+<td class="team">Tottenham Hotspur</td>
+<td>44.9</td>
+<td class="hide">12.1</td>
+<td class="hide">8.7</td>
+<td class="hide">17.2</td>
+<td class="hide">-13.9</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 22%, transparent 22%)">22%</td>
+</tr>
+<tr class="">
+<td class="rank">16</td>
+<td class="team">Crystal Palace</td>
+<td>43.3</td>
+<td class="hide">11.6</td>
+<td class="hide">8.6</td>
+<td class="hide">17.8</td>
+<td class="hide">-17.4</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 2%, transparent 2%)">2%</td>
+<td style="background:linear-gradient(to left, var(--bar) 30%, transparent 30%)">30%</td>
+</tr>
+<tr class="">
+<td class="rank">17</td>
+<td class="team">Fulham</td>
+<td>43.2</td>
+<td class="hide">11.4</td>
+<td class="hide">8.8</td>
+<td class="hide">17.7</td>
+<td class="hide">-11.0</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 2%, transparent 2%)">2%</td>
+<td style="background:linear-gradient(to left, var(--bar) 30%, transparent 30%)">30%</td>
+</tr>
+<tr class="drop">
+<td class="rank">18</td>
+<td class="team">Coventry City</td>
+<td>42.9</td>
+<td class="hide">11.3</td>
+<td class="hide">8.8</td>
+<td class="hide">17.9</td>
+<td class="hide">-8.8</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 28%, transparent 28%)">28%</td>
+</tr>
+<tr class="drop">
+<td class="rank">19</td>
+<td class="team">Ipswich Town</td>
+<td>41.5</td>
+<td class="hide">11.0</td>
+<td class="hide">8.6</td>
+<td class="hide">18.5</td>
+<td class="hide">-15.5</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 2%, transparent 2%)">2%</td>
+<td style="background:linear-gradient(to left, var(--bar) 45%, transparent 45%)">45%</td>
+</tr>
+<tr class="drop">
+<td class="rank">20</td>
+<td class="team">Hull City</td>
+<td>40.6</td>
+<td class="hide">10.6</td>
+<td class="hide">8.9</td>
+<td class="hide">18.5</td>
+<td class="hide">-16.1</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 0%, transparent 0%)">-</td>
+<td style="background:linear-gradient(to left, var(--bar) 32%, transparent 32%)">32%</td>
+</tr>
+</tbody>
+</table>
+
+<p class="legend">Projected points are the average across 40 simulations of every remaining fixture. Percentages are how often each team finished in that position.</p>
+
+<h2>2027-28 outlook</h2>
+<table>
+<thead><tr><th class="rank"></th><th class="team">Team</th><th>Pts</th><th>Title</th><th>Top 4</th></tr></thead>
+<tbody>
+<tr><td class="rank">1</td><td class="team">Arsenal</td><td>69.5</td><td>38%</td><td>70%</td></tr>
+<tr><td class="rank">2</td><td class="team">Manchester City</td><td>67.2</td><td>25%</td><td>60%</td></tr>
+<tr><td class="rank">3</td><td class="team">Manchester United</td><td>58.7</td><td>2%</td><td>28%</td></tr>
+<tr><td class="rank">4</td><td class="team">Bournemouth</td><td>57.7</td><td>2%</td><td>25%</td></tr>
+<tr><td class="rank">5</td><td class="team">Liverpool</td><td>55.6</td><td>2%</td><td>18%</td></tr>
+<tr><td class="rank">6</td><td class="team">Aston Villa</td><td>54.8</td><td>15%</td><td>28%</td></tr>
+</tbody>
+</table>
+
+<div class="footer">
+Built by <a href="https://github.com/hle0110/EPLcast">EPLcast</a>. Match data from football-data.co.uk.
+Predictions are statistical estimates, not betting advice.
+</div>
+</div>
+</body>
+</html>
