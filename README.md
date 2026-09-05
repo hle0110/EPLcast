@@ -1,91 +1,45 @@
 # EPLcast
 
-Predicts Premier League match outcomes, projects how the current season will finish, and simulates seasons beyond it.
+Premier League match prediction and season projection.
 
-**Live table: https://hle0110.github.io/EPLcast/** - refreshed automatically every week, no install needed.
+**[Live table](https://hle0110.github.io/EPLcast/)**, updated automatically every week.
 
 ## What it does
 
-EPLcast keeps a dataset of every match in the top four English divisions since the 2021-22 season, including the season currently in progress. It trains a classifier on that history and runs Monte Carlo simulations of every remaining fixture to produce a projected final table with title, top-four and relegation probabilities.
+Points already won are taken from real results, and every remaining fixture is simulated 40 times to project how the season finishes, with title, top four and relegation probabilities. Once a season ends the projection rolls forward to the next one.
 
-When a season is underway, the projection starts from the real table - points already won are banked, and only the fixtures still to be played are simulated. Once a season finishes, it rolls forward and projects the following ones instead.
+The model is trained on every match in the top four English divisions since the 2021/22 season, using Elo ratings, rolling 9 match form, shots on target, head to head records and last season's division.
 
 ## Accuracy
 
-Measured with rolling-origin validation: for each held-out window the model is trained only on matches played before that window started, which is how it would actually be used.
+| | Accuracy |
+|---|---|
+| Always predict a home win | 42.6% |
+| Original model | 45.6% |
+| Current model | **53.5%** |
 
-| | Accuracy | Log loss |
-|---|---|---|
-| Always predict a home win | 42.6% | - |
-| Original model (team id + last-3 form) | 45.6% | 1.177 |
-| Current model | 53.5% | 0.980 |
+Measured over 1,730 held out matches, training only on games played before each test window. Published football models rarely clear the mid 50s on three way outcome prediction, since a team can dominate a match and still lose to a deflection.
 
-Evaluated over 1,730 held-out Premier League matches across 7 windows (full seasons and second halves, 2023-24 onward). Windows where fewer than two seasons of training data were available are excluded, since a model trained on a single season is far noisier than the one actually shipped.
+## Staying current
 
-For context, published football models rarely clear the mid-50s on three-way match outcome prediction. A team can dominate a match on every underlying metric and still lose to a deflection, and that irreducible randomness is a large share of what is left.
+A GitHub Actions workflow runs every Tuesday on GitHub's servers. It downloads the past week's results from football data co uk, retrains, rebuilds the projection and publishes the updated page. No local machine involved.
 
-## How it works
-
-Features, all computed only from matches played before the one being predicted:
-
-- Elo rating difference, updated match by match across all four divisions so promoted and relegated teams carry a real strength signal
-- Rolling 9-match form: points per game, goals for, goals against
-- Rolling 9-match shots on target for and against, a less noisy quality signal than goals alone
-- Head-to-head record between the two sides
-- Which division each side played in last season
-
-Model: multinomial logistic regression, trained on all four divisions. Gradient boosting, random forests and various blends were tested against the same validation protocol and all scored worse, so the simpler model shipped.
-
-Simulation: each remaining fixture is drawn from the model's predicted probabilities, scorelines come from a Poisson goal model calibrated to each team's attack and defense strength, and Elo, form and shot rates all update match by match as the simulated season unfolds.
-
-## Installation
+## Running locally
 
 ```bash
-git clone https://github.com/hle0110/EPLcast.git
-cd EPLcast
 pip install -r requirements.txt
+python update_data.py
+python main.py
 ```
 
-Four dependencies: pandas, numpy, scikit-learn, joblib.
-
-## Usage
-
-```bash
-python update_data.py   # pull in results from matches played since the last run
-python main.py          # retrain, re-evaluate and re-project
-```
-
-`main.py` prints the accuracy comparison above, saves the trained model to `models/`, and writes:
-
-- `predictions/epl_season_projection.csv` - projected final table for the current season and the seasons after it, with title, top-four and relegation probabilities
-- `predictions/epl_simulated_matches.csv` - a sample simulated run, match by match
-- `docs/index.html` - a self-contained page showing the projected table, published through GitHub Pages
-
-## Automation
-
-`.github/workflows/weekly-update.yml` runs every Tuesday on GitHub's servers. It fetches the past week's results, retrains, rebuilds the projection and dashboard, and commits anything that changed. Because the simulation is seeded, a week with no new matches produces no commit.
-
-To set this up on a fork:
-
-1. Settings - Pages - Source: "Deploy from a branch", branch `main`, folder `/docs`
-2. Settings - Actions - General - Workflow permissions: "Read and write permissions"
-3. Actions tab - Weekly data update - "Run workflow" to trigger the first run manually
-
-GitHub pauses scheduled workflows in repositories with no activity for 60 days; a single commit or a manual run re-enables them.
-
-`update_data.py` works out which season is current from today's date, downloads the latest results for all four divisions from football-data.co.uk, and merges them in. It replaces the current season's rows wholesale each time, so running it twice changes nothing. It exits 0 when new matches were added and 1 when there was nothing new, which makes it easy to script. `python update_data.py --rebuild` rebuilds the whole dataset from source.
-
-## Files
-
-- `features.py` - feature engineering (Elo, form, shots on target, head-to-head, promotion status)
-- `models.py` - the classifier
-- `simulate.py` - fixture scheduling and Monte Carlo simulation, including rest-of-season projection
-- `main.py` - evaluation, training and projection pipeline
-- `update_data.py` - fetches and merges new results
-- `dashboard.py` - renders the projection as a static HTML page
-- `team_name_map.py` - maps source team abbreviations to full club names
-- `.github/workflows/weekly-update.yml` - weekly refresh on GitHub Actions
+Needs pandas, numpy, scikit learn and joblib. A full run takes about 15 seconds and writes `docs/index.html`, `predictions/epl_season_projection.csv` and `predictions/epl_simulated_matches.csv`.
 
 ## Limitations
 
-Promotion and relegation are not modelled for future seasons: seasons beyond the current one are simulated with the current 20 clubs. Injuries, transfers, fixture congestion and European commitments are not represented. The dataset starts at 2021-22 deliberately, as older football differs enough that including it measurably hurt results.
+Promotion and relegation are not modelled for future seasons, so anything beyond the current one uses today's 20 clubs. Injuries, transfers and fixture congestion are not represented.
+
+Data from [football-data.co.uk](https://www.football-data.co.uk/). Predictions are statistical estimates, not betting advice.
+
+## License
+
+MIT, see [LICENSE](LICENSE). This covers the code, not the match data.
