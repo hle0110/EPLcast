@@ -2,6 +2,8 @@
 
 Predicts Premier League match outcomes, projects how the current season will finish, and simulates seasons beyond it.
 
+**Live table: https://hle0110.github.io/EPLcast/** - refreshed automatically every week, no install needed.
+
 ## What it does
 
 EPLcast keeps a dataset of every match in the top four English divisions since the 2021-22 season, including the season currently in progress. It trains a classifier on that history and runs Monte Carlo simulations of every remaining fixture to produce a projected final table with title, top-four and relegation probabilities.
@@ -57,6 +59,19 @@ python main.py          # retrain, re-evaluate and re-project
 
 - `predictions/epl_season_projection.csv` - projected final table for the current season and the seasons after it, with title, top-four and relegation probabilities
 - `predictions/epl_simulated_matches.csv` - a sample simulated run, match by match
+- `docs/index.html` - a self-contained page showing the projected table, published through GitHub Pages
+
+## Automation
+
+`.github/workflows/weekly-update.yml` runs every Tuesday on GitHub's servers. It fetches the past week's results, retrains, rebuilds the projection and dashboard, and commits anything that changed. Because the simulation is seeded, a week with no new matches produces no commit.
+
+To set this up on a fork:
+
+1. Settings - Pages - Source: "Deploy from a branch", branch `main`, folder `/docs`
+2. Settings - Actions - General - Workflow permissions: "Read and write permissions"
+3. Actions tab - Weekly data update - "Run workflow" to trigger the first run manually
+
+GitHub pauses scheduled workflows in repositories with no activity for 60 days; a single commit or a manual run re-enables them.
 
 `update_data.py` works out which season is current from today's date, downloads the latest results for all four divisions from football-data.co.uk, and merges them in. It replaces the current season's rows wholesale each time, so running it twice changes nothing. It exits 0 when new matches were added and 1 when there was nothing new, which makes it easy to script. `python update_data.py --rebuild` rebuilds the whole dataset from source.
 
@@ -67,7 +82,9 @@ python main.py          # retrain, re-evaluate and re-project
 - `simulate.py` - fixture scheduling and Monte Carlo simulation, including rest-of-season projection
 - `main.py` - evaluation, training and projection pipeline
 - `update_data.py` - fetches and merges new results
+- `dashboard.py` - renders the projection as a static HTML page
 - `team_name_map.py` - maps source team abbreviations to full club names
+- `.github/workflows/weekly-update.yml` - weekly refresh on GitHub Actions
 
 ## Limitations
 

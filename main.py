@@ -11,11 +11,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from features import load_data, engineer_features, FEATURE_COLUMNS, TOP_DIVISION
 from models import ScaledLogisticModel
 from simulate import run_simulations, summarize_simulations
+from dashboard import write_dashboard
 
 DATA_PATH = "data/matches.csv"
 MODEL_PATH = "models/epl_predictive_model.pkl"
 PRED_MATCHES_PATH = "predictions/epl_simulated_matches.csv"
 PRED_TABLE_PATH = "predictions/epl_season_projection.csv"
+DASHBOARD_PATH = "docs/index.html"
 N_FUTURE_SEASONS = 3
 N_SIMULATIONS = 40
 MODEL_C = 0.8
@@ -68,7 +70,7 @@ def evaluate_models(df, top_flight):
     folds = rolling_origin_folds(top_flight)
     if not folds:
         print("Not enough seasons for a held-out evaluation, skipping comparison")
-        return
+        return None
 
     legacy = build_legacy_features(top_flight)
     legacy_features = ['home_enc', 'away_enc', 'home_last3', 'away_last3']
@@ -114,6 +116,7 @@ def evaluate_models(df, top_flight):
     print(f"    Original model (team id + form)  : accuracy {totals['legacy_acc']/n:.4f}  log loss {totals['legacy_ll']/n:.4f}")
     print(f"    Current model                    : accuracy {totals['new_acc']/n:.4f}  log loss {totals['new_ll']/n:.4f}")
     print(f"    Improvement over original        : {(totals['new_acc'] - totals['legacy_acc'])/n*100:+.2f} percentage points\n")
+    return {'accuracy': totals['new_acc'] / n, 'log_loss': totals['new_ll'] / n, 'matches': n}
 
 def main():
     print("Starting Premier League Predictor")
@@ -130,7 +133,7 @@ def main():
     top_flight = df[df['division'] == TOP_DIVISION]
     print(f"{len(top_flight):,} {TOP_DIVISION} matches, {len(df):,} matches in total across four divisions")
 
-    evaluate_models(df, top_flight)
+    metrics = evaluate_models(df, top_flight)
 
     print("Training final model on every division and season available")
     final_model = ScaledLogisticModel(C=MODEL_C)
@@ -173,8 +176,24 @@ def main():
     display = headline[['Rank', 'Team', 'Points', 'Wins', 'Draws', 'Losses', 'GoalDiff', 'TitleProb', 'Top4Prob', 'RelegationProb']]
     print(display.to_string(index=False))
 
+    if played < total_fixtures:
+        status_line = f"{played} of {total_fixtures} matches played. Remaining fixtures simulated {N_SIMULATIONS} times."
+    else:
+        status_line = f"Season complete. Following seasons simulated {N_SIMULATIONS} times."
+
+    accuracy_text = f"{metrics['accuracy'] * 100:.1f}%" if metrics else "n/a"
+    write_dashboard(projection, headline_season, {
+        'status_line': status_line,
+        'played': played,
+        'total': total_fixtures,
+        'simulations': N_SIMULATIONS,
+        'accuracy': accuracy_text,
+        'last_match_date': df['match_date'].max(),
+    }, DASHBOARD_PATH)
+
     print(f"\nSaved simulated matches to {PRED_MATCHES_PATH}")
     print(f"Saved projected standings to {PRED_TABLE_PATH}")
+    print(f"Saved dashboard to {DASHBOARD_PATH}")
     print("All done")
 
 if __name__ == "__main__":
