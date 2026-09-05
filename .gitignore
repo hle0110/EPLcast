@@ -1,3 +1,6 @@
 .DS_Store
 venv/
 models/epl_predictive_model.pkl
+.venv/
+__pycache__/
+*.pyc
