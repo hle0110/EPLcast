@@ -57,4 +57,14 @@ jobs:
             exit 0
           fi
           git commit -m "Weekly update: refresh results and projections"
-          git push
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "Push rejected on attempt $attempt, rebasing on latest main"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            sleep 5
+          done
+          echo "Could not push after 3 attempts"
+          exit 1
