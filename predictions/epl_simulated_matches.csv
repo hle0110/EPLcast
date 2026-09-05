@@ -1,0 +1,1501 @@
+season,home_team,away_team,predicted_result,home_goals,away_goals
+2026,Manchester United,Brentford,away team win,0,1
+2026,Bournemouth,Leeds United,home team win,2,1
+2026,Everton,Hull City,home team win,2,0
+2026,Tottenham Hotspur,Fulham,away team win,1,2
+2026,Ipswich Town,Nottingham Forest,draw,0,0
+2026,Liverpool,Chelsea,away team win,0,1
+2026,Sunderland,Newcastle United,draw,0,0
+2026,Arsenal,Aston Villa,draw,0,0
+2026,Manchester City,Brighton & Hove Albion,home team win,2,0
+2026,Crystal Palace,Coventry City,home team win,3,1
+2026,Everton,Brentford,away team win,0,1
+2026,Manchester United,Coventry City,away team win,2,3
+2026,Fulham,Sunderland,home team win,1,0
+2026,Arsenal,Hull City,home team win,1,0
+2026,Bournemouth,Nottingham Forest,draw,2,2
+2026,Tottenham Hotspur,Ipswich Town,away team win,1,3
+2026,Crystal Palace,Chelsea,draw,2,2
+2026,Leeds United,Newcastle United,home team win,1,0
+2026,Manchester City,Aston Villa,away team win,0,1
+2026,Liverpool,Brighton & Hove Albion,draw,0,0
+2026,Everton,Coventry City,home team win,4,2
+2026,Bournemouth,Tottenham Hotspur,home team win,1,0
+2026,Arsenal,Brentford,home team win,1,0
+2026,Crystal Palace,Fulham,home team win,2,0
+2026,Nottingham Forest,Manchester City,away team win,0,2
+2026,Manchester United,Newcastle United,home team win,3,0
+2026,Sunderland,Leeds United,draw,0,0
+2026,Hull City,Aston Villa,away team win,1,2
+2026,Ipswich Town,Brighton & Hove Albion,draw,2,2
+2026,Chelsea,Liverpool,away team win,0,4
+2026,Brentford,Everton,away team win,1,2
+2026,Coventry City,Liverpool,away team win,0,1
+2026,Bournemouth,Ipswich Town,home team win,2,1
+2026,Fulham,Crystal Palace,draw,1,1
+2026,Leeds United,Nottingham Forest,home team win,2,0
+2026,Sunderland,Manchester United,home team win,2,0
+2026,Aston Villa,Hull City,home team win,1,0
+2026,Manchester City,Tottenham Hotspur,home team win,2,1
+2026,Arsenal,Brighton & Hove Albion,home team win,5,1
+2026,Chelsea,Newcastle United,home team win,2,0
+2026,Nottingham Forest,Brentford,away team win,0,2
+2026,Coventry City,Leeds United,draw,1,1
+2026,Chelsea,Everton,home team win,3,1
+2026,Bournemouth,Newcastle United,home team win,4,0
+2026,Crystal Palace,Tottenham Hotspur,draw,0,0
+2026,Liverpool,Fulham,home team win,2,0
+2026,Manchester United,Arsenal,home team win,1,0
+2026,Manchester City,Sunderland,home team win,1,0
+2026,Brighton & Hove Albion,Hull City,home team win,3,2
+2026,Aston Villa,Ipswich Town,home team win,3,2
+2026,Brentford,Chelsea,home team win,2,0
+2026,Sunderland,Everton,away team win,0,1
+2026,Nottingham Forest,Brighton & Hove Albion,home team win,1,0
+2026,Ipswich Town,Crystal Palace,draw,1,1
+2026,Newcastle United,Manchester United,home team win,4,2
+2026,Fulham,Manchester City,away team win,0,1
+2026,Liverpool,Bournemouth,home team win,2,1
+2026,Leeds United,Aston Villa,draw,2,2
+2026,Tottenham Hotspur,Arsenal,draw,1,1
+2026,Hull City,Coventry City,home team win,1,0
+2026,Brentford,Bournemouth,draw,1,1
+2026,Brighton & Hove Albion,Crystal Palace,draw,1,1
+2026,Ipswich Town,Fulham,draw,0,0
+2026,Aston Villa,Everton,home team win,2,1
+2026,Sunderland,Arsenal,draw,0,0
+2026,Chelsea,Leeds United,draw,0,0
+2026,Liverpool,Tottenham Hotspur,home team win,1,0
+2026,Hull City,Manchester City,away team win,0,1
+2026,Manchester United,Nottingham Forest,draw,2,2
+2026,Newcastle United,Coventry City,home team win,2,1
+2026,Ipswich Town,Newcastle United,away team win,1,2
+2026,Everton,Leeds United,draw,0,0
+2026,Manchester United,Aston Villa,draw,1,1
+2026,Manchester City,Fulham,away team win,0,1
+2026,Tottenham Hotspur,Crystal Palace,home team win,1,0
+2026,Sunderland,Chelsea,home team win,2,0
+2026,Bournemouth,Liverpool,home team win,2,1
+2026,Hull City,Brentford,away team win,1,2
+2026,Coventry City,Brighton & Hove Albion,away team win,2,3
+2026,Nottingham Forest,Arsenal,draw,1,1
+2026,Brentford,Ipswich Town,away team win,2,3
+2026,Everton,Arsenal,away team win,0,1
+2026,Newcastle United,Crystal Palace,home team win,2,0
+2026,Manchester United,Leeds United,home team win,1,0
+2026,Chelsea,Tottenham Hotspur,home team win,1,0
+2026,Aston Villa,Nottingham Forest,home team win,2,1
+2026,Bournemouth,Hull City,home team win,4,1
+2026,Sunderland,Coventry City,home team win,2,0
+2026,Brighton & Hove Albion,Manchester City,draw,2,2
+2026,Fulham,Liverpool,away team win,1,2
+2026,Manchester City,Ipswich Town,home team win,3,0
+2026,Aston Villa,Brentford,draw,2,2
+2026,Coventry City,Everton,away team win,2,3
+2026,Tottenham Hotspur,Nottingham Forest,away team win,0,2
+2026,Liverpool,Newcastle United,home team win,3,2
+2026,Brighton & Hove Albion,Leeds United,home team win,1,0
+2026,Chelsea,Hull City,draw,0,0
+2026,Fulham,Bournemouth,away team win,0,1
+2026,Crystal Palace,Arsenal,away team win,0,1
+2026,Manchester United,Sunderland,home team win,1,0
+2026,Ipswich Town,Manchester City,away team win,0,4
+2026,Nottingham Forest,Aston Villa,home team win,2,1
+2026,Tottenham Hotspur,Manchester United,home team win,2,0
+2026,Newcastle United,Brighton & Hove Albion,draw,0,0
+2026,Fulham,Everton,away team win,0,1
+2026,Bournemouth,Brentford,away team win,0,2
+2026,Hull City,Liverpool,draw,1,1
+2026,Leeds United,Arsenal,away team win,0,1
+2026,Chelsea,Crystal Palace,away team win,0,1
+2026,Coventry City,Sunderland,away team win,0,1
+2026,Everton,Aston Villa,away team win,2,3
+2026,Nottingham Forest,Tottenham Hotspur,away team win,1,2
+2026,Fulham,Ipswich Town,away team win,0,1
+2026,Newcastle United,Brentford,away team win,1,3
+2026,Manchester City,Hull City,home team win,2,0
+2026,Brighton & Hove Albion,Bournemouth,away team win,1,2
+2026,Manchester United,Liverpool,draw,1,1
+2026,Leeds United,Sunderland,home team win,2,0
+2026,Arsenal,Chelsea,draw,0,0
+2026,Coventry City,Crystal Palace,away team win,1,2
+2026,Liverpool,Aston Villa,home team win,2,1
+2026,Brighton & Hove Albion,Tottenham Hotspur,home team win,3,1
+2026,Brentford,Manchester United,draw,1,1
+2026,Arsenal,Manchester City,home team win,2,0
+2026,Crystal Palace,Hull City,away team win,0,1
+2026,Bournemouth,Chelsea,home team win,3,0
+2026,Everton,Newcastle United,home team win,2,0
+2026,Nottingham Forest,Fulham,draw,0,0
+2026,Leeds United,Ipswich Town,home team win,2,0
+2026,Crystal Palace,Aston Villa,draw,1,1
+2026,Leeds United,Tottenham Hotspur,home team win,1,0
+2026,Manchester United,Everton,away team win,0,1
+2026,Manchester City,Liverpool,home team win,1,0
+2026,Sunderland,Brighton & Hove Albion,away team win,0,1
+2026,Ipswich Town,Arsenal,away team win,0,1
+2026,Fulham,Brentford,away team win,0,2
+2026,Hull City,Chelsea,away team win,1,2
+2026,Nottingham Forest,Newcastle United,draw,1,1
+2026,Coventry City,Bournemouth,draw,0,0
+2026,Aston Villa,Liverpool,away team win,0,2
+2026,Sunderland,Tottenham Hotspur,away team win,0,1
+2026,Everton,Brighton & Hove Albion,home team win,1,0
+2026,Manchester City,Coventry City,home team win,1,0
+2026,Ipswich Town,Brentford,home team win,1,0
+2026,Nottingham Forest,Crystal Palace,away team win,1,2
+2026,Hull City,Leeds United,away team win,0,1
+2026,Chelsea,Bournemouth,home team win,1,0
+2026,Arsenal,Fulham,home team win,2,0
+2026,Aston Villa,Manchester City,away team win,0,4
+2026,Tottenham Hotspur,Bournemouth,draw,0,0
+2026,Crystal Palace,Liverpool,home team win,1,0
+2026,Everton,Chelsea,home team win,3,0
+2026,Brentford,Nottingham Forest,away team win,0,1
+2026,Hull City,Arsenal,away team win,1,2
+2026,Fulham,Brighton & Hove Albion,home team win,1,0
+2026,Newcastle United,Ipswich Town,away team win,0,2
+2026,Coventry City,Manchester United,home team win,3,1
+2026,Aston Villa,Fulham,away team win,1,2
+2026,Everton,Manchester City,draw,0,0
+2026,Brighton & Hove Albion,Chelsea,draw,0,0
+2026,Liverpool,Crystal Palace,draw,0,0
+2026,Sunderland,Bournemouth,away team win,0,2
+2026,Brentford,Arsenal,home team win,2,1
+2026,Ipswich Town,Tottenham Hotspur,away team win,0,2
+2026,Leeds United,Hull City,draw,0,0
+2026,Coventry City,Nottingham Forest,away team win,0,1
+2026,Manchester United,Manchester City,draw,0,0
+2026,Everton,Bournemouth,away team win,0,1
+2026,Fulham,Tottenham Hotspur,draw,0,0
+2026,Liverpool,Sunderland,home team win,1,0
+2026,Ipswich Town,Chelsea,away team win,0,1
+2026,Brentford,Crystal Palace,home team win,2,0
+2026,Aston Villa,Brighton & Hove Albion,home team win,1,0
+2026,Newcastle United,Hull City,home team win,1,0
+2026,Coventry City,Arsenal,away team win,0,1
+2026,Sunderland,Manchester City,away team win,0,1
+2026,Brentford,Fulham,away team win,0,1
+2026,Tottenham Hotspur,Aston Villa,home team win,1,0
+2026,Nottingham Forest,Bournemouth,draw,0,0
+2026,Leeds United,Liverpool,away team win,0,1
+2026,Everton,Ipswich Town,home team win,1,0
+2026,Chelsea,Coventry City,draw,0,0
+2026,Brighton & Hove Albion,Arsenal,home team win,1,0
+2026,Crystal Palace,Newcastle United,draw,0,0
+2026,Manchester United,Hull City,draw,0,0
+2026,Manchester City,Brentford,home team win,1,0
+2026,Sunderland,Liverpool,away team win,0,1
+2026,Bournemouth,Aston Villa,home team win,1,0
+2026,Fulham,Leeds United,draw,0,0
+2026,Everton,Nottingham Forest,away team win,1,2
+2026,Newcastle United,Tottenham Hotspur,home team win,1,0
+2026,Arsenal,Ipswich Town,home team win,1,0
+2026,Hull City,Brighton & Hove Albion,draw,0,0
+2026,Chelsea,Manchester United,away team win,0,1
+2026,Manchester City,Leeds United,away team win,0,1
+2026,Brighton & Hove Albion,Sunderland,away team win,0,2
+2026,Liverpool,Everton,draw,0,0
+2026,Fulham,Arsenal,draw,0,0
+2026,Ipswich Town,Bournemouth,away team win,0,1
+2026,Brentford,Coventry City,away team win,0,1
+2026,Aston Villa,Newcastle United,away team win,2,4
+2026,Hull City,Tottenham Hotspur,draw,0,0
+2026,Nottingham Forest,Chelsea,away team win,0,1
+2026,Manchester United,Crystal Palace,draw,0,0
+2026,Manchester City,Manchester United,home team win,1,0
+2026,Nottingham Forest,Sunderland,draw,0,0
+2026,Liverpool,Hull City,home team win,1,0
+2026,Everton,Tottenham Hotspur,away team win,0,1
+2026,Aston Villa,Bournemouth,home team win,1,0
+2026,Brighton & Hove Albion,Fulham,home team win,1,0
+2026,Ipswich Town,Coventry City,home team win,1,0
+2026,Chelsea,Brentford,home team win,1,0
+2026,Leeds United,Crystal Palace,home team win,2,0
+2026,Newcastle United,Arsenal,home team win,1,0
+2026,Manchester City,Arsenal,draw,0,0
+2026,Tottenham Hotspur,Sunderland,home team win,2,0
+2026,Liverpool,Leeds United,home team win,1,0
+2026,Everton,Fulham,home team win,1,0
+2026,Crystal Palace,Brighton & Hove Albion,away team win,0,1
+2026,Brentford,Aston Villa,away team win,0,2
+2026,Newcastle United,Chelsea,home team win,2,0
+2026,Coventry City,Ipswich Town,away team win,0,1
+2026,Manchester United,Bournemouth,home team win,1,0
+2026,Nottingham Forest,Hull City,home team win,1,0
+2026,Manchester City,Crystal Palace,home team win,1,0
+2026,Brentford,Liverpool,away team win,0,1
+2026,Tottenham Hotspur,Coventry City,home team win,1,0
+2026,Leeds United,Brighton & Hove Albion,home team win,1,0
+2026,Hull City,Sunderland,draw,0,0
+2026,Fulham,Newcastle United,draw,0,0
+2026,Aston Villa,Chelsea,away team win,0,1
+2026,Arsenal,Manchester United,home team win,1,0
+2026,Ipswich Town,Everton,draw,0,0
+2026,Sunderland,Crystal Palace,home team win,1,0
+2026,Liverpool,Ipswich Town,home team win,1,0
+2026,Tottenham Hotspur,Brentford,away team win,0,1
+2026,Bournemouth,Manchester City,home team win,1,0
+2026,Leeds United,Manchester United,draw,0,0
+2026,Brighton & Hove Albion,Newcastle United,draw,0,0
+2026,Chelsea,Aston Villa,draw,0,0
+2026,Hull City,Everton,away team win,0,1
+2026,Fulham,Nottingham Forest,away team win,0,1
+2026,Brentford,Manchester City,draw,0,0
+2026,Brighton & Hove Albion,Liverpool,away team win,0,1
+2026,Crystal Palace,Everton,away team win,0,1
+2026,Tottenham Hotspur,Hull City,home team win,1,0
+2026,Bournemouth,Sunderland,away team win,0,1
+2026,Aston Villa,Leeds United,home team win,1,0
+2026,Chelsea,Arsenal,home team win,1,0
+2026,Coventry City,Fulham,home team win,1,0
+2026,Ipswich Town,Manchester United,draw,0,0
+2026,Newcastle United,Nottingham Forest,draw,0,0
+2026,Tottenham Hotspur,Liverpool,home team win,1,0
+2026,Leeds United,Manchester City,draw,0,0
+2026,Brighton & Hove Albion,Ipswich Town,home team win,1,0
+2026,Chelsea,Sunderland,home team win,1,0
+2026,Crystal Palace,Bournemouth,away team win,0,1
+2026,Hull City,Fulham,away team win,0,1
+2026,Coventry City,Brentford,draw,0,0
+2026,Newcastle United,Aston Villa,home team win,1,0
+2026,Everton,Manchester United,away team win,0,1
+2026,Arsenal,Nottingham Forest,away team win,0,1
+2026,Everton,Liverpool,away team win,0,1
+2026,Manchester City,Newcastle United,draw,0,0
+2026,Ipswich Town,Leeds United,away team win,0,1
+2026,Sunderland,Brentford,away team win,0,1
+2026,Bournemouth,Brighton & Hove Albion,away team win,0,1
+2026,Arsenal,Crystal Palace,home team win,1,0
+2026,Fulham,Hull City,home team win,1,0
+2026,Coventry City,Tottenham Hotspur,draw,0,0
+2026,Aston Villa,Manchester United,away team win,0,1
+2026,Chelsea,Nottingham Forest,away team win,0,1
+2026,Liverpool,Manchester City,home team win,2,0
+2026,Tottenham Hotspur,Leeds United,away team win,0,1
+2026,Manchester United,Brighton & Hove Albion,draw,0,0
+2026,Ipswich Town,Aston Villa,away team win,0,1
+2026,Newcastle United,Sunderland,home team win,1,0
+2026,Hull City,Crystal Palace,away team win,0,1
+2026,Arsenal,Bournemouth,home team win,1,0
+2026,Fulham,Coventry City,draw,0,0
+2026,Nottingham Forest,Everton,home team win,1,0
+2026,Nottingham Forest,Liverpool,draw,0,0
+2026,Tottenham Hotspur,Manchester City,home team win,1,0
+2026,Leeds United,Bournemouth,home team win,1,0
+2026,Brighton & Hove Albion,Manchester United,draw,0,0
+2026,Crystal Palace,Sunderland,away team win,0,1
+2026,Chelsea,Ipswich Town,away team win,0,1
+2026,Brentford,Newcastle United,away team win,0,2
+2026,Coventry City,Aston Villa,away team win,0,1
+2026,Arsenal,Everton,home team win,1,0
+2026,Liverpool,Arsenal,home team win,1,0
+2026,Newcastle United,Manchester City,away team win,0,1
+2026,Leeds United,Chelsea,home team win,2,0
+2026,Brighton & Hove Albion,Everton,home team win,1,0
+2026,Sunderland,Aston Villa,draw,0,0
+2026,Brentford,Hull City,home team win,1,0
+2026,Bournemouth,Crystal Palace,home team win,1,0
+2026,Nottingham Forest,Coventry City,home team win,2,0
+2026,Manchester United,Fulham,away team win,0,1
+2026,Liverpool,Manchester United,home team win,1,0
+2026,Coventry City,Manchester City,away team win,0,1
+2026,Brighton & Hove Albion,Nottingham Forest,home team win,1,0
+2026,Brentford,Leeds United,draw,0,0
+2026,Tottenham Hotspur,Everton,away team win,0,2
+2026,Newcastle United,Fulham,home team win,1,0
+2026,Ipswich Town,Hull City,draw,0,0
+2026,Aston Villa,Crystal Palace,away team win,0,1
+2026,Arsenal,Sunderland,home team win,1,0
+2026,Arsenal,Liverpool,home team win,1,0
+2026,Manchester City,Everton,home team win,1,0
+2026,Leeds United,Coventry City,away team win,0,1
+2026,Sunderland,Nottingham Forest,draw,0,0
+2026,Tottenham Hotspur,Chelsea,away team win,0,1
+2026,Brighton & Hove Albion,Brentford,home team win,1,0
+2026,Newcastle United,Bournemouth,home team win,1,0
+2026,Hull City,Ipswich Town,home team win,1,0
+2026,Fulham,Manchester United,away team win,0,1
+2026,Ipswich Town,Liverpool,draw,0,0
+2026,Manchester City,Chelsea,home team win,1,0
+2026,Brentford,Sunderland,home team win,1,0
+2026,Leeds United,Fulham,home team win,1,0
+2026,Coventry City,Newcastle United,draw,0,0
+2026,Arsenal,Tottenham Hotspur,home team win,1,0
+2026,Hull City,Nottingham Forest,away team win,0,1
+2026,Bournemouth,Manchester United,away team win,0,1
+2026,Arsenal,Leeds United,home team win,1,0
+2026,Brighton & Hove Albion,Coventry City,home team win,1,0
+2026,Newcastle United,Everton,draw,0,0
+2026,Crystal Palace,Brentford,home team win,2,0
+2026,Manchester City,Nottingham Forest,draw,0,0
+2026,Bournemouth,Fulham,away team win,0,1
+2026,Sunderland,Ipswich Town,home team win,1,0
+2026,Manchester United,Tottenham Hotspur,home team win,1,0
+2026,Leeds United,Everton,away team win,0,2
+2026,Nottingham Forest,Ipswich Town,away team win,0,1
+2026,Brentford,Brighton & Hove Albion,away team win,0,1
+2026,Liverpool,Coventry City,home team win,1,0
+2026,Aston Villa,Sunderland,home team win,1,0
+2026,Hull City,Bournemouth,draw,0,0
+2026,Chelsea,Manchester City,draw,0,0
+2026,Crystal Palace,Manchester United,away team win,1,2
+2026,Arsenal,Newcastle United,away team win,0,1
+2026,Everton,Sunderland,home team win,1,0
+2026,Crystal Palace,Leeds United,away team win,0,1
+2026,Aston Villa,Tottenham Hotspur,home team win,1,0
+2026,Bournemouth,Coventry City,home team win,1,0
+2026,Manchester United,Chelsea,home team win,1,0
+2026,Liverpool,Brentford,away team win,0,1
+2026,Hull City,Newcastle United,away team win,0,1
+2026,Newcastle United,Leeds United,away team win,0,1
+2026,Sunderland,Hull City,home team win,1,0
+2026,Tottenham Hotspur,Brighton & Hove Albion,home team win,1,0
+2026,Aston Villa,Coventry City,draw,0,0
+2026,Nottingham Forest,Manchester United,away team win,0,1
+2026,Bournemouth,Arsenal,draw,0,0
+2026,Chelsea,Fulham,home team win,1,0
+2026,Crystal Palace,Ipswich Town,home team win,1,0
+2026,Fulham,Aston Villa,draw,0,0
+2026,Coventry City,Chelsea,away team win,0,1
+2026,Crystal Palace,Nottingham Forest,draw,0,0
+2027,Fulham,Ipswich Town,home team win,1,0
+2027,Brighton & Hove Albion,Manchester United,home team win,1,0
+2027,Chelsea,Arsenal,draw,0,0
+2027,Sunderland,Newcastle United,away team win,0,1
+2027,Manchester City,Everton,draw,0,0
+2027,Aston Villa,Crystal Palace,home team win,1,0
+2027,Brentford,Bournemouth,home team win,1,0
+2027,Nottingham Forest,Liverpool,away team win,0,1
+2027,Tottenham Hotspur,Leeds United,home team win,1,0
+2027,Hull City,Coventry City,draw,0,0
+2027,Fulham,Manchester United,away team win,0,2
+2027,Ipswich Town,Arsenal,away team win,0,2
+2027,Brighton & Hove Albion,Newcastle United,away team win,0,1
+2027,Chelsea,Everton,away team win,0,1
+2027,Sunderland,Crystal Palace,home team win,1,0
+2027,Manchester City,Bournemouth,draw,0,0
+2027,Aston Villa,Liverpool,home team win,1,0
+2027,Brentford,Leeds United,home team win,1,0
+2027,Nottingham Forest,Coventry City,home team win,1,0
+2027,Tottenham Hotspur,Hull City,away team win,0,1
+2027,Fulham,Arsenal,away team win,0,1
+2027,Manchester United,Newcastle United,draw,0,0
+2027,Ipswich Town,Everton,draw,0,0
+2027,Brighton & Hove Albion,Crystal Palace,draw,0,0
+2027,Chelsea,Bournemouth,home team win,1,0
+2027,Sunderland,Liverpool,draw,0,0
+2027,Manchester City,Leeds United,home team win,1,0
+2027,Aston Villa,Coventry City,away team win,0,1
+2027,Brentford,Hull City,home team win,1,0
+2027,Nottingham Forest,Tottenham Hotspur,home team win,1,0
+2027,Fulham,Newcastle United,away team win,0,1
+2027,Arsenal,Everton,home team win,1,0
+2027,Manchester United,Crystal Palace,draw,0,0
+2027,Ipswich Town,Bournemouth,home team win,1,0
+2027,Brighton & Hove Albion,Liverpool,home team win,1,0
+2027,Chelsea,Leeds United,home team win,1,0
+2027,Sunderland,Coventry City,home team win,1,0
+2027,Manchester City,Hull City,home team win,2,0
+2027,Aston Villa,Tottenham Hotspur,away team win,0,1
+2027,Brentford,Nottingham Forest,draw,0,0
+2027,Fulham,Everton,away team win,0,1
+2027,Newcastle United,Crystal Palace,home team win,1,0
+2027,Arsenal,Bournemouth,home team win,3,1
+2027,Manchester United,Liverpool,home team win,1,0
+2027,Ipswich Town,Leeds United,home team win,1,0
+2027,Brighton & Hove Albion,Coventry City,draw,0,0
+2027,Chelsea,Hull City,home team win,1,0
+2027,Sunderland,Tottenham Hotspur,home team win,1,0
+2027,Manchester City,Nottingham Forest,home team win,3,0
+2027,Aston Villa,Brentford,draw,0,0
+2027,Fulham,Crystal Palace,draw,0,0
+2027,Everton,Bournemouth,home team win,2,0
+2027,Newcastle United,Liverpool,draw,0,0
+2027,Arsenal,Leeds United,draw,0,0
+2027,Manchester United,Coventry City,home team win,1,0
+2027,Ipswich Town,Hull City,away team win,0,1
+2027,Brighton & Hove Albion,Tottenham Hotspur,home team win,1,0
+2027,Chelsea,Nottingham Forest,home team win,1,0
+2027,Sunderland,Brentford,home team win,1,0
+2027,Manchester City,Aston Villa,home team win,1,0
+2027,Fulham,Bournemouth,home team win,1,0
+2027,Crystal Palace,Liverpool,away team win,0,1
+2027,Everton,Leeds United,away team win,0,1
+2027,Newcastle United,Coventry City,away team win,0,1
+2027,Arsenal,Hull City,home team win,1,0
+2027,Manchester United,Tottenham Hotspur,away team win,0,1
+2027,Ipswich Town,Nottingham Forest,away team win,0,1
+2027,Brighton & Hove Albion,Brentford,draw,0,0
+2027,Chelsea,Aston Villa,home team win,1,0
+2027,Sunderland,Manchester City,home team win,1,0
+2027,Fulham,Liverpool,draw,0,0
+2027,Bournemouth,Leeds United,home team win,2,0
+2027,Crystal Palace,Coventry City,home team win,1,0
+2027,Everton,Hull City,draw,0,0
+2027,Newcastle United,Tottenham Hotspur,draw,0,0
+2027,Arsenal,Nottingham Forest,away team win,0,1
+2027,Manchester United,Brentford,home team win,1,0
+2027,Ipswich Town,Aston Villa,draw,0,0
+2027,Brighton & Hove Albion,Manchester City,away team win,0,1
+2027,Chelsea,Sunderland,home team win,1,0
+2027,Fulham,Leeds United,home team win,1,0
+2027,Liverpool,Coventry City,home team win,1,0
+2027,Bournemouth,Hull City,away team win,0,1
+2027,Crystal Palace,Tottenham Hotspur,draw,0,0
+2027,Everton,Nottingham Forest,away team win,0,1
+2027,Newcastle United,Brentford,home team win,1,0
+2027,Arsenal,Aston Villa,draw,0,0
+2027,Manchester United,Manchester City,home team win,1,0
+2027,Ipswich Town,Sunderland,draw,0,0
+2027,Brighton & Hove Albion,Chelsea,home team win,1,0
+2027,Fulham,Coventry City,home team win,1,0
+2027,Leeds United,Hull City,home team win,1,0
+2027,Liverpool,Tottenham Hotspur,home team win,1,0
+2027,Bournemouth,Nottingham Forest,away team win,0,1
+2027,Crystal Palace,Brentford,away team win,0,1
+2027,Everton,Aston Villa,away team win,0,1
+2027,Newcastle United,Manchester City,away team win,0,1
+2027,Arsenal,Sunderland,home team win,1,0
+2027,Manchester United,Chelsea,home team win,1,0
+2027,Ipswich Town,Brighton & Hove Albion,away team win,0,1
+2027,Fulham,Hull City,home team win,1,0
+2027,Coventry City,Tottenham Hotspur,draw,0,0
+2027,Leeds United,Nottingham Forest,draw,0,0
+2027,Liverpool,Brentford,away team win,0,1
+2027,Bournemouth,Aston Villa,draw,0,0
+2027,Crystal Palace,Manchester City,away team win,0,1
+2027,Everton,Sunderland,draw,0,0
+2027,Newcastle United,Chelsea,home team win,1,0
+2027,Arsenal,Brighton & Hove Albion,home team win,1,0
+2027,Manchester United,Ipswich Town,away team win,0,1
+2027,Fulham,Tottenham Hotspur,away team win,0,1
+2027,Hull City,Nottingham Forest,away team win,1,2
+2027,Coventry City,Brentford,draw,1,1
+2027,Leeds United,Aston Villa,draw,0,0
+2027,Liverpool,Manchester City,home team win,1,0
+2027,Bournemouth,Sunderland,draw,0,0
+2027,Crystal Palace,Chelsea,home team win,1,0
+2027,Everton,Brighton & Hove Albion,away team win,0,1
+2027,Newcastle United,Ipswich Town,home team win,1,0
+2027,Arsenal,Manchester United,home team win,1,0
+2027,Fulham,Nottingham Forest,away team win,0,1
+2027,Tottenham Hotspur,Brentford,away team win,0,1
+2027,Hull City,Aston Villa,away team win,0,1
+2027,Coventry City,Manchester City,draw,0,0
+2027,Leeds United,Sunderland,draw,0,0
+2027,Liverpool,Chelsea,home team win,1,0
+2027,Bournemouth,Brighton & Hove Albion,home team win,1,0
+2027,Crystal Palace,Ipswich Town,draw,0,0
+2027,Everton,Manchester United,away team win,0,1
+2027,Newcastle United,Arsenal,away team win,0,1
+2027,Fulham,Brentford,draw,0,0
+2027,Nottingham Forest,Aston Villa,away team win,0,1
+2027,Tottenham Hotspur,Manchester City,home team win,1,0
+2027,Hull City,Sunderland,draw,0,0
+2027,Coventry City,Chelsea,home team win,2,0
+2027,Leeds United,Brighton & Hove Albion,draw,0,0
+2027,Liverpool,Ipswich Town,home team win,1,0
+2027,Bournemouth,Manchester United,draw,0,0
+2027,Crystal Palace,Arsenal,away team win,0,1
+2027,Everton,Newcastle United,home team win,1,0
+2027,Fulham,Aston Villa,draw,0,0
+2027,Brentford,Manchester City,home team win,2,0
+2027,Nottingham Forest,Sunderland,home team win,1,0
+2027,Tottenham Hotspur,Chelsea,home team win,1,0
+2027,Hull City,Brighton & Hove Albion,away team win,0,1
+2027,Coventry City,Ipswich Town,home team win,2,0
+2027,Leeds United,Manchester United,home team win,1,0
+2027,Liverpool,Arsenal,home team win,1,0
+2027,Bournemouth,Newcastle United,draw,0,0
+2027,Crystal Palace,Everton,home team win,1,0
+2027,Fulham,Manchester City,draw,0,0
+2027,Aston Villa,Sunderland,draw,0,0
+2027,Brentford,Chelsea,home team win,1,0
+2027,Nottingham Forest,Brighton & Hove Albion,home team win,1,0
+2027,Tottenham Hotspur,Ipswich Town,home team win,1,0
+2027,Hull City,Manchester United,home team win,1,0
+2027,Coventry City,Arsenal,away team win,0,1
+2027,Leeds United,Newcastle United,home team win,1,0
+2027,Liverpool,Everton,home team win,1,0
+2027,Bournemouth,Crystal Palace,home team win,1,0
+2027,Fulham,Sunderland,home team win,2,0
+2027,Manchester City,Chelsea,away team win,0,1
+2027,Aston Villa,Brighton & Hove Albion,home team win,1,0
+2027,Brentford,Ipswich Town,home team win,1,0
+2027,Nottingham Forest,Manchester United,home team win,1,0
+2027,Tottenham Hotspur,Arsenal,draw,0,0
+2027,Hull City,Newcastle United,away team win,0,1
+2027,Coventry City,Everton,away team win,0,1
+2027,Leeds United,Crystal Palace,away team win,0,1
+2027,Liverpool,Bournemouth,draw,0,0
+2027,Fulham,Chelsea,home team win,2,0
+2027,Sunderland,Brighton & Hove Albion,away team win,0,1
+2027,Manchester City,Ipswich Town,home team win,1,0
+2027,Aston Villa,Manchester United,away team win,0,1
+2027,Brentford,Arsenal,draw,0,0
+2027,Nottingham Forest,Newcastle United,away team win,0,1
+2027,Tottenham Hotspur,Everton,away team win,0,1
+2027,Hull City,Crystal Palace,home team win,1,0
+2027,Coventry City,Bournemouth,home team win,1,0
+2027,Leeds United,Liverpool,away team win,1,2
+2027,Fulham,Brighton & Hove Albion,away team win,0,2
+2027,Chelsea,Ipswich Town,home team win,1,0
+2027,Sunderland,Manchester United,away team win,0,1
+2027,Manchester City,Arsenal,home team win,1,0
+2027,Aston Villa,Newcastle United,draw,0,0
+2027,Brentford,Everton,draw,0,0
+2027,Nottingham Forest,Crystal Palace,draw,0,0
+2027,Tottenham Hotspur,Bournemouth,draw,0,0
+2027,Hull City,Liverpool,home team win,1,0
+2027,Coventry City,Leeds United,draw,0,0
+2027,Ipswich Town,Fulham,away team win,0,1
+2027,Manchester United,Brighton & Hove Albion,away team win,0,1
+2027,Arsenal,Chelsea,away team win,0,1
+2027,Newcastle United,Sunderland,home team win,1,0
+2027,Everton,Manchester City,home team win,1,0
+2027,Crystal Palace,Aston Villa,away team win,0,1
+2027,Bournemouth,Brentford,draw,0,0
+2027,Liverpool,Nottingham Forest,draw,0,0
+2027,Leeds United,Tottenham Hotspur,draw,0,0
+2027,Coventry City,Hull City,draw,0,0
+2027,Manchester United,Fulham,home team win,1,0
+2027,Arsenal,Ipswich Town,draw,0,0
+2027,Newcastle United,Brighton & Hove Albion,home team win,1,0
+2027,Everton,Chelsea,home team win,1,0
+2027,Crystal Palace,Sunderland,draw,0,0
+2027,Bournemouth,Manchester City,draw,0,0
+2027,Liverpool,Aston Villa,draw,0,0
+2027,Leeds United,Brentford,away team win,0,1
+2027,Coventry City,Nottingham Forest,draw,0,0
+2027,Hull City,Tottenham Hotspur,away team win,0,1
+2027,Arsenal,Fulham,draw,0,0
+2027,Newcastle United,Manchester United,draw,0,0
+2027,Everton,Ipswich Town,draw,0,0
+2027,Crystal Palace,Brighton & Hove Albion,home team win,1,0
+2027,Bournemouth,Chelsea,away team win,0,1
+2027,Liverpool,Sunderland,home team win,1,0
+2027,Leeds United,Manchester City,away team win,0,1
+2027,Coventry City,Aston Villa,draw,0,0
+2027,Hull City,Brentford,draw,0,0
+2027,Tottenham Hotspur,Nottingham Forest,draw,0,0
+2027,Newcastle United,Fulham,away team win,0,1
+2027,Everton,Arsenal,away team win,0,1
+2027,Crystal Palace,Manchester United,away team win,0,1
+2027,Bournemouth,Ipswich Town,home team win,2,0
+2027,Liverpool,Brighton & Hove Albion,draw,0,0
+2027,Leeds United,Chelsea,home team win,1,0
+2027,Coventry City,Sunderland,draw,0,0
+2027,Hull City,Manchester City,away team win,0,1
+2027,Tottenham Hotspur,Aston Villa,away team win,0,1
+2027,Nottingham Forest,Brentford,home team win,1,0
+2027,Everton,Fulham,away team win,0,1
+2027,Crystal Palace,Newcastle United,away team win,0,1
+2027,Bournemouth,Arsenal,home team win,1,0
+2027,Liverpool,Manchester United,home team win,1,0
+2027,Leeds United,Ipswich Town,home team win,1,0
+2027,Coventry City,Brighton & Hove Albion,away team win,0,1
+2027,Hull City,Chelsea,home team win,1,0
+2027,Tottenham Hotspur,Sunderland,away team win,0,1
+2027,Nottingham Forest,Manchester City,draw,0,0
+2027,Brentford,Aston Villa,home team win,1,0
+2027,Crystal Palace,Fulham,home team win,1,0
+2027,Bournemouth,Everton,home team win,1,0
+2027,Liverpool,Newcastle United,draw,0,0
+2027,Leeds United,Arsenal,away team win,0,1
+2027,Coventry City,Manchester United,home team win,1,0
+2027,Hull City,Ipswich Town,home team win,1,0
+2027,Tottenham Hotspur,Brighton & Hove Albion,draw,0,0
+2027,Nottingham Forest,Chelsea,home team win,1,0
+2027,Brentford,Sunderland,home team win,2,0
+2027,Aston Villa,Manchester City,home team win,1,0
+2027,Bournemouth,Fulham,home team win,1,0
+2027,Liverpool,Crystal Palace,home team win,1,0
+2027,Leeds United,Everton,home team win,1,0
+2027,Coventry City,Newcastle United,home team win,1,0
+2027,Hull City,Arsenal,home team win,2,0
+2027,Tottenham Hotspur,Manchester United,home team win,1,0
+2027,Nottingham Forest,Ipswich Town,home team win,1,0
+2027,Brentford,Brighton & Hove Albion,draw,0,0
+2027,Aston Villa,Chelsea,home team win,1,0
+2027,Manchester City,Sunderland,home team win,2,0
+2027,Liverpool,Fulham,away team win,0,1
+2027,Leeds United,Bournemouth,away team win,0,1
+2027,Coventry City,Crystal Palace,home team win,1,0
+2027,Hull City,Everton,home team win,1,0
+2027,Tottenham Hotspur,Newcastle United,away team win,0,1
+2027,Nottingham Forest,Arsenal,home team win,1,0
+2027,Brentford,Manchester United,home team win,1,0
+2027,Aston Villa,Ipswich Town,draw,0,0
+2027,Manchester City,Brighton & Hove Albion,draw,0,0
+2027,Sunderland,Chelsea,home team win,1,0
+2027,Leeds United,Fulham,home team win,1,0
+2027,Coventry City,Liverpool,home team win,1,0
+2027,Hull City,Bournemouth,away team win,0,1
+2027,Tottenham Hotspur,Crystal Palace,home team win,1,0
+2027,Nottingham Forest,Everton,draw,0,0
+2027,Brentford,Newcastle United,home team win,1,0
+2027,Aston Villa,Arsenal,draw,0,0
+2027,Manchester City,Manchester United,home team win,1,0
+2027,Sunderland,Ipswich Town,away team win,0,1
+2027,Chelsea,Brighton & Hove Albion,home team win,1,0
+2027,Coventry City,Fulham,home team win,3,0
+2027,Hull City,Leeds United,away team win,0,1
+2027,Tottenham Hotspur,Liverpool,away team win,0,1
+2027,Nottingham Forest,Bournemouth,draw,0,0
+2027,Brentford,Crystal Palace,home team win,1,0
+2027,Aston Villa,Everton,home team win,1,0
+2027,Manchester City,Newcastle United,home team win,1,0
+2027,Sunderland,Arsenal,home team win,1,0
+2027,Chelsea,Manchester United,home team win,1,0
+2027,Brighton & Hove Albion,Ipswich Town,away team win,0,1
+2027,Hull City,Fulham,home team win,1,0
+2027,Tottenham Hotspur,Coventry City,home team win,1,0
+2027,Nottingham Forest,Leeds United,home team win,1,0
+2027,Brentford,Liverpool,draw,0,0
+2027,Aston Villa,Bournemouth,home team win,1,0
+2027,Manchester City,Crystal Palace,away team win,0,1
+2027,Sunderland,Everton,away team win,0,1
+2027,Chelsea,Newcastle United,draw,0,0
+2027,Brighton & Hove Albion,Arsenal,home team win,1,0
+2027,Ipswich Town,Manchester United,draw,0,0
+2027,Tottenham Hotspur,Fulham,home team win,1,0
+2027,Nottingham Forest,Hull City,draw,0,0
+2027,Brentford,Coventry City,home team win,1,0
+2027,Aston Villa,Leeds United,draw,0,0
+2027,Manchester City,Liverpool,away team win,0,1
+2027,Sunderland,Bournemouth,draw,0,0
+2027,Chelsea,Crystal Palace,draw,0,0
+2027,Brighton & Hove Albion,Everton,home team win,1,0
+2027,Ipswich Town,Newcastle United,draw,0,0
+2027,Manchester United,Arsenal,home team win,1,0
+2027,Nottingham Forest,Fulham,home team win,1,0
+2027,Brentford,Tottenham Hotspur,home team win,2,1
+2027,Aston Villa,Hull City,away team win,0,1
+2027,Manchester City,Coventry City,home team win,1,0
+2027,Sunderland,Leeds United,draw,0,0
+2027,Chelsea,Liverpool,draw,0,0
+2027,Brighton & Hove Albion,Bournemouth,away team win,0,1
+2027,Ipswich Town,Crystal Palace,away team win,0,1
+2027,Manchester United,Everton,home team win,1,0
+2027,Arsenal,Newcastle United,home team win,1,0
+2027,Brentford,Fulham,draw,0,0
+2027,Aston Villa,Nottingham Forest,draw,0,0
+2027,Manchester City,Tottenham Hotspur,home team win,1,0
+2027,Sunderland,Hull City,home team win,1,0
+2027,Chelsea,Coventry City,draw,0,0
+2027,Brighton & Hove Albion,Leeds United,draw,0,0
+2027,Ipswich Town,Liverpool,draw,0,0
+2027,Manchester United,Bournemouth,home team win,1,0
+2027,Arsenal,Crystal Palace,home team win,1,0
+2027,Newcastle United,Everton,home team win,1,0
+2027,Aston Villa,Fulham,home team win,1,0
+2027,Manchester City,Brentford,home team win,1,0
+2027,Sunderland,Nottingham Forest,away team win,0,1
+2027,Chelsea,Tottenham Hotspur,home team win,1,0
+2027,Brighton & Hove Albion,Hull City,home team win,1,0
+2027,Ipswich Town,Coventry City,away team win,0,1
+2027,Manchester United,Leeds United,home team win,1,0
+2027,Arsenal,Liverpool,draw,0,0
+2027,Newcastle United,Bournemouth,home team win,1,0
+2027,Everton,Crystal Palace,draw,0,0
+2027,Manchester City,Fulham,home team win,1,0
+2027,Sunderland,Aston Villa,draw,0,0
+2027,Chelsea,Brentford,away team win,0,1
+2027,Brighton & Hove Albion,Nottingham Forest,home team win,2,0
+2027,Ipswich Town,Tottenham Hotspur,home team win,1,0
+2027,Manchester United,Hull City,draw,0,0
+2027,Arsenal,Coventry City,home team win,2,1
+2027,Newcastle United,Leeds United,home team win,1,0
+2027,Everton,Liverpool,home team win,1,0
+2027,Crystal Palace,Bournemouth,home team win,1,0
+2027,Sunderland,Fulham,home team win,1,0
+2027,Chelsea,Manchester City,draw,0,0
+2027,Brighton & Hove Albion,Aston Villa,draw,0,0
+2027,Ipswich Town,Brentford,away team win,0,1
+2027,Manchester United,Nottingham Forest,home team win,1,0
+2027,Arsenal,Tottenham Hotspur,draw,0,0
+2027,Newcastle United,Hull City,home team win,2,0
+2027,Everton,Coventry City,away team win,0,1
+2027,Crystal Palace,Leeds United,away team win,0,1
+2027,Bournemouth,Liverpool,home team win,2,0
+2027,Chelsea,Fulham,home team win,1,0
+2027,Brighton & Hove Albion,Sunderland,away team win,0,1
+2027,Ipswich Town,Manchester City,draw,0,0
+2027,Manchester United,Aston Villa,home team win,1,0
+2027,Arsenal,Brentford,draw,0,0
+2027,Newcastle United,Nottingham Forest,home team win,1,0
+2027,Everton,Tottenham Hotspur,draw,0,0
+2027,Crystal Palace,Hull City,draw,0,0
+2027,Bournemouth,Coventry City,draw,0,0
+2027,Liverpool,Leeds United,home team win,1,0
+2027,Brighton & Hove Albion,Fulham,home team win,2,0
+2027,Ipswich Town,Chelsea,away team win,0,1
+2027,Manchester United,Sunderland,draw,0,0
+2027,Arsenal,Manchester City,draw,0,0
+2027,Newcastle United,Aston Villa,draw,0,0
+2027,Everton,Brentford,draw,0,0
+2027,Crystal Palace,Nottingham Forest,home team win,2,0
+2027,Bournemouth,Tottenham Hotspur,draw,0,0
+2027,Liverpool,Hull City,home team win,1,0
+2027,Leeds United,Coventry City,away team win,0,1
+2028,Everton,Tottenham Hotspur,home team win,1,0
+2028,Chelsea,Crystal Palace,home team win,2,0
+2028,Bournemouth,Hull City,home team win,1,0
+2028,Brighton & Hove Albion,Aston Villa,home team win,1,0
+2028,Fulham,Newcastle United,away team win,0,1
+2028,Leeds United,Ipswich Town,home team win,1,0
+2028,Arsenal,Manchester United,away team win,0,1
+2028,Sunderland,Manchester City,away team win,0,1
+2028,Nottingham Forest,Brentford,home team win,1,0
+2028,Liverpool,Coventry City,home team win,1,0
+2028,Everton,Crystal Palace,home team win,1,0
+2028,Tottenham Hotspur,Hull City,away team win,0,1
+2028,Chelsea,Aston Villa,draw,0,0
+2028,Bournemouth,Newcastle United,away team win,0,2
+2028,Brighton & Hove Albion,Ipswich Town,draw,0,0
+2028,Fulham,Manchester United,away team win,0,1
+2028,Leeds United,Manchester City,away team win,0,1
+2028,Arsenal,Brentford,home team win,1,0
+2028,Sunderland,Coventry City,away team win,0,1
+2028,Nottingham Forest,Liverpool,home team win,1,0
+2028,Everton,Hull City,away team win,0,1
+2028,Crystal Palace,Aston Villa,away team win,0,1
+2028,Tottenham Hotspur,Newcastle United,home team win,1,0
+2028,Chelsea,Ipswich Town,draw,0,0
+2028,Bournemouth,Manchester United,draw,0,0
+2028,Brighton & Hove Albion,Manchester City,away team win,0,1
+2028,Fulham,Brentford,home team win,1,0
+2028,Leeds United,Coventry City,home team win,1,0
+2028,Arsenal,Liverpool,draw,0,0
+2028,Sunderland,Nottingham Forest,away team win,0,1
+2028,Everton,Aston Villa,draw,0,0
+2028,Hull City,Newcastle United,home team win,1,0
+2028,Crystal Palace,Ipswich Town,away team win,0,1
+2028,Tottenham Hotspur,Manchester United,away team win,0,1
+2028,Chelsea,Manchester City,draw,0,0
+2028,Bournemouth,Brentford,draw,0,0
+2028,Brighton & Hove Albion,Coventry City,home team win,1,0
+2028,Fulham,Liverpool,home team win,1,0
+2028,Leeds United,Nottingham Forest,away team win,0,1
+2028,Arsenal,Sunderland,home team win,1,0
+2028,Everton,Newcastle United,home team win,1,0
+2028,Aston Villa,Ipswich Town,home team win,1,0
+2028,Hull City,Manchester United,home team win,1,0
+2028,Crystal Palace,Manchester City,draw,0,0
+2028,Tottenham Hotspur,Brentford,draw,0,0
+2028,Chelsea,Coventry City,home team win,1,0
+2028,Bournemouth,Liverpool,away team win,0,1
+2028,Brighton & Hove Albion,Nottingham Forest,draw,0,0
+2028,Fulham,Sunderland,home team win,1,0
+2028,Leeds United,Arsenal,home team win,1,0
+2028,Everton,Ipswich Town,draw,0,0
+2028,Newcastle United,Manchester United,home team win,1,0
+2028,Aston Villa,Manchester City,draw,0,0
+2028,Hull City,Brentford,away team win,0,1
+2028,Crystal Palace,Coventry City,away team win,0,1
+2028,Tottenham Hotspur,Liverpool,home team win,1,0
+2028,Chelsea,Nottingham Forest,away team win,0,1
+2028,Bournemouth,Sunderland,home team win,1,0
+2028,Brighton & Hove Albion,Arsenal,home team win,1,0
+2028,Fulham,Leeds United,away team win,0,1
+2028,Everton,Manchester United,away team win,0,1
+2028,Ipswich Town,Manchester City,draw,0,0
+2028,Newcastle United,Brentford,away team win,0,1
+2028,Aston Villa,Coventry City,draw,0,0
+2028,Hull City,Liverpool,away team win,0,1
+2028,Crystal Palace,Nottingham Forest,away team win,0,1
+2028,Tottenham Hotspur,Sunderland,home team win,1,0
+2028,Chelsea,Arsenal,draw,0,0
+2028,Bournemouth,Leeds United,home team win,1,0
+2028,Brighton & Hove Albion,Fulham,draw,0,0
+2028,Everton,Manchester City,away team win,0,1
+2028,Manchester United,Brentford,away team win,0,1
+2028,Ipswich Town,Coventry City,draw,0,0
+2028,Newcastle United,Liverpool,away team win,0,1
+2028,Aston Villa,Nottingham Forest,away team win,0,1
+2028,Hull City,Sunderland,draw,0,0
+2028,Crystal Palace,Arsenal,away team win,0,1
+2028,Tottenham Hotspur,Leeds United,away team win,0,1
+2028,Chelsea,Fulham,home team win,1,0
+2028,Bournemouth,Brighton & Hove Albion,home team win,1,0
+2028,Everton,Brentford,away team win,0,1
+2028,Manchester City,Coventry City,away team win,0,1
+2028,Manchester United,Liverpool,draw,0,0
+2028,Ipswich Town,Nottingham Forest,home team win,1,0
+2028,Newcastle United,Sunderland,away team win,0,1
+2028,Aston Villa,Arsenal,draw,0,0
+2028,Hull City,Leeds United,home team win,1,0
+2028,Crystal Palace,Fulham,home team win,1,0
+2028,Tottenham Hotspur,Brighton & Hove Albion,home team win,1,0
+2028,Chelsea,Bournemouth,away team win,0,1
+2028,Everton,Coventry City,home team win,1,0
+2028,Brentford,Liverpool,home team win,1,0
+2028,Manchester City,Nottingham Forest,away team win,0,1
+2028,Manchester United,Sunderland,home team win,1,0
+2028,Ipswich Town,Arsenal,home team win,1,0
+2028,Newcastle United,Leeds United,home team win,1,0
+2028,Aston Villa,Fulham,away team win,0,1
+2028,Hull City,Brighton & Hove Albion,away team win,0,1
+2028,Crystal Palace,Bournemouth,home team win,2,1
+2028,Tottenham Hotspur,Chelsea,away team win,0,1
+2028,Everton,Liverpool,draw,0,0
+2028,Coventry City,Nottingham Forest,draw,1,1
+2028,Brentford,Sunderland,home team win,1,0
+2028,Manchester City,Arsenal,draw,0,0
+2028,Manchester United,Leeds United,draw,0,0
+2028,Ipswich Town,Fulham,home team win,2,0
+2028,Newcastle United,Brighton & Hove Albion,home team win,1,0
+2028,Aston Villa,Bournemouth,away team win,0,1
+2028,Hull City,Chelsea,away team win,0,1
+2028,Crystal Palace,Tottenham Hotspur,home team win,1,0
+2028,Everton,Nottingham Forest,draw,0,0
+2028,Liverpool,Sunderland,home team win,1,0
+2028,Coventry City,Arsenal,home team win,1,0
+2028,Brentford,Leeds United,away team win,1,2
+2028,Manchester City,Fulham,away team win,0,1
+2028,Manchester United,Brighton & Hove Albion,home team win,1,0
+2028,Ipswich Town,Bournemouth,draw,0,0
+2028,Newcastle United,Chelsea,draw,0,0
+2028,Aston Villa,Tottenham Hotspur,draw,0,0
+2028,Hull City,Crystal Palace,away team win,0,1
+2028,Everton,Sunderland,draw,0,0
+2028,Nottingham Forest,Arsenal,home team win,1,0
+2028,Liverpool,Leeds United,draw,0,0
+2028,Coventry City,Fulham,home team win,1,0
+2028,Brentford,Brighton & Hove Albion,draw,0,0
+2028,Manchester City,Bournemouth,home team win,1,0
+2028,Manchester United,Chelsea,home team win,1,0
+2028,Ipswich Town,Tottenham Hotspur,home team win,1,0
+2028,Newcastle United,Crystal Palace,draw,0,0
+2028,Aston Villa,Hull City,draw,0,0
+2028,Everton,Arsenal,draw,0,0
+2028,Sunderland,Leeds United,draw,0,0
+2028,Nottingham Forest,Fulham,away team win,0,1
+2028,Liverpool,Brighton & Hove Albion,home team win,1,0
+2028,Coventry City,Bournemouth,home team win,1,0
+2028,Brentford,Chelsea,home team win,1,0
+2028,Manchester City,Tottenham Hotspur,draw,0,0
+2028,Manchester United,Crystal Palace,draw,0,0
+2028,Ipswich Town,Hull City,away team win,0,1
+2028,Newcastle United,Aston Villa,draw,0,0
+2028,Everton,Leeds United,home team win,1,0
+2028,Arsenal,Fulham,home team win,1,0
+2028,Sunderland,Brighton & Hove Albion,home team win,1,0
+2028,Nottingham Forest,Bournemouth,away team win,0,1
+2028,Liverpool,Chelsea,draw,1,1
+2028,Coventry City,Tottenham Hotspur,home team win,1,0
+2028,Brentford,Crystal Palace,home team win,1,0
+2028,Manchester City,Hull City,home team win,2,0
+2028,Manchester United,Aston Villa,home team win,1,0
+2028,Ipswich Town,Newcastle United,home team win,1,0
+2028,Everton,Fulham,draw,1,1
+2028,Leeds United,Brighton & Hove Albion,home team win,1,0
+2028,Arsenal,Bournemouth,away team win,0,1
+2028,Sunderland,Chelsea,draw,0,0
+2028,Nottingham Forest,Tottenham Hotspur,home team win,1,0
+2028,Liverpool,Crystal Palace,draw,0,0
+2028,Coventry City,Hull City,draw,0,0
+2028,Brentford,Aston Villa,away team win,0,1
+2028,Manchester City,Newcastle United,away team win,0,1
+2028,Manchester United,Ipswich Town,home team win,1,0
+2028,Everton,Brighton & Hove Albion,away team win,0,1
+2028,Fulham,Bournemouth,home team win,1,0
+2028,Leeds United,Chelsea,away team win,0,1
+2028,Arsenal,Tottenham Hotspur,home team win,1,0
+2028,Sunderland,Crystal Palace,draw,0,0
+2028,Nottingham Forest,Hull City,home team win,1,0
+2028,Liverpool,Aston Villa,home team win,1,0
+2028,Coventry City,Newcastle United,home team win,1,0
+2028,Brentford,Ipswich Town,home team win,1,0
+2028,Manchester City,Manchester United,draw,0,0
+2028,Everton,Bournemouth,away team win,0,1
+2028,Brighton & Hove Albion,Chelsea,home team win,1,0
+2028,Fulham,Tottenham Hotspur,home team win,1,0
+2028,Leeds United,Crystal Palace,home team win,1,0
+2028,Arsenal,Hull City,away team win,0,1
+2028,Sunderland,Aston Villa,away team win,0,1
+2028,Nottingham Forest,Newcastle United,away team win,0,1
+2028,Liverpool,Ipswich Town,draw,0,0
+2028,Coventry City,Manchester United,draw,0,0
+2028,Brentford,Manchester City,away team win,0,1
+2028,Everton,Chelsea,home team win,1,0
+2028,Bournemouth,Tottenham Hotspur,away team win,0,1
+2028,Brighton & Hove Albion,Crystal Palace,away team win,0,1
+2028,Fulham,Hull City,home team win,1,0
+2028,Leeds United,Aston Villa,home team win,1,0
+2028,Arsenal,Newcastle United,home team win,1,0
+2028,Sunderland,Ipswich Town,away team win,0,1
+2028,Nottingham Forest,Manchester United,home team win,1,0
+2028,Liverpool,Manchester City,home team win,1,0
+2028,Coventry City,Brentford,home team win,1,0
+2028,Tottenham Hotspur,Everton,away team win,0,1
+2028,Crystal Palace,Chelsea,home team win,1,0
+2028,Hull City,Bournemouth,draw,0,0
+2028,Aston Villa,Brighton & Hove Albion,home team win,1,0
+2028,Newcastle United,Fulham,home team win,1,0
+2028,Ipswich Town,Leeds United,home team win,2,0
+2028,Manchester United,Arsenal,home team win,1,0
+2028,Manchester City,Sunderland,home team win,1,0
+2028,Brentford,Nottingham Forest,home team win,1,0
+2028,Coventry City,Liverpool,home team win,1,0
+2028,Crystal Palace,Everton,away team win,0,2
+2028,Hull City,Tottenham Hotspur,home team win,1,0
+2028,Aston Villa,Chelsea,draw,0,0
+2028,Newcastle United,Bournemouth,away team win,0,1
+2028,Ipswich Town,Brighton & Hove Albion,draw,0,0
+2028,Manchester United,Fulham,home team win,1,0
+2028,Manchester City,Leeds United,home team win,1,0
+2028,Brentford,Arsenal,home team win,1,0
+2028,Coventry City,Sunderland,draw,0,0
+2028,Liverpool,Nottingham Forest,away team win,0,1
+2028,Hull City,Everton,home team win,1,0
+2028,Aston Villa,Crystal Palace,home team win,1,0
+2028,Newcastle United,Tottenham Hotspur,home team win,2,1
+2028,Ipswich Town,Chelsea,home team win,1,0
+2028,Manchester United,Bournemouth,draw,0,0
+2028,Manchester City,Brighton & Hove Albion,home team win,1,0
+2028,Brentford,Fulham,draw,0,0
+2028,Coventry City,Leeds United,home team win,2,0
+2028,Liverpool,Arsenal,away team win,0,1
+2028,Nottingham Forest,Sunderland,home team win,1,0
+2028,Aston Villa,Everton,draw,0,0
+2028,Newcastle United,Hull City,away team win,0,1
+2028,Ipswich Town,Crystal Palace,home team win,1,0
+2028,Manchester United,Tottenham Hotspur,home team win,1,0
+2028,Manchester City,Chelsea,away team win,0,1
+2028,Brentford,Bournemouth,draw,0,0
+2028,Coventry City,Brighton & Hove Albion,draw,0,0
+2028,Liverpool,Fulham,home team win,1,0
+2028,Nottingham Forest,Leeds United,home team win,2,0
+2028,Sunderland,Arsenal,away team win,0,1
+2028,Newcastle United,Everton,away team win,0,1
+2028,Ipswich Town,Aston Villa,draw,0,0
+2028,Manchester United,Hull City,home team win,1,0
+2028,Manchester City,Crystal Palace,draw,0,0
+2028,Brentford,Tottenham Hotspur,draw,0,0
+2028,Coventry City,Chelsea,away team win,0,1
+2028,Liverpool,Bournemouth,away team win,0,1
+2028,Nottingham Forest,Brighton & Hove Albion,draw,0,0
+2028,Sunderland,Fulham,away team win,1,2
+2028,Arsenal,Leeds United,home team win,1,0
+2028,Ipswich Town,Everton,away team win,0,1
+2028,Manchester United,Newcastle United,home team win,1,0
+2028,Manchester City,Aston Villa,draw,0,0
+2028,Brentford,Hull City,away team win,0,1
+2028,Coventry City,Crystal Palace,home team win,1,0
+2028,Liverpool,Tottenham Hotspur,draw,0,0
+2028,Nottingham Forest,Chelsea,away team win,0,1
+2028,Sunderland,Bournemouth,away team win,0,1
+2028,Arsenal,Brighton & Hove Albion,home team win,1,0
+2028,Leeds United,Fulham,home team win,1,0
+2028,Manchester United,Everton,home team win,1,0
+2028,Manchester City,Ipswich Town,home team win,1,0
+2028,Brentford,Newcastle United,draw,0,0
+2028,Coventry City,Aston Villa,home team win,1,0
+2028,Liverpool,Hull City,home team win,1,0
+2028,Nottingham Forest,Crystal Palace,draw,0,0
+2028,Sunderland,Tottenham Hotspur,away team win,0,1
+2028,Arsenal,Chelsea,away team win,0,1
+2028,Leeds United,Bournemouth,home team win,1,0
+2028,Fulham,Brighton & Hove Albion,home team win,1,0
+2028,Manchester City,Everton,draw,0,0
+2028,Brentford,Manchester United,home team win,1,0
+2028,Coventry City,Ipswich Town,draw,0,0
+2028,Liverpool,Newcastle United,home team win,1,0
+2028,Nottingham Forest,Aston Villa,draw,0,0
+2028,Sunderland,Hull City,away team win,0,1
+2028,Arsenal,Crystal Palace,draw,0,0
+2028,Leeds United,Tottenham Hotspur,home team win,1,0
+2028,Fulham,Chelsea,home team win,1,0
+2028,Brighton & Hove Albion,Bournemouth,away team win,0,1
+2028,Brentford,Everton,away team win,0,1
+2028,Coventry City,Manchester City,home team win,1,0
+2028,Liverpool,Manchester United,away team win,0,1
+2028,Nottingham Forest,Ipswich Town,home team win,1,0
+2028,Sunderland,Newcastle United,draw,0,0
+2028,Arsenal,Aston Villa,home team win,1,0
+2028,Leeds United,Hull City,away team win,0,1
+2028,Fulham,Crystal Palace,away team win,0,2
+2028,Brighton & Hove Albion,Tottenham Hotspur,away team win,0,1
+2028,Bournemouth,Chelsea,home team win,1,0
+2028,Coventry City,Everton,home team win,2,0
+2028,Liverpool,Brentford,draw,0,0
+2028,Nottingham Forest,Manchester City,home team win,1,0
+2028,Sunderland,Manchester United,draw,0,0
+2028,Arsenal,Ipswich Town,away team win,0,1
+2028,Leeds United,Newcastle United,home team win,2,0
+2028,Fulham,Aston Villa,draw,0,0
+2028,Brighton & Hove Albion,Hull City,home team win,1,0
+2028,Bournemouth,Crystal Palace,home team win,1,0
+2028,Chelsea,Tottenham Hotspur,home team win,1,0
+2028,Liverpool,Everton,home team win,1,0
+2028,Nottingham Forest,Coventry City,home team win,1,0
+2028,Sunderland,Brentford,away team win,0,1
+2028,Arsenal,Manchester City,away team win,0,1
+2028,Leeds United,Manchester United,away team win,0,1
+2028,Fulham,Ipswich Town,draw,0,0
+2028,Brighton & Hove Albion,Newcastle United,draw,0,0
+2028,Bournemouth,Aston Villa,away team win,0,1
+2028,Chelsea,Hull City,draw,0,0
+2028,Tottenham Hotspur,Crystal Palace,home team win,1,0
+2028,Nottingham Forest,Everton,draw,0,0
+2028,Sunderland,Liverpool,home team win,1,0
+2028,Arsenal,Coventry City,draw,0,0
+2028,Leeds United,Brentford,home team win,2,0
+2028,Fulham,Manchester City,home team win,1,0
+2028,Brighton & Hove Albion,Manchester United,home team win,1,0
+2028,Bournemouth,Ipswich Town,home team win,2,0
+2028,Chelsea,Newcastle United,home team win,1,0
+2028,Tottenham Hotspur,Aston Villa,home team win,1,0
+2028,Crystal Palace,Hull City,away team win,0,1
+2028,Sunderland,Everton,draw,0,0
+2028,Arsenal,Nottingham Forest,draw,0,0
+2028,Leeds United,Liverpool,draw,0,0
+2028,Fulham,Coventry City,away team win,0,1
+2028,Brighton & Hove Albion,Brentford,home team win,1,0
+2028,Bournemouth,Manchester City,home team win,1,0
+2028,Chelsea,Manchester United,away team win,0,1
+2028,Tottenham Hotspur,Ipswich Town,draw,0,0
+2028,Crystal Palace,Newcastle United,away team win,0,1
+2028,Hull City,Aston Villa,draw,0,0
+2028,Arsenal,Everton,away team win,0,1
+2028,Leeds United,Sunderland,home team win,1,0
+2028,Fulham,Nottingham Forest,draw,0,0
+2028,Brighton & Hove Albion,Liverpool,draw,0,0
+2028,Bournemouth,Coventry City,home team win,1,0
+2028,Chelsea,Brentford,away team win,0,1
+2028,Tottenham Hotspur,Manchester City,draw,0,0
+2028,Crystal Palace,Manchester United,away team win,0,1
+2028,Hull City,Ipswich Town,home team win,1,0
+2028,Aston Villa,Newcastle United,home team win,1,0
+2028,Leeds United,Everton,draw,0,0
+2028,Fulham,Arsenal,home team win,1,0
+2028,Brighton & Hove Albion,Sunderland,home team win,1,0
+2028,Bournemouth,Nottingham Forest,home team win,1,0
+2028,Chelsea,Liverpool,away team win,0,1
+2028,Tottenham Hotspur,Coventry City,home team win,1,0
+2028,Crystal Palace,Brentford,draw,0,0
+2028,Hull City,Manchester City,draw,0,0
+2028,Aston Villa,Manchester United,away team win,0,1
+2028,Newcastle United,Ipswich Town,home team win,1,0
+2028,Fulham,Everton,away team win,0,1
+2028,Brighton & Hove Albion,Leeds United,home team win,1,0
+2028,Bournemouth,Arsenal,home team win,1,0
+2028,Chelsea,Sunderland,home team win,1,0
+2028,Tottenham Hotspur,Nottingham Forest,home team win,1,0
+2028,Crystal Palace,Liverpool,draw,0,0
+2028,Hull City,Coventry City,home team win,1,0
+2028,Aston Villa,Brentford,away team win,0,1
+2028,Newcastle United,Manchester City,away team win,0,1
+2028,Ipswich Town,Manchester United,away team win,0,1
+2028,Brighton & Hove Albion,Everton,draw,0,0
+2028,Bournemouth,Fulham,home team win,2,0
+2028,Chelsea,Leeds United,home team win,1,0
+2028,Tottenham Hotspur,Arsenal,home team win,1,0
+2028,Crystal Palace,Sunderland,home team win,1,0
+2028,Hull City,Nottingham Forest,away team win,0,1
+2028,Aston Villa,Liverpool,away team win,0,1
+2028,Newcastle United,Coventry City,home team win,1,0
+2028,Ipswich Town,Brentford,away team win,0,1
+2028,Manchester United,Manchester City,draw,0,0
+2028,Bournemouth,Everton,home team win,1,0
+2028,Chelsea,Brighton & Hove Albion,home team win,1,0
+2028,Tottenham Hotspur,Fulham,away team win,0,1
+2028,Crystal Palace,Leeds United,home team win,1,0
+2028,Hull City,Arsenal,away team win,0,1
+2028,Aston Villa,Sunderland,home team win,1,0
+2028,Newcastle United,Nottingham Forest,draw,0,0
+2028,Ipswich Town,Liverpool,home team win,1,0
+2028,Manchester United,Coventry City,away team win,0,1
+2028,Manchester City,Brentford,home team win,2,0
+2028,Chelsea,Everton,home team win,2,1
+2028,Tottenham Hotspur,Bournemouth,draw,0,0
+2028,Crystal Palace,Brighton & Hove Albion,draw,0,0
+2028,Hull City,Fulham,away team win,0,1
+2028,Aston Villa,Leeds United,home team win,1,0
+2028,Newcastle United,Arsenal,away team win,0,1
+2028,Ipswich Town,Sunderland,draw,0,0
+2028,Manchester United,Nottingham Forest,home team win,1,0
+2028,Manchester City,Liverpool,home team win,1,0
+2028,Brentford,Coventry City,home team win,1,0
+2029,Chelsea,Fulham,home team win,1,0
+2029,Coventry City,Leeds United,draw,0,0
+2029,Tottenham Hotspur,Newcastle United,home team win,1,0
+2029,Bournemouth,Manchester United,away team win,0,1
+2029,Brighton & Hove Albion,Sunderland,home team win,1,0
+2029,Crystal Palace,Aston Villa,home team win,1,0
+2029,Brentford,Everton,draw,0,0
+2029,Hull City,Liverpool,home team win,1,0
+2029,Arsenal,Manchester City,draw,0,0
+2029,Nottingham Forest,Ipswich Town,away team win,0,1
+2029,Chelsea,Leeds United,away team win,0,1
+2029,Fulham,Newcastle United,away team win,0,1
+2029,Coventry City,Manchester United,draw,0,0
+2029,Tottenham Hotspur,Sunderland,home team win,1,0
+2029,Bournemouth,Aston Villa,home team win,1,0
+2029,Brighton & Hove Albion,Everton,away team win,0,1
+2029,Crystal Palace,Liverpool,away team win,0,1
+2029,Brentford,Manchester City,away team win,0,1
+2029,Hull City,Ipswich Town,away team win,0,1
+2029,Arsenal,Nottingham Forest,home team win,1,0
+2029,Chelsea,Newcastle United,home team win,1,0
+2029,Leeds United,Manchester United,home team win,1,0
+2029,Fulham,Sunderland,home team win,1,0
+2029,Coventry City,Aston Villa,away team win,0,1
+2029,Tottenham Hotspur,Everton,draw,0,0
+2029,Bournemouth,Liverpool,home team win,1,0
+2029,Brighton & Hove Albion,Manchester City,away team win,1,2
+2029,Crystal Palace,Ipswich Town,home team win,1,0
+2029,Brentford,Nottingham Forest,draw,0,0
+2029,Hull City,Arsenal,draw,0,0
+2029,Chelsea,Manchester United,draw,0,0
+2029,Newcastle United,Sunderland,home team win,2,0
+2029,Leeds United,Aston Villa,draw,0,0
+2029,Fulham,Everton,draw,0,0
+2029,Coventry City,Liverpool,draw,0,0
+2029,Tottenham Hotspur,Manchester City,away team win,0,1
+2029,Bournemouth,Ipswich Town,draw,0,0
+2029,Brighton & Hove Albion,Nottingham Forest,away team win,0,1
+2029,Crystal Palace,Arsenal,draw,0,0
+2029,Brentford,Hull City,draw,0,0
+2029,Chelsea,Sunderland,home team win,1,0
+2029,Manchester United,Aston Villa,home team win,1,0
+2029,Newcastle United,Everton,away team win,0,1
+2029,Leeds United,Liverpool,draw,0,0
+2029,Fulham,Manchester City,home team win,1,0
+2029,Coventry City,Ipswich Town,draw,0,0
+2029,Tottenham Hotspur,Nottingham Forest,draw,0,0
+2029,Bournemouth,Arsenal,home team win,1,0
+2029,Brighton & Hove Albion,Hull City,home team win,1,0
+2029,Crystal Palace,Brentford,home team win,2,0
+2029,Chelsea,Aston Villa,home team win,1,0
+2029,Sunderland,Everton,draw,0,0
+2029,Manchester United,Liverpool,away team win,0,1
+2029,Newcastle United,Manchester City,draw,0,0
+2029,Leeds United,Ipswich Town,away team win,0,1
+2029,Fulham,Nottingham Forest,home team win,1,0
+2029,Coventry City,Arsenal,away team win,0,1
+2029,Tottenham Hotspur,Hull City,draw,0,0
+2029,Bournemouth,Brentford,home team win,1,0
+2029,Brighton & Hove Albion,Crystal Palace,away team win,0,1
+2029,Chelsea,Everton,away team win,0,1
+2029,Aston Villa,Liverpool,home team win,1,0
+2029,Sunderland,Manchester City,home team win,1,0
+2029,Manchester United,Ipswich Town,home team win,1,0
+2029,Newcastle United,Nottingham Forest,home team win,1,0
+2029,Leeds United,Arsenal,draw,0,0
+2029,Fulham,Hull City,home team win,1,0
+2029,Coventry City,Brentford,away team win,0,1
+2029,Tottenham Hotspur,Crystal Palace,away team win,0,1
+2029,Bournemouth,Brighton & Hove Albion,draw,0,0
+2029,Chelsea,Liverpool,home team win,1,0
+2029,Everton,Manchester City,home team win,1,0
+2029,Aston Villa,Ipswich Town,draw,0,0
+2029,Sunderland,Nottingham Forest,away team win,0,1
+2029,Manchester United,Arsenal,home team win,1,0
+2029,Newcastle United,Hull City,home team win,1,0
+2029,Leeds United,Brentford,away team win,0,1
+2029,Fulham,Crystal Palace,draw,0,0
+2029,Coventry City,Brighton & Hove Albion,home team win,1,0
+2029,Tottenham Hotspur,Bournemouth,draw,0,0
+2029,Chelsea,Manchester City,home team win,1,0
+2029,Liverpool,Ipswich Town,home team win,1,0
+2029,Everton,Nottingham Forest,away team win,0,1
+2029,Aston Villa,Arsenal,away team win,0,1
+2029,Sunderland,Hull City,draw,0,0
+2029,Manchester United,Brentford,home team win,1,0
+2029,Newcastle United,Crystal Palace,draw,0,0
+2029,Leeds United,Brighton & Hove Albion,away team win,0,1
+2029,Fulham,Bournemouth,away team win,0,1
+2029,Coventry City,Tottenham Hotspur,home team win,1,0
+2029,Chelsea,Ipswich Town,home team win,1,0
+2029,Manchester City,Nottingham Forest,away team win,0,1
+2029,Liverpool,Arsenal,draw,0,0
+2029,Everton,Hull City,draw,0,0
+2029,Aston Villa,Brentford,home team win,2,0
+2029,Sunderland,Crystal Palace,away team win,0,1
+2029,Manchester United,Brighton & Hove Albion,draw,0,0
+2029,Newcastle United,Bournemouth,draw,0,0
+2029,Leeds United,Tottenham Hotspur,home team win,1,0
+2029,Fulham,Coventry City,home team win,1,0
+2029,Chelsea,Nottingham Forest,home team win,1,0
+2029,Ipswich Town,Arsenal,home team win,1,0
+2029,Manchester City,Hull City,home team win,1,0
+2029,Liverpool,Brentford,draw,0,0
+2029,Everton,Crystal Palace,home team win,1,0
+2029,Aston Villa,Brighton & Hove Albion,away team win,0,1
+2029,Sunderland,Bournemouth,away team win,0,1
+2029,Manchester United,Tottenham Hotspur,draw,0,0
+2029,Newcastle United,Coventry City,home team win,2,0
+2029,Leeds United,Fulham,away team win,0,2
+2029,Chelsea,Arsenal,home team win,1,0
+2029,Nottingham Forest,Hull City,home team win,1,0
+2029,Ipswich Town,Brentford,draw,0,0
+2029,Manchester City,Crystal Palace,home team win,1,0
+2029,Liverpool,Brighton & Hove Albion,draw,0,0
+2029,Everton,Bournemouth,away team win,0,1
+2029,Aston Villa,Tottenham Hotspur,away team win,0,1
+2029,Sunderland,Coventry City,away team win,0,1
+2029,Manchester United,Fulham,draw,0,0
+2029,Newcastle United,Leeds United,home team win,1,0
+2029,Chelsea,Hull City,home team win,1,0
+2029,Arsenal,Brentford,away team win,0,1
+2029,Nottingham Forest,Crystal Palace,home team win,1,0
+2029,Ipswich Town,Brighton & Hove Albion,draw,0,0
+2029,Manchester City,Bournemouth,home team win,1,0
+2029,Liverpool,Tottenham Hotspur,home team win,1,0
+2029,Everton,Coventry City,home team win,1,0
+2029,Aston Villa,Fulham,away team win,0,1
+2029,Sunderland,Leeds United,home team win,1,0
+2029,Manchester United,Newcastle United,draw,0,0
+2029,Chelsea,Brentford,draw,0,0
+2029,Hull City,Crystal Palace,home team win,1,0
+2029,Arsenal,Brighton & Hove Albion,home team win,1,0
+2029,Nottingham Forest,Bournemouth,away team win,0,1
+2029,Ipswich Town,Tottenham Hotspur,home team win,1,0
+2029,Manchester City,Coventry City,draw,0,0
+2029,Liverpool,Fulham,home team win,1,0
+2029,Everton,Leeds United,draw,0,0
+2029,Aston Villa,Newcastle United,away team win,0,1
+2029,Sunderland,Manchester United,away team win,0,1
+2029,Chelsea,Crystal Palace,away team win,0,1
+2029,Brentford,Brighton & Hove Albion,home team win,1,0
+2029,Hull City,Bournemouth,draw,0,0
+2029,Arsenal,Tottenham Hotspur,home team win,1,0
+2029,Nottingham Forest,Coventry City,home team win,1,0
+2029,Ipswich Town,Fulham,draw,0,0
+2029,Manchester City,Leeds United,home team win,1,0
+2029,Liverpool,Newcastle United,home team win,1,0
+2029,Everton,Manchester United,away team win,0,1
+2029,Aston Villa,Sunderland,away team win,0,1
+2029,Chelsea,Brighton & Hove Albion,draw,0,0
+2029,Crystal Palace,Bournemouth,away team win,0,1
+2029,Brentford,Tottenham Hotspur,away team win,0,1
+2029,Hull City,Coventry City,away team win,0,1
+2029,Arsenal,Fulham,away team win,0,1
+2029,Nottingham Forest,Leeds United,home team win,2,0
+2029,Ipswich Town,Newcastle United,draw,0,0
+2029,Manchester City,Manchester United,home team win,1,0
+2029,Liverpool,Sunderland,draw,0,0
+2029,Everton,Aston Villa,away team win,0,1
+2029,Chelsea,Bournemouth,away team win,0,1
+2029,Brighton & Hove Albion,Tottenham Hotspur,home team win,1,0
+2029,Crystal Palace,Coventry City,home team win,1,0
+2029,Brentford,Fulham,draw,0,0
+2029,Hull City,Leeds United,draw,0,0
+2029,Arsenal,Newcastle United,draw,0,0
+2029,Nottingham Forest,Manchester United,home team win,1,0
+2029,Ipswich Town,Sunderland,home team win,2,0
+2029,Manchester City,Aston Villa,draw,0,0
+2029,Liverpool,Everton,home team win,1,0
+2029,Chelsea,Tottenham Hotspur,home team win,1,0
+2029,Bournemouth,Coventry City,home team win,1,0
+2029,Brighton & Hove Albion,Fulham,away team win,0,1
+2029,Crystal Palace,Leeds United,draw,0,0
+2029,Brentford,Newcastle United,home team win,1,0
+2029,Hull City,Manchester United,home team win,1,0
+2029,Arsenal,Sunderland,home team win,1,0
+2029,Nottingham Forest,Aston Villa,away team win,0,1
+2029,Ipswich Town,Everton,home team win,1,0
+2029,Manchester City,Liverpool,away team win,0,1
+2029,Chelsea,Coventry City,draw,0,0
+2029,Tottenham Hotspur,Fulham,away team win,0,1
+2029,Bournemouth,Leeds United,home team win,1,0
+2029,Brighton & Hove Albion,Newcastle United,away team win,0,1
+2029,Crystal Palace,Manchester United,home team win,1,0
+2029,Brentford,Sunderland,away team win,0,1
+2029,Hull City,Aston Villa,home team win,1,0
+2029,Arsenal,Everton,draw,0,0
+2029,Nottingham Forest,Liverpool,away team win,0,1
+2029,Ipswich Town,Manchester City,home team win,1,0
+2029,Fulham,Chelsea,home team win,1,0
+2029,Leeds United,Coventry City,home team win,1,0
+2029,Newcastle United,Tottenham Hotspur,home team win,1,0
+2029,Manchester United,Bournemouth,away team win,0,1
+2029,Sunderland,Brighton & Hove Albion,home team win,1,0
+2029,Aston Villa,Crystal Palace,draw,0,0
+2029,Everton,Brentford,away team win,0,1
+2029,Liverpool,Hull City,home team win,1,0
+2029,Manchester City,Arsenal,away team win,0,1
+2029,Ipswich Town,Nottingham Forest,draw,0,0
+2029,Leeds United,Chelsea,away team win,0,1
+2029,Newcastle United,Fulham,away team win,0,1
+2029,Manchester United,Coventry City,home team win,1,0
+2029,Sunderland,Tottenham Hotspur,away team win,0,1
+2029,Aston Villa,Bournemouth,away team win,0,1
+2029,Everton,Brighton & Hove Albion,home team win,1,0
+2029,Liverpool,Crystal Palace,away team win,0,1
+2029,Manchester City,Brentford,home team win,1,0
+2029,Ipswich Town,Hull City,home team win,1,0
+2029,Nottingham Forest,Arsenal,home team win,1,0
+2029,Newcastle United,Chelsea,home team win,1,0
+2029,Manchester United,Leeds United,home team win,1,0
+2029,Sunderland,Fulham,home team win,1,0
+2029,Aston Villa,Coventry City,home team win,1,0
+2029,Everton,Tottenham Hotspur,home team win,1,0
+2029,Liverpool,Bournemouth,away team win,0,1
+2029,Manchester City,Brighton & Hove Albion,away team win,0,1
+2029,Ipswich Town,Crystal Palace,home team win,1,0
+2029,Nottingham Forest,Brentford,home team win,1,0
+2029,Arsenal,Hull City,home team win,1,0
+2029,Manchester United,Chelsea,home team win,1,0
+2029,Sunderland,Newcastle United,away team win,0,1
+2029,Aston Villa,Leeds United,home team win,1,0
+2029,Everton,Fulham,draw,0,0
+2029,Liverpool,Coventry City,draw,0,0
+2029,Manchester City,Tottenham Hotspur,draw,0,0
+2029,Ipswich Town,Bournemouth,away team win,0,1
+2029,Nottingham Forest,Brighton & Hove Albion,draw,0,0
+2029,Arsenal,Crystal Palace,home team win,2,0
+2029,Hull City,Brentford,draw,0,0
+2029,Sunderland,Chelsea,home team win,1,0
+2029,Aston Villa,Manchester United,away team win,0,1
+2029,Everton,Newcastle United,away team win,0,1
+2029,Liverpool,Leeds United,away team win,0,1
+2029,Manchester City,Fulham,home team win,1,0
+2029,Ipswich Town,Coventry City,away team win,0,1
+2029,Nottingham Forest,Tottenham Hotspur,draw,0,0
+2029,Arsenal,Bournemouth,home team win,1,0
+2029,Hull City,Brighton & Hove Albion,home team win,1,0
+2029,Brentford,Crystal Palace,home team win,1,0
+2029,Aston Villa,Chelsea,away team win,0,1
+2029,Everton,Sunderland,home team win,1,0
+2029,Liverpool,Manchester United,away team win,0,1
+2029,Manchester City,Newcastle United,draw,0,0
+2029,Ipswich Town,Leeds United,home team win,1,0
+2029,Nottingham Forest,Fulham,draw,0,0
+2029,Arsenal,Coventry City,home team win,1,0
+2029,Hull City,Tottenham Hotspur,home team win,1,0
+2029,Brentford,Bournemouth,home team win,1,0
+2029,Crystal Palace,Brighton & Hove Albion,home team win,1,0
+2029,Everton,Chelsea,away team win,0,1
+2029,Liverpool,Aston Villa,away team win,0,1
+2029,Manchester City,Sunderland,draw,0,0
+2029,Ipswich Town,Manchester United,away team win,0,1
+2029,Nottingham Forest,Newcastle United,away team win,0,1
+2029,Arsenal,Leeds United,home team win,1,0
+2029,Hull City,Fulham,home team win,1,0
+2029,Brentford,Coventry City,home team win,1,0
+2029,Crystal Palace,Tottenham Hotspur,away team win,0,1
+2029,Brighton & Hove Albion,Bournemouth,away team win,0,1
+2029,Liverpool,Chelsea,home team win,1,0
+2029,Manchester City,Everton,home team win,1,0
+2029,Ipswich Town,Aston Villa,home team win,1,0
+2029,Nottingham Forest,Sunderland,draw,0,0
+2029,Arsenal,Manchester United,home team win,1,0
+2029,Hull City,Newcastle United,away team win,0,1
+2029,Brentford,Leeds United,home team win,1,0
+2029,Crystal Palace,Fulham,away team win,0,1
+2029,Brighton & Hove Albion,Coventry City,home team win,1,0
+2029,Bournemouth,Tottenham Hotspur,draw,0,0
+2029,Manchester City,Chelsea,home team win,1,0
+2029,Ipswich Town,Liverpool,home team win,1,0
+2029,Nottingham Forest,Everton,draw,0,0
+2029,Arsenal,Aston Villa,home team win,2,0
+2029,Hull City,Sunderland,home team win,1,0
+2029,Brentford,Manchester United,away team win,0,1
+2029,Crystal Palace,Newcastle United,home team win,1,0
+2029,Brighton & Hove Albion,Leeds United,draw,0,0
+2029,Bournemouth,Fulham,draw,0,0
+2029,Tottenham Hotspur,Coventry City,away team win,0,1
+2029,Ipswich Town,Chelsea,draw,0,0
+2029,Nottingham Forest,Manchester City,away team win,0,1
+2029,Arsenal,Liverpool,draw,0,0
+2029,Hull City,Everton,away team win,0,1
+2029,Brentford,Aston Villa,home team win,1,0
+2029,Crystal Palace,Sunderland,home team win,1,0
+2029,Brighton & Hove Albion,Manchester United,away team win,0,1
+2029,Bournemouth,Newcastle United,home team win,1,0
+2029,Tottenham Hotspur,Leeds United,away team win,0,1
+2029,Coventry City,Fulham,home team win,1,0
+2029,Nottingham Forest,Chelsea,away team win,0,1
+2029,Arsenal,Ipswich Town,away team win,0,1
+2029,Hull City,Manchester City,home team win,1,0
+2029,Brentford,Liverpool,draw,0,0
+2029,Crystal Palace,Everton,away team win,0,1
+2029,Brighton & Hove Albion,Aston Villa,away team win,0,1
+2029,Bournemouth,Sunderland,home team win,1,0
+2029,Tottenham Hotspur,Manchester United,away team win,0,1
+2029,Coventry City,Newcastle United,away team win,0,1
+2029,Fulham,Leeds United,home team win,1,0
+2029,Arsenal,Chelsea,home team win,1,0
+2029,Hull City,Nottingham Forest,away team win,0,1
+2029,Brentford,Ipswich Town,away team win,0,1
+2029,Crystal Palace,Manchester City,draw,0,0
+2029,Brighton & Hove Albion,Liverpool,home team win,2,0
+2029,Bournemouth,Everton,home team win,1,0
+2029,Tottenham Hotspur,Aston Villa,away team win,0,1
+2029,Coventry City,Sunderland,away team win,0,1
+2029,Fulham,Manchester United,away team win,0,1
+2029,Leeds United,Newcastle United,away team win,0,1
+2029,Hull City,Chelsea,home team win,1,0
+2029,Brentford,Arsenal,away team win,0,1
+2029,Crystal Palace,Nottingham Forest,away team win,0,1
+2029,Brighton & Hove Albion,Ipswich Town,away team win,0,1
+2029,Bournemouth,Manchester City,home team win,1,0
+2029,Tottenham Hotspur,Liverpool,away team win,0,1
+2029,Coventry City,Everton,home team win,2,0
+2029,Fulham,Aston Villa,home team win,1,0
+2029,Leeds United,Sunderland,home team win,1,0
+2029,Newcastle United,Manchester United,away team win,0,1
+2029,Brentford,Chelsea,away team win,0,1
+2029,Crystal Palace,Hull City,draw,0,0
+2029,Brighton & Hove Albion,Arsenal,away team win,0,1
+2029,Bournemouth,Nottingham Forest,draw,1,1
+2029,Tottenham Hotspur,Ipswich Town,draw,0,0
+2029,Coventry City,Manchester City,away team win,0,1
+2029,Fulham,Liverpool,home team win,1,0
+2029,Leeds United,Everton,away team win,0,1
+2029,Newcastle United,Aston Villa,home team win,1,0
+2029,Manchester United,Sunderland,home team win,1,0
+2029,Crystal Palace,Chelsea,away team win,0,1
+2029,Brighton & Hove Albion,Brentford,home team win,1,0
+2029,Bournemouth,Hull City,home team win,1,0
+2029,Tottenham Hotspur,Arsenal,away team win,0,1
+2029,Coventry City,Nottingham Forest,home team win,2,1
+2029,Fulham,Ipswich Town,home team win,1,0
+2029,Leeds United,Manchester City,draw,0,0
+2029,Newcastle United,Liverpool,home team win,2,0
+2029,Manchester United,Everton,draw,1,1
+2029,Sunderland,Aston Villa,away team win,0,1
+2029,Brighton & Hove Albion,Chelsea,draw,0,0
+2029,Bournemouth,Crystal Palace,home team win,1,0
+2029,Tottenham Hotspur,Brentford,home team win,1,0
+2029,Coventry City,Hull City,home team win,1,0
+2029,Fulham,Arsenal,away team win,0,1
+2029,Leeds United,Nottingham Forest,home team win,1,0
+2029,Newcastle United,Ipswich Town,away team win,0,1
+2029,Manchester United,Manchester City,home team win,1,0
+2029,Sunderland,Liverpool,home team win,1,0
+2029,Aston Villa,Everton,home team win,1,0
+2029,Bournemouth,Chelsea,home team win,2,0
+2029,Tottenham Hotspur,Brighton & Hove Albion,away team win,0,1
+2029,Coventry City,Crystal Palace,home team win,1,0
+2029,Fulham,Brentford,away team win,0,1
+2029,Leeds United,Hull City,draw,0,0
+2029,Newcastle United,Arsenal,home team win,1,0
+2029,Manchester United,Nottingham Forest,home team win,1,0
+2029,Sunderland,Ipswich Town,away team win,0,1
+2029,Aston Villa,Manchester City,home team win,1,0
+2029,Everton,Liverpool,home team win,1,0
+2029,Tottenham Hotspur,Chelsea,away team win,0,1
+2029,Coventry City,Bournemouth,away team win,0,2
+2029,Fulham,Brighton & Hove Albion,away team win,0,1
+2029,Leeds United,Crystal Palace,home team win,1,0
+2029,Newcastle United,Brentford,home team win,1,0
+2029,Manchester United,Hull City,home team win,1,0
+2029,Sunderland,Arsenal,draw,0,0
+2029,Aston Villa,Nottingham Forest,home team win,2,0
+2029,Everton,Ipswich Town,draw,0,0
+2029,Liverpool,Manchester City,home team win,1,0
+2029,Coventry City,Chelsea,home team win,1,0
+2029,Fulham,Tottenham Hotspur,away team win,0,1
+2029,Leeds United,Bournemouth,draw,0,0
+2029,Newcastle United,Brighton & Hove Albion,draw,0,0
+2029,Manchester United,Crystal Palace,draw,0,0
+2029,Sunderland,Brentford,draw,0,0
+2029,Aston Villa,Hull City,draw,0,0
+2029,Everton,Arsenal,home team win,1,0
+2029,Liverpool,Nottingham Forest,draw,0,0
+2029,Manchester City,Ipswich Town,away team win,0,1

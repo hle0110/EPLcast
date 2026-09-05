@@ -7,7 +7,7 @@ class ScaledLogisticModel(BaseEstimator, ClassifierMixin):
     def __init__(self, C=1.0):
         self.C = C
         self.scaler = StandardScaler()
-        self.clf = LogisticRegression(C=C, max_iter=1000)
+        self.clf = LogisticRegression(C=C, max_iter=2000)
 
     def fit(self, X, y):
         Xs = self.scaler.fit_transform(X)
