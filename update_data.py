@@ -1,6 +1,8 @@
 import datetime
 import os
 import sys
+import time
+import urllib.error
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -8,6 +10,11 @@ from team_name_map import canonical_name
 
 DATA_PATH = "data/matches.csv"
 FIRST_SEASON = 2021
+FETCH_ATTEMPTS = 3
+RETRY_DELAY_SECONDS = 10
+STATUS_UPDATED = 0
+STATUS_UNCHANGED = 1
+STATUS_SOURCE_ERROR = 2
 DIVISIONS = {
     'E0': ('Premier League', 1),
     'E1': ('Championship', 2),
@@ -48,15 +55,31 @@ def result_of(hg, ag):
 
 def fetch_division(div_code, season_year, quiet=False):
     url = f"https://www.football-data.co.uk/mmz4281/{season_code(season_year)}/{div_code}.csv"
-    try:
-        raw = pd.read_csv(url)
-    except Exception as exc:
-        if not quiet:
-            print(f"  no data for {div_code} {season_year}-{str(season_year+1)[-2:]} ({exc})")
-        return None
+    label = f"{season_year}-{str(season_year + 1)[-2:]}"
+    raw = None
+    last_error = None
+    for attempt in range(1, FETCH_ATTEMPTS + 1):
+        try:
+            raw = pd.read_csv(url)
+            break
+        except urllib.error.HTTPError as exc:
+            if exc.code == 404:
+                if not quiet:
+                    print(f"  {div_code} {label}: not published yet")
+                return None, 'missing'
+            last_error = exc
+        except Exception as exc:
+            last_error = exc
+        if attempt < FETCH_ATTEMPTS:
+            print(f"  {div_code} {label}: fetch failed ({last_error}), retrying in {RETRY_DELAY_SECONDS}s")
+            time.sleep(RETRY_DELAY_SECONDS)
+    if raw is None:
+        print(f"  {div_code} {label}: source unreachable after {FETCH_ATTEMPTS} attempts ({last_error})")
+        return None, 'error'
+
     raw = raw.dropna(subset=['FTHG', 'FTAG', 'HomeTeam', 'AwayTeam'])
     if len(raw) == 0:
-        return None
+        return None, 'missing'
     raw['parsed_date'] = pd.to_datetime(raw['Date'], dayfirst=True, errors='coerce')
     raw = raw.sort_values('parsed_date', kind='mergesort').reset_index(drop=True)
     division, tier = DIVISIONS[div_code]
@@ -90,17 +113,19 @@ def fetch_division(div_code, season_year, quiet=False):
             value = r.get(src_col)
             row[out_col] = int(value) if pd.notna(value) else 0
         rows.append(row)
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows), 'ok'
 
 def fetch_season(season_year, quiet=False):
     frames = []
+    errors = []
     for div_code in DIVISIONS:
-        frame = fetch_division(div_code, season_year, quiet=quiet)
-        if frame is not None:
+        frame, status = fetch_division(div_code, season_year, quiet=quiet)
+        if status == 'error':
+            errors.append(div_code)
+        elif frame is not None:
             frames.append(frame)
-    if not frames:
-        return None
-    return pd.concat(frames, ignore_index=True)
+    combined = pd.concat(frames, ignore_index=True) if frames else None
+    return combined, errors
 
 def assign_ids(df):
     df = df.sort_values(['season', 'tier', 'match_id'], kind='mergesort').reset_index(drop=True)
@@ -115,7 +140,10 @@ def rebuild_dataset(path=DATA_PATH, first_season=FIRST_SEASON, last_season=None)
     last_season = last_season or current_season_year()
     frames = []
     for year in range(first_season, last_season + 1):
-        season = fetch_season(year, quiet=True)
+        season, errors = fetch_season(year, quiet=True)
+        if errors:
+            print(f"ERROR: could not reach the data source for {year} ({', '.join(errors)})")
+            return False
         if season is None:
             print(f"  {year}-{str(year+1)[-2:]}: no data available yet")
             continue
@@ -137,13 +165,19 @@ def update_dataset(path=DATA_PATH, season_year=None):
 
     if not os.path.exists(path):
         print(f"{path} not found, rebuilding the full dataset from source")
-        return rebuild_dataset(path)
+        return STATUS_UPDATED if rebuild_dataset(path) else STATUS_SOURCE_ERROR
 
     existing = pd.read_csv(path, low_memory=False)
-    fresh = fetch_season(season_year)
+    fresh, errors = fetch_season(season_year)
+
+    if errors:
+        print(f"ERROR: the data source was unreachable for {', '.join(errors)}")
+        print("Nothing was changed. This run is being failed so the outage is visible")
+        return STATUS_SOURCE_ERROR
+
     if fresh is None:
         print(f"No completed {label} matches published yet, nothing to update")
-        return False
+        return STATUS_UNCHANGED
 
     before = len(existing[existing['season'] == season_year])
     kept = existing[existing['season'] != season_year]
@@ -151,11 +185,9 @@ def update_dataset(path=DATA_PATH, season_year=None):
     after = len(fresh)
     combined.to_csv(path, index=False)
     print(f"{label} matches on file: {before} -> {after} ({after - before:+d})")
-    return after != before
+    return STATUS_UPDATED if after != before else STATUS_UNCHANGED
 
 if __name__ == "__main__":
     if '--rebuild' in sys.argv:
-        ok = rebuild_dataset()
-        sys.exit(0 if ok else 1)
-    changed = update_dataset()
-    sys.exit(0 if changed else 1)
+        sys.exit(STATUS_UPDATED if rebuild_dataset() else STATUS_SOURCE_ERROR)
+    sys.exit(update_dataset())
