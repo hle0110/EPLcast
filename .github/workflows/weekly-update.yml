@@ -47,6 +47,11 @@ jobs:
       - name: Retrain and rebuild projections
         run: python main.py
 
+      - name: Run tests
+        run: |
+          pip install pytest
+          python -m pytest tests -q
+
       - name: Commit refreshed files
         run: |
           git config user.name "github-actions[bot]"
