@@ -1,3 +1,4 @@
+import datetime
 import os
 import sys
 import pandas as pd
@@ -15,8 +16,8 @@ from dashboard import write_dashboard
 
 DATA_PATH = "data/matches.csv"
 MODEL_PATH = "models/epl_predictive_model.pkl"
-PRED_MATCHES_PATH = "predictions/epl_simulated_matches.csv"
 PRED_TABLE_PATH = "predictions/epl_season_projection.csv"
+HISTORY_PATH = "predictions/probability_history.csv"
 DASHBOARD_PATH = "docs/index.html"
 N_FUTURE_SEASONS = 3
 N_SIMULATIONS = 40
@@ -118,6 +119,80 @@ def evaluate_models(df, top_flight):
     print(f"    Improvement over original        : {(totals['new_acc'] - totals['legacy_acc'])/n*100:+.2f} percentage points\n")
     return {'accuracy': totals['new_acc'] / n, 'log_loss': totals['new_ll'] / n, 'matches': n}
 
+def resolve_current_teams(df, top_flight, current_season):
+    season_matches = top_flight[top_flight['season'] == current_season]
+    appeared = set(season_matches['home_team_name']) | set(season_matches['away_team_name'])
+    if len(appeared) == TEAMS_PER_SEASON:
+        return sorted(appeared), season_matches, True
+
+    lower_divisions = df[(df['season'] == current_season) & (df['tier'] > 1)]
+    playing_below = set(lower_divisions['home_team_name']) | set(lower_divisions['away_team_name'])
+    previous = df[df['season'] == current_season - 1]
+    stayed_up = set(previous[previous['tier'] == 1]['home_team_name']) | set(previous[previous['tier'] == 1]['away_team_name'])
+    came_up = set(previous[previous['tier'] == 2]['home_team_name']) | set(previous[previous['tier'] == 2]['away_team_name'])
+    inferred = appeared | ((stayed_up | came_up) - playing_below)
+    if len(inferred) == TEAMS_PER_SEASON:
+        print(f"  only {len(appeared)} clubs have played so far, "
+              f"inferred the full {TEAMS_PER_SEASON} from this season's lower divisions")
+        return sorted(inferred), season_matches, True
+
+    print(f"  cannot identify {TEAMS_PER_SEASON} clubs for this season yet "
+          f"({len(appeared)} have played, {len(inferred)} inferred)")
+    return sorted(stayed_up), season_matches, False
+
+
+def actual_table(season_matches, teams):
+    rows = []
+    for team in teams:
+        home = season_matches[season_matches['home_team_name'] == team]
+        away = season_matches[season_matches['away_team_name'] == team]
+        wins = int((home['home_team_score'] > home['away_team_score']).sum() + (away['away_team_score'] > away['home_team_score']).sum())
+        draws = int((home['home_team_score'] == home['away_team_score']).sum() + (away['away_team_score'] == away['home_team_score']).sum())
+        losses = int((home['home_team_score'] < home['away_team_score']).sum() + (away['away_team_score'] < away['home_team_score']).sum())
+        goals_for = int(home['home_team_score'].sum() + away['away_team_score'].sum())
+        goals_against = int(home['away_team_score'].sum() + away['home_team_score'].sum())
+        rows.append({
+            'Team': team,
+            'Played': wins + draws + losses,
+            'Points': wins * 3 + draws,
+            'GoalDiff': goals_for - goals_against,
+        })
+    table = pd.DataFrame(rows).sort_values(['Points', 'GoalDiff'], ascending=False).reset_index(drop=True)
+    table['Position'] = table.index + 1
+    return table
+
+
+def recent_form(season_matches, history, teams, window=5):
+    form = {}
+    pool = history
+    for team in teams:
+        played = pool[(pool['home_team_name'] == team) | (pool['away_team_name'] == team)]
+        played = played.sort_values('match_date', kind='mergesort').tail(window)
+        marks = []
+        for row in played.itertuples():
+            if row.home_team_name == team:
+                scored, conceded = row.home_team_score, row.away_team_score
+            else:
+                scored, conceded = row.away_team_score, row.home_team_score
+            marks.append('W' if scored > conceded else ('D' if scored == conceded else 'L'))
+        form[team] = marks
+    return form
+
+
+def record_history(projection, season, matches_played, path=HISTORY_PATH):
+    today = datetime.date.today().isoformat()
+    snapshot = projection[projection['Season'] == season][['Team', 'Rank', 'Points', 'TitleProb', 'Top4Prob', 'RelegationProb']].copy()
+    snapshot.insert(0, 'recorded_on', today)
+    snapshot.insert(1, 'season', season)
+    snapshot.insert(2, 'matches_played', matches_played)
+    if os.path.exists(path):
+        existing = pd.read_csv(path)
+        existing = existing[~((existing['recorded_on'] == today) & (existing['season'] == season))]
+        snapshot = pd.concat([existing, snapshot], ignore_index=True)
+    snapshot.to_csv(path, index=False)
+    return snapshot
+
+
 def main():
     print("Starting Premier League Predictor")
 
@@ -143,56 +218,71 @@ def main():
     print(f"Model saved to {MODEL_PATH}")
 
     current_season = int(top_flight['season'].max())
-    season_matches = top_flight[top_flight['season'] == current_season]
-    current_teams = sorted(set(season_matches['home_team_name']) | set(season_matches['away_team_name']))
-    played = len(season_matches)
-    total_fixtures = len(current_teams) * (len(current_teams) - 1)
     season_label = f"{current_season}-{str(current_season + 1)[-2:]}"
+    current_teams, season_matches, teams_known = resolve_current_teams(df, top_flight, current_season)
+    played = len(season_matches)
+    total_fixtures = TEAMS_PER_SEASON * (TEAMS_PER_SEASON - 1)
+    project_current = teams_known and played < total_fixtures
 
-    if len(current_teams) != TEAMS_PER_SEASON:
-        print(f"WARNING: found {len(current_teams)} teams in {season_label}, expected {TEAMS_PER_SEASON}")
-
-    if played < total_fixtures:
+    if project_current:
         print(f"\n{season_label} is in progress: {played} of {total_fixtures} matches played")
         print(f"Simulating the remaining {total_fixtures - played} fixtures {N_SIMULATIONS} times, "
               f"then {N_FUTURE_SEASONS} further seasons")
-    else:
+    elif teams_known:
         print(f"\n{season_label} is complete, simulating {N_FUTURE_SEASONS} future seasons {N_SIMULATIONS} times")
+    else:
+        print(f"\n{season_label} has only just started, projecting full seasons with last season's clubs")
 
-    matches_df, table_df = run_simulations(
+    table_df = run_simulations(
         final_model, df, current_season, current_teams, elo_ratings,
         n_future_seasons=N_FUTURE_SEASONS, n_simulations=N_SIMULATIONS,
+        project_current=project_current,
     )
     projection = summarize_simulations(table_df, current_teams, N_SIMULATIONS)
 
     os.makedirs("predictions", exist_ok=True)
-    matches_df.to_csv(PRED_MATCHES_PATH, index=False)
     projection.to_csv(PRED_TABLE_PATH, index=False)
 
-    headline_season = current_season if played < total_fixtures else current_season + 1
+    headline_season = current_season if project_current else current_season + 1
     headline = projection[projection['Season'] == headline_season]
     label = f"{headline_season}-{str(headline_season + 1)[-2:]}"
     print(f"\nProjected final {label} table (average of {N_SIMULATIONS} simulations)")
     display = headline[['Rank', 'Team', 'Points', 'Wins', 'Draws', 'Losses', 'GoalDiff', 'TitleProb', 'Top4Prob', 'RelegationProb']]
     print(display.to_string(index=False))
 
-    if played < total_fixtures:
+    if project_current:
         status_line = f"{played} of {total_fixtures} matches played. Remaining fixtures simulated {N_SIMULATIONS} times."
-    else:
+        standings = actual_table(season_matches, current_teams)
+        form = recent_form(season_matches, df, current_teams)
+        history_rows = record_history(projection, headline_season, played)
+    elif teams_known:
         status_line = f"Season complete. Following seasons simulated {N_SIMULATIONS} times."
+        standings = None
+        form = None
+        history_rows = None
+    else:
+        status_line = (f"{season_label} has only just begun and its line-up is not confirmed in the data yet, "
+                       f"so this shows the season after.")
+        standings = None
+        form = None
+        history_rows = None
 
     accuracy_text = f"{metrics['accuracy'] * 100:.1f}%" if metrics else "n/a"
     write_dashboard(projection, headline_season, {
         'status_line': status_line,
-        'played': played,
+        'played': played if project_current else 0,
         'total': total_fixtures,
         'simulations': N_SIMULATIONS,
         'accuracy': accuracy_text,
         'last_match_date': df['match_date'].max(),
+        'standings': standings,
+        'form': form,
+        'history': history_rows,
     }, DASHBOARD_PATH)
 
-    print(f"\nSaved simulated matches to {PRED_MATCHES_PATH}")
-    print(f"Saved projected standings to {PRED_TABLE_PATH}")
+    print(f"\nSaved projected standings to {PRED_TABLE_PATH}")
+    if history_rows is not None:
+        print(f"Saved probability history to {HISTORY_PATH}")
     print(f"Saved dashboard to {DASHBOARD_PATH}")
     print("All done")
 

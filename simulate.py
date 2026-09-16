@@ -236,7 +236,7 @@ def build_fixture_features(pairs, state, h2h_state, prev_tier_map):
         })
     return pd.DataFrame(rows)
 
-def play_rounds(model, rounds, state, h2h_state, prev_tier_map, table, rng, season_label, match_sink=None):
+def play_rounds(model, rounds, state, h2h_state, prev_tier_map, table, rng, season_label):
     for pairs in rounds:
         if not pairs:
             continue
@@ -261,16 +261,6 @@ def play_rounds(model, rounds, state, h2h_state, prev_tier_map, table, rng, seas
             _update_elo(state, home, away, hg, ag)
             _update_form(state, home, away, hg, ag, home_sot, away_sot)
             _update_h2h(h2h_state, home, away, hg, ag)
-
-            if match_sink is not None:
-                match_sink.append({
-                    'season': season_label,
-                    'home_team': home,
-                    'away_team': away,
-                    'predicted_result': result,
-                    'home_goals': hg,
-                    'away_goals': ag,
-                })
     return table
 
 def _table_rows(table, teams, season_label, sim_index):
@@ -285,44 +275,36 @@ def _table_rows(table, teams, season_label, sim_index):
     return rows
 
 def run_simulations(model, history, current_season, current_teams, elo_ratings,
-                    n_future_seasons, n_simulations, seed=42):
+                    n_future_seasons, n_simulations, project_current=True, seed=42):
     rng = np.random.default_rng(seed)
     top_flight = history[history['division'] == 'Premier League']
     season_matches = top_flight[top_flight['season'] == current_season]
-    played_matches = len(season_matches)
-    season_complete = played_matches >= len(current_teams) * (len(current_teams) - 1)
 
     from features import team_prev_tier_map
     current_prev_tier = team_prev_tier_map(history, current_season)
     future_prev_tier = {t: 1.0 for t in current_teams}
 
-    history_before = history[history['season'] < current_season] if season_complete else history
-    all_match_rows = []
     all_table_rows = []
 
     for sim in range(n_simulations):
         state = init_simulation_state(history, elo_ratings, current_teams)
         h2h_state = init_h2h_state(history, current_teams)
-        sink = all_match_rows if sim == 0 else None
 
-        if not season_complete:
+        if project_current:
             table = table_from_results(season_matches, current_teams)
             fixtures = remaining_fixtures(season_matches, current_teams)
             rounds = group_into_rounds(fixtures, rng)
-            play_rounds(model, rounds, state, h2h_state, current_prev_tier, table, rng, current_season, sink)
+            play_rounds(model, rounds, state, h2h_state, current_prev_tier, table, rng, current_season)
             all_table_rows.extend(_table_rows(table, current_teams, current_season, sim))
-            next_season = current_season + 1
-        else:
-            next_season = current_season + 1
 
         for offset in range(n_future_seasons):
-            season_label = next_season + offset
+            season_label = current_season + 1 + offset
             table = empty_table(current_teams)
             rounds = round_robin_schedule(current_teams, rng)
-            play_rounds(model, rounds, state, h2h_state, future_prev_tier, table, rng, season_label, sink)
+            play_rounds(model, rounds, state, h2h_state, future_prev_tier, table, rng, season_label)
             all_table_rows.extend(_table_rows(table, current_teams, season_label, sim))
 
-    return pd.DataFrame(all_match_rows), pd.DataFrame(all_table_rows)
+    return pd.DataFrame(all_table_rows)
 
 def summarize_simulations(table_df, current_teams, n_simulations):
     summary = table_df.groupby(['Season', 'Team']).agg(
