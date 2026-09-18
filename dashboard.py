@@ -158,7 +158,7 @@ def _title_race_chart(history, season):
         return ''
     return (f'<h2>Title race</h2><div class="chart">{"".join(parts)}'
             f'<div class="keys">{"".join(keys)}</div></div>'
-            f'<p class="legend">Probability of winning the league, recorded after each weekly update.</p>')
+            f'<p class="legend">Probability of winning the league, recorded after each update.</p>')
 
 
 def _main_table(projection, headline_season, standings, form):

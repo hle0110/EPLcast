@@ -187,6 +187,9 @@ def record_history(projection, season, matches_played, path=HISTORY_PATH):
     snapshot.insert(2, 'matches_played', matches_played)
     if os.path.exists(path):
         existing = pd.read_csv(path)
+        prior = existing[existing['season'] == season]
+        if len(prior) and int(prior['matches_played'].max()) == matches_played:
+            return existing
         existing = existing[~((existing['recorded_on'] == today) & (existing['season'] == season))]
         snapshot = pd.concat([existing, snapshot], ignore_index=True)
     snapshot.to_csv(path, index=False)

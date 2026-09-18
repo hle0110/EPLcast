@@ -2,11 +2,11 @@
 
 Premier League match prediction and season projection.
 
-**[Live table](https://hle0110.github.io/EPLcast/)**, updated automatically every week.
+**[Live table](https://hle0110.github.io/EPLcast/)**, updated automatically twice a week.
 
 ## What it does
 
-Points already won are taken from real results, and every remaining fixture is simulated 40 times to project how the season finishes, with title, top four and relegation probabilities. The page also shows the live table, recent form and how the title race has shifted week by week. Once a season ends the projection rolls forward to the next one.
+Points already won are taken from real results, and every remaining fixture is simulated 40 times to project how the season finishes, with title, top four and relegation probabilities. The page also shows the live table, recent form and how the title race has shifted over the season. Once a season ends the projection rolls forward to the next one.
 
 The model is trained on every match in the top four English divisions since the 2021/22 season, using Elo ratings, rolling 9 match form, shots on target, head to head records and last season's division.
 
@@ -22,7 +22,7 @@ Measured over 1,730 held out matches, training only on games played before each 
 
 ## Staying current
 
-A GitHub Actions workflow runs every Tuesday on GitHub's servers. It downloads the past week's results from football data co uk, retrains, rebuilds the projection and publishes the updated page. No local machine involved.
+A GitHub Actions workflow runs every Tuesday and Friday on GitHub's servers. Tuesday picks up the weekend round, Friday picks up midweek fixtures, which account for about a fifth of all matches across the four divisions. It downloads the latest results from football data co uk, retrains, rebuilds the projection and publishes the updated page. No local machine involved.
 
 ## Running locally
 
@@ -32,9 +32,9 @@ python update_data.py
 python main.py
 ```
 
-Needs pandas, numpy, scikit learn and joblib. A full run takes about 15 seconds and writes `docs/index.html`, `predictions/epl_season_projection.csv` and `predictions/probability_history.csv`, which records each week's probabilities so the title race chart can be drawn.
+Needs pandas, numpy, scikit learn and joblib. A full run takes about 15 seconds and writes `docs/index.html`, `predictions/epl_season_projection.csv` and `predictions/probability_history.csv`, which records the probabilities whenever new matches have been played, so the title race chart can be drawn.
 
-Tests run with `python -m pytest tests`, covering data integrity, projection maths, feature leakage and the fetch exit codes. The weekly workflow runs them too.
+Tests run with `python -m pytest tests`, covering data integrity, projection maths, feature leakage and the fetch exit codes. The scheduled workflow runs them too.
 
 ## Limitations
 
