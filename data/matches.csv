@@ -10300,146 +10300,149 @@ key_id,season_id,season,tier,division,match_id,match_name,match_date,home_team_i
 10299,S-2026-2,2026,2,Championship,M-2026-2-079,Swansea City vs Burnley,2026-09-12,T-087,Swansea City,T-018,Burnley,3-1,3,1,2,-2,home team win,1,0,0,13,18,6,6,3,6,7,7,2,1,0,0
 10300,S-2026-2,2026,2,Championship,M-2026-2-080,Watford vs Stoke City,2026-09-12,T-092,Watford,T-084,Stoke City,1-2,1,2,-1,1,away team win,0,1,0,6,18,2,6,5,8,14,6,2,2,0,0
 10301,S-2026-2,2026,2,Championship,M-2026-2-081,Sheffield United vs Wolverhampton Wanderers,2026-09-13,T-078,Sheffield United,T-097,Wolverhampton Wanderers,0-1,0,1,-1,1,away team win,0,1,0,6,17,2,3,0,9,12,15,2,1,0,0
-10302,S-2026-3,2026,3,League One,M-2026-3-001,Notts County vs Leicester City,2026-08-15,T-064,Notts County,T-047,Leicester City,1-1,1,1,0,0,draw,0,0,1,16,11,2,2,3,5,15,11,2,1,0,0
-10303,S-2026-3,2026,3,League One,M-2026-3-002,Oxford United vs Milton Keynes Dons,2026-08-15,T-066,Oxford United,T-057,Milton Keynes Dons,2-2,2,2,0,0,draw,0,0,1,17,24,4,6,8,9,14,14,2,3,0,0
-10304,S-2026-3,2026,3,League One,M-2026-3-003,Reading vs Luton Town,2026-08-15,T-073,Reading,T-051,Luton Town,3-4,3,4,-1,1,away team win,0,1,0,17,12,5,5,5,2,12,11,1,2,0,0
-10305,S-2026-3,2026,3,League One,M-2026-3-004,Barnsley vs Bromley,2026-08-15,T-005,Barnsley,T-017,Bromley,0-1,0,1,-1,1,away team win,0,1,0,22,12,8,3,12,2,12,11,3,2,0,0
-10306,S-2026-3,2026,3,League One,M-2026-3-005,Blackpool vs Wycombe Wanderers,2026-08-15,T-009,Blackpool,T-099,Wycombe Wanderers,1-1,1,1,0,0,draw,0,0,1,20,11,7,4,5,4,11,15,2,3,0,0
-10307,S-2026-3,2026,3,League One,M-2026-3-006,Bradford City vs Peterborough United,2026-08-15,T-012,Bradford City,T-067,Peterborough United,2-0,2,0,2,-2,home team win,1,0,0,17,7,5,2,7,3,16,13,2,3,0,1
-10308,S-2026-3,2026,3,League One,M-2026-3-007,Burton Albion vs Stevenage,2026-08-15,T-019,Burton Albion,T-082,Stevenage,1-1,1,1,0,0,draw,0,0,1,10,5,2,3,2,0,14,17,0,1,0,0
-10309,S-2026-3,2026,3,League One,M-2026-3-008,Cambridge United vs Wigan Athletic,2026-08-15,T-020,Cambridge United,T-095,Wigan Athletic,3-2,3,2,1,-1,home team win,1,0,0,17,18,6,4,8,5,9,8,1,0,0,0
-10310,S-2026-3,2026,3,League One,M-2026-3-009,Huddersfield Town vs Wimbledon,2026-08-15,T-043,Huddersfield Town,T-096,Wimbledon,3-0,3,0,3,-3,home team win,1,0,0,10,10,3,1,4,5,9,7,1,2,1,0
-10311,S-2026-3,2026,3,League One,M-2026-3-010,Leyton Orient vs Sheffield Wednesday,2026-08-15,T-048,Leyton Orient,T-079,Sheffield Wednesday,1-2,1,2,-1,1,away team win,0,1,0,10,15,3,5,5,7,15,19,2,2,0,0
-10312,S-2026-3,2026,3,League One,M-2026-3-011,Mansfield Town vs Doncaster Rovers,2026-08-15,T-054,Mansfield Town,T-033,Doncaster Rovers,2-1,2,1,1,-1,home team win,1,0,0,18,9,4,4,7,1,9,10,2,1,0,0
-10313,S-2026-3,2026,3,League One,M-2026-3-012,Plymouth Argyle vs Stockport County,2026-08-15,T-068,Plymouth Argyle,T-083,Stockport County,1-3,1,3,-2,2,away team win,0,1,0,15,9,4,4,5,3,13,10,2,0,0,0
-10314,S-2026-3,2026,3,League One,M-2026-3-013,Sheffield Wednesday vs Bradford City,2026-08-20,T-079,Sheffield Wednesday,T-012,Bradford City,0-1,0,1,-1,1,away team win,0,1,0,13,10,3,4,8,9,13,10,1,1,0,0
-10315,S-2026-3,2026,3,League One,M-2026-3-014,Doncaster Rovers vs Barnsley,2026-08-22,T-033,Doncaster Rovers,T-005,Barnsley,0-0,0,0,0,0,draw,0,0,1,12,13,3,1,4,4,13,11,1,1,0,0
-10316,S-2026-3,2026,3,League One,M-2026-3-015,Luton Town vs Notts County,2026-08-22,T-051,Luton Town,T-064,Notts County,2-2,2,2,0,0,draw,0,0,1,14,6,4,4,8,3,15,18,5,3,0,0
-10317,S-2026-3,2026,3,League One,M-2026-3-016,Wimbledon vs Reading,2026-08-22,T-096,Wimbledon,T-073,Reading,0-0,0,0,0,0,draw,0,0,1,4,12,2,3,7,7,15,13,2,3,0,0
-10318,S-2026-3,2026,3,League One,M-2026-3-017,Bromley vs Cambridge United,2026-08-22,T-017,Bromley,T-020,Cambridge United,1-1,1,1,0,0,draw,0,0,1,8,11,3,6,2,5,15,5,1,2,0,0
-10319,S-2026-3,2026,3,League One,M-2026-3-018,Leicester City vs Burton Albion,2026-08-22,T-047,Leicester City,T-019,Burton Albion,1-2,1,2,-1,1,away team win,0,1,0,13,13,3,6,5,3,13,19,1,3,1,0
-10320,S-2026-3,2026,3,League One,M-2026-3-019,Milton Keynes Dons vs Huddersfield Town,2026-08-22,T-057,Milton Keynes Dons,T-043,Huddersfield Town,1-1,1,1,0,0,draw,0,0,1,15,18,3,8,3,4,6,14,1,2,0,0
-10321,S-2026-3,2026,3,League One,M-2026-3-020,Peterborough United vs Mansfield Town,2026-08-22,T-067,Peterborough United,T-054,Mansfield Town,2-1,2,1,1,-1,home team win,1,0,0,15,10,5,4,6,3,9,18,2,2,0,0
-10322,S-2026-3,2026,3,League One,M-2026-3-021,Stevenage vs Oxford United,2026-08-22,T-082,Stevenage,T-066,Oxford United,1-2,1,2,-1,1,away team win,0,1,0,14,12,3,5,6,6,22,22,1,4,0,0
-10323,S-2026-3,2026,3,League One,M-2026-3-022,Stockport County vs Blackpool,2026-08-22,T-083,Stockport County,T-009,Blackpool,1-2,1,2,-1,1,away team win,0,1,0,28,10,9,3,14,2,8,7,2,1,0,0
-10324,S-2026-3,2026,3,League One,M-2026-3-023,Wigan Athletic vs Leyton Orient,2026-08-22,T-095,Wigan Athletic,T-048,Leyton Orient,0-2,0,2,-2,2,away team win,0,1,0,16,9,2,3,4,3,11,17,1,3,0,0
-10325,S-2026-3,2026,3,League One,M-2026-3-024,Wycombe Wanderers vs Plymouth Argyle,2026-08-22,T-099,Wycombe Wanderers,T-068,Plymouth Argyle,1-1,1,1,0,0,draw,0,0,1,14,12,5,3,5,5,10,15,1,3,0,0
-10326,S-2026-3,2026,3,League One,M-2026-3-025,Blackpool vs Peterborough United,2026-08-29,T-009,Blackpool,T-067,Peterborough United,4-0,4,0,4,-4,home team win,1,0,0,17,15,11,6,3,5,12,9,0,0,0,0
-10327,S-2026-3,2026,3,League One,M-2026-3-026,Milton Keynes Dons vs Leicester City,2026-08-29,T-057,Milton Keynes Dons,T-047,Leicester City,0-0,0,0,0,0,draw,0,0,1,7,24,1,7,4,9,9,6,0,3,0,0
-10328,S-2026-3,2026,3,League One,M-2026-3-027,Cambridge United vs Huddersfield Town,2026-08-29,T-020,Cambridge United,T-043,Huddersfield Town,1-2,1,2,-1,1,away team win,0,1,0,11,6,4,4,4,3,14,13,2,0,0,0
-10329,S-2026-3,2026,3,League One,M-2026-3-028,Leyton Orient vs Barnsley,2026-08-29,T-048,Leyton Orient,T-005,Barnsley,1-3,1,3,-2,2,away team win,0,1,0,7,16,3,7,4,9,12,14,4,4,0,0
-10330,S-2026-3,2026,3,League One,M-2026-3-029,Notts County vs Burton Albion,2026-08-29,T-064,Notts County,T-019,Burton Albion,2-1,2,1,1,-1,home team win,1,0,0,20,2,8,1,7,1,13,22,1,4,0,1
-10331,S-2026-3,2026,3,League One,M-2026-3-030,Plymouth Argyle vs Bradford City,2026-08-29,T-068,Plymouth Argyle,T-012,Bradford City,2-0,2,0,2,-2,home team win,1,0,0,14,4,3,0,8,6,14,15,1,2,0,0
-10332,S-2026-3,2026,3,League One,M-2026-3-031,Sheffield Wednesday vs Bromley,2026-08-29,T-079,Sheffield Wednesday,T-017,Bromley,7-2,7,2,5,-5,home team win,1,0,0,29,7,15,2,5,3,10,18,1,2,0,0
-10333,S-2026-3,2026,3,League One,M-2026-3-032,Stevenage vs Doncaster Rovers,2026-08-29,T-082,Stevenage,T-033,Doncaster Rovers,2-2,2,2,0,0,draw,0,0,1,9,12,5,4,9,9,9,16,0,3,0,0
-10334,S-2026-3,2026,3,League One,M-2026-3-033,Stockport County vs Wycombe Wanderers,2026-08-29,T-083,Stockport County,T-099,Wycombe Wanderers,5-1,5,1,4,-4,home team win,1,0,0,17,7,7,5,6,5,6,8,0,0,0,0
-10335,S-2026-3,2026,3,League One,M-2026-3-034,Wimbledon vs Wigan Athletic,2026-08-30,T-096,Wimbledon,T-095,Wigan Athletic,1-0,1,0,1,-1,home team win,1,0,0,13,16,2,5,5,9,14,11,4,4,0,0
-10336,S-2026-3,2026,3,League One,M-2026-3-035,Mansfield Town vs Luton Town,2026-08-30,T-054,Mansfield Town,T-051,Luton Town,5-2,5,2,3,-3,home team win,1,0,0,21,12,6,4,4,7,13,13,4,2,0,0
-10337,S-2026-3,2026,3,League One,M-2026-3-036,Bradford City vs Cambridge United,2026-09-01,T-012,Bradford City,T-020,Cambridge United,1-2,1,2,-1,1,away team win,0,1,0,20,6,5,2,12,3,10,8,1,0,0,0
-10338,S-2026-3,2026,3,League One,M-2026-3-037,Bromley vs Leyton Orient,2026-09-01,T-017,Bromley,T-048,Leyton Orient,0-5,0,5,-5,5,away team win,0,1,0,8,19,2,11,2,4,16,13,3,2,0,0
-10339,S-2026-3,2026,3,League One,M-2026-3-038,Doncaster Rovers vs Notts County,2026-09-01,T-033,Doncaster Rovers,T-064,Notts County,1-1,1,1,0,0,draw,0,0,1,14,14,2,3,4,6,11,11,2,3,0,0
-10340,S-2026-3,2026,3,League One,M-2026-3-039,Huddersfield Town vs Oxford United,2026-09-01,T-043,Huddersfield Town,T-066,Oxford United,3-1,3,1,2,-2,home team win,1,0,0,24,5,11,2,5,0,13,13,2,2,0,0
-10341,S-2026-3,2026,3,League One,M-2026-3-040,Leicester City vs Plymouth Argyle,2026-09-01,T-047,Leicester City,T-068,Plymouth Argyle,2-0,2,0,2,-2,home team win,1,0,0,18,13,5,4,5,9,5,16,3,1,0,0
-10342,S-2026-3,2026,3,League One,M-2026-3-041,Peterborough United vs Stevenage,2026-09-01,T-067,Peterborough United,T-082,Stevenage,0-0,0,0,0,0,draw,0,0,1,9,11,0,4,3,3,8,10,1,1,0,0
-10343,S-2026-3,2026,3,League One,M-2026-3-042,Wycombe Wanderers vs Sheffield Wednesday,2026-09-01,T-099,Wycombe Wanderers,T-079,Sheffield Wednesday,1-2,1,2,-1,1,away team win,0,1,0,14,16,6,7,6,6,9,16,1,2,0,0
-10344,S-2026-3,2026,3,League One,M-2026-3-043,Barnsley vs Blackpool,2026-09-02,T-005,Barnsley,T-009,Blackpool,2-1,2,1,1,-1,home team win,1,0,0,24,18,6,4,13,4,9,7,3,4,0,0
-10345,S-2026-3,2026,3,League One,M-2026-3-044,Burton Albion vs Wimbledon,2026-09-02,T-019,Burton Albion,T-096,Wimbledon,4-1,4,1,3,-3,home team win,1,0,0,10,19,5,4,4,7,8,14,1,1,0,0
-10346,S-2026-3,2026,3,League One,M-2026-3-045,Luton Town vs Stockport County,2026-09-02,T-051,Luton Town,T-083,Stockport County,2-0,2,0,2,-2,home team win,1,0,0,7,11,5,2,2,8,7,13,1,1,0,0
-10347,S-2026-3,2026,3,League One,M-2026-3-046,Wigan Athletic vs Milton Keynes Dons,2026-09-02,T-095,Wigan Athletic,T-057,Milton Keynes Dons,3-1,3,1,2,-2,home team win,1,0,0,19,18,6,4,5,5,11,11,2,2,0,0
-10348,S-2026-3,2026,3,League One,M-2026-3-047,Reading vs Mansfield Town,2026-09-02,T-073,Reading,T-054,Mansfield Town,5-0,5,0,5,-5,home team win,1,0,0,20,11,7,5,5,2,9,16,1,0,0,0
-10349,S-2026-3,2026,3,League One,M-2026-3-048,Peterborough United vs Sheffield Wednesday,2026-09-05,T-067,Peterborough United,T-079,Sheffield Wednesday,1-2,1,2,-1,1,away team win,0,1,0,20,13,3,5,4,9,9,10,2,3,0,0
-10350,S-2026-3,2026,3,League One,M-2026-3-049,Wigan Athletic vs Stockport County,2026-09-05,T-095,Wigan Athletic,T-083,Stockport County,0-4,0,4,-4,4,away team win,0,1,0,9,16,1,8,6,5,10,10,2,1,0,0
-10351,S-2026-3,2026,3,League One,M-2026-3-050,Barnsley vs Stevenage,2026-09-05,T-005,Barnsley,T-082,Stevenage,1-5,1,5,-4,4,away team win,0,1,0,17,10,4,5,7,3,18,9,1,2,0,0
-10352,S-2026-3,2026,3,League One,M-2026-3-051,Bradford City vs Mansfield Town,2026-09-05,T-012,Bradford City,T-054,Mansfield Town,1-0,1,0,1,-1,home team win,1,0,0,9,8,7,2,4,3,19,18,2,2,0,0
-10353,S-2026-3,2026,3,League One,M-2026-3-052,Burton Albion vs Cambridge United,2026-09-05,T-019,Burton Albion,T-020,Cambridge United,2-2,2,2,0,0,draw,0,0,1,13,10,3,3,2,7,12,18,1,2,0,0
-10354,S-2026-3,2026,3,League One,M-2026-3-053,Doncaster Rovers vs Plymouth Argyle,2026-09-05,T-033,Doncaster Rovers,T-068,Plymouth Argyle,2-3,2,3,-1,1,away team win,0,1,0,17,17,3,9,7,3,13,11,3,0,0,0
-10355,S-2026-3,2026,3,League One,M-2026-3-054,Huddersfield Town vs Notts County,2026-09-05,T-043,Huddersfield Town,T-064,Notts County,1-1,1,1,0,0,draw,0,0,1,18,9,7,3,9,6,9,15,1,2,0,0
-10356,S-2026-3,2026,3,League One,M-2026-3-055,Leicester City vs Oxford United,2026-09-05,T-047,Leicester City,T-066,Oxford United,0-4,0,4,-4,4,away team win,0,1,0,14,12,5,6,10,5,11,16,1,1,0,0
-10357,S-2026-3,2026,3,League One,M-2026-3-056,Luton Town vs Leyton Orient,2026-09-05,T-051,Luton Town,T-048,Leyton Orient,1-1,1,1,0,0,draw,0,0,1,23,7,7,3,7,2,9,12,2,4,0,0
-10358,S-2026-3,2026,3,League One,M-2026-3-057,Reading vs Blackpool,2026-09-05,T-073,Reading,T-009,Blackpool,3-1,3,1,2,-2,home team win,1,0,0,19,8,6,1,6,3,12,11,0,1,0,0
-10359,S-2026-3,2026,3,League One,M-2026-3-058,Wycombe Wanderers vs Milton Keynes Dons,2026-09-05,T-099,Wycombe Wanderers,T-057,Milton Keynes Dons,3-3,3,3,0,0,draw,0,0,1,9,12,7,5,5,5,9,18,0,3,0,0
-10360,S-2026-3,2026,3,League One,M-2026-3-059,Bromley vs Wimbledon,2026-09-07,T-017,Bromley,T-096,Wimbledon,0-2,0,2,-2,2,away team win,0,1,0,9,9,2,4,4,4,16,17,1,1,0,0
-10361,S-2026-3,2026,3,League One,M-2026-3-060,Stevenage vs Luton Town,2026-09-10,T-082,Stevenage,T-051,Luton Town,2-1,2,1,1,-1,home team win,1,0,0,9,10,3,2,2,4,15,10,5,2,0,0
-10362,S-2026-3,2026,3,League One,M-2026-3-061,Leyton Orient vs Wycombe Wanderers,2026-09-12,T-048,Leyton Orient,T-099,Wycombe Wanderers,2-3,2,3,-1,1,away team win,0,1,0,14,14,4,7,6,9,8,12,0,3,0,0
-10363,S-2026-3,2026,3,League One,M-2026-3-062,Notts County vs Bradford City,2026-09-12,T-064,Notts County,T-012,Bradford City,0-1,0,1,-1,1,away team win,0,1,0,9,8,1,3,5,4,12,19,4,4,0,0
-10364,S-2026-3,2026,3,League One,M-2026-3-063,Wimbledon vs Doncaster Rovers,2026-09-12,T-096,Wimbledon,T-033,Doncaster Rovers,1-0,1,0,1,-1,home team win,1,0,0,11,22,3,9,6,6,15,6,2,3,0,0
-10365,S-2026-3,2026,3,League One,M-2026-3-064,Blackpool vs Bromley,2026-09-12,T-009,Blackpool,T-017,Bromley,2-2,2,2,0,0,draw,0,0,1,18,15,4,8,12,6,13,14,0,1,0,0
-10366,S-2026-3,2026,3,League One,M-2026-3-065,Cambridge United vs Reading,2026-09-12,T-020,Cambridge United,T-073,Reading,2-1,2,1,1,-1,home team win,1,0,0,11,19,5,4,7,3,8,11,2,1,0,0
-10367,S-2026-3,2026,3,League One,M-2026-3-066,Mansfield Town vs Huddersfield Town,2026-09-12,T-054,Mansfield Town,T-043,Huddersfield Town,0-0,0,0,0,0,draw,0,0,1,9,19,1,2,2,6,10,14,1,0,1,0
-10368,S-2026-3,2026,3,League One,M-2026-3-067,Milton Keynes Dons vs Peterborough United,2026-09-12,T-057,Milton Keynes Dons,T-067,Peterborough United,1-1,1,1,0,0,draw,0,0,1,14,17,2,3,6,9,11,7,2,0,0,0
-10369,S-2026-3,2026,3,League One,M-2026-3-068,Oxford United vs Burton Albion,2026-09-12,T-066,Oxford United,T-019,Burton Albion,3-0,3,0,3,-3,home team win,1,0,0,11,9,5,2,2,5,14,16,1,1,0,0
-10370,S-2026-3,2026,3,League One,M-2026-3-069,Plymouth Argyle vs Barnsley,2026-09-12,T-068,Plymouth Argyle,T-005,Barnsley,3-0,3,0,3,-3,home team win,1,0,0,7,15,4,0,4,8,13,12,2,2,0,0
-10371,S-2026-3,2026,3,League One,M-2026-3-070,Sheffield Wednesday vs Wigan Athletic,2026-09-12,T-079,Sheffield Wednesday,T-095,Wigan Athletic,0-0,0,0,0,0,draw,0,0,1,12,13,3,2,8,7,7,8,2,3,0,0
-10372,S-2026-3,2026,3,League One,M-2026-3-071,Stockport County vs Leicester City,2026-09-12,T-083,Stockport County,T-047,Leicester City,3-4,3,4,-1,1,away team win,0,1,0,18,9,5,5,8,1,7,10,2,1,0,0
-10373,S-2026-4,2026,4,League Two,M-2026-4-001,Newport County vs Rochdale,2026-08-15,T-060,Newport County,T-074,Rochdale,3-0,3,0,3,-3,home team win,1,0,0,12,5,6,0,9,6,11,14,2,4,0,1
-10374,S-2026-4,2026,4,League Two,M-2026-4-002,Oldham Athletic vs Port Vale,2026-08-15,T-065,Oldham Athletic,T-069,Port Vale,2-0,2,0,2,-2,home team win,1,0,0,11,13,3,2,1,6,12,16,2,4,0,0
-10375,S-2026-4,2026,4,League Two,M-2026-4-003,Accrington Stanley vs Colchester United,2026-08-15,T-001,Accrington Stanley,T-027,Colchester United,2-2,2,2,0,0,draw,0,0,1,20,7,11,5,9,4,20,10,1,0,0,0
-10376,S-2026-4,2026,4,League Two,M-2026-4-004,Barnet vs Salford City,2026-08-15,T-004,Barnet,T-076,Salford City,3-1,3,1,2,-2,home team win,1,0,0,20,14,7,3,6,5,20,12,2,3,0,0
-10377,S-2026-4,2026,4,League Two,M-2026-4-005,Cheltenham Town vs Rotherham United,2026-08-15,T-025,Cheltenham Town,T-075,Rotherham United,2-1,2,1,1,-1,home team win,1,0,0,6,19,4,5,5,4,10,11,3,1,0,0
-10378,S-2026-4,2026,4,League Two,M-2026-4-006,Chesterfield vs Fleetwood Town,2026-08-15,T-026,Chesterfield,T-036,Fleetwood Town,0-1,0,1,-1,1,away team win,0,1,0,15,14,3,7,5,1,8,14,1,3,0,0
-10379,S-2026-4,2026,4,League Two,M-2026-4-007,Crawley Town vs Crewe Alexandra,2026-08-15,T-029,Crawley Town,T-030,Crewe Alexandra,0-1,0,1,-1,1,away team win,0,1,0,9,18,3,4,4,11,6,18,2,5,2,1
-10380,S-2026-4,2026,4,League Two,M-2026-4-008,Gillingham vs Walsall,2026-08-15,T-039,Gillingham,T-091,Walsall,0-3,0,3,-3,3,away team win,0,1,0,17,17,7,5,6,9,12,8,4,2,0,0
-10381,S-2026-4,2026,4,League Two,M-2026-4-009,Grimsby Town vs Exeter City,2026-08-15,T-040,Grimsby Town,T-035,Exeter City,1-0,1,0,1,-1,home team win,1,0,0,21,8,4,2,6,3,15,8,1,1,0,0
-10382,S-2026-4,2026,4,League Two,M-2026-4-010,Northampton Town vs Swindon Town,2026-08-15,T-061,Northampton Town,T-088,Swindon Town,0-0,0,0,0,0,draw,0,0,1,11,4,3,0,10,1,7,6,0,2,0,0
-10383,S-2026-4,2026,4,League Two,M-2026-4-011,Tranmere Rovers vs Shrewsbury Town,2026-08-15,T-090,Tranmere Rovers,T-080,Shrewsbury Town,2-0,2,0,2,-2,home team win,1,0,0,7,15,4,5,3,5,15,11,3,2,0,0
-10384,S-2026-4,2026,4,League Two,M-2026-4-012,York City vs Bristol Rovers,2026-08-15,T-100,York City,T-016,Bristol Rovers,3-2,3,2,1,-1,home team win,1,0,0,16,13,5,3,7,6,9,10,2,0,0,0
-10385,S-2026-4,2026,4,League Two,M-2026-4-013,Bristol Rovers vs Newport County,2026-08-22,T-016,Bristol Rovers,T-060,Newport County,5-3,5,3,2,-2,home team win,1,0,0,26,8,9,3,11,1,6,8,2,1,0,0
-10386,S-2026-4,2026,4,League Two,M-2026-4-014,Salford City vs Chesterfield,2026-08-22,T-076,Salford City,T-026,Chesterfield,0-1,0,1,-1,1,away team win,0,1,0,10,14,3,3,5,1,12,17,2,3,0,0
-10387,S-2026-4,2026,4,League Two,M-2026-4-015,Walsall vs Grimsby Town,2026-08-22,T-091,Walsall,T-040,Grimsby Town,0-0,0,0,0,0,draw,0,0,1,16,13,2,1,8,7,12,15,1,1,0,0
-10388,S-2026-4,2026,4,League Two,M-2026-4-016,Colchester United vs Oldham Athletic,2026-08-22,T-027,Colchester United,T-065,Oldham Athletic,2-1,2,1,1,-1,home team win,1,0,0,17,6,5,2,8,2,14,17,2,5,0,1
-10389,S-2026-4,2026,4,League Two,M-2026-4-017,Crewe Alexandra vs Northampton Town,2026-08-22,T-030,Crewe Alexandra,T-061,Northampton Town,1-0,1,0,1,-1,home team win,1,0,0,6,15,3,6,7,6,14,12,1,1,0,0
-10390,S-2026-4,2026,4,League Two,M-2026-4-018,Exeter City vs Accrington Stanley,2026-08-22,T-035,Exeter City,T-001,Accrington Stanley,2-0,2,0,2,-2,home team win,1,0,0,19,14,5,2,9,1,13,12,3,2,0,0
-10391,S-2026-4,2026,4,League Two,M-2026-4-019,Fleetwood Town vs Gillingham,2026-08-22,T-036,Fleetwood Town,T-039,Gillingham,0-0,0,0,0,0,draw,0,0,1,17,9,0,3,10,2,13,15,1,2,0,0
-10392,S-2026-4,2026,4,League Two,M-2026-4-020,Port Vale vs Tranmere Rovers,2026-08-22,T-069,Port Vale,T-090,Tranmere Rovers,1-1,1,1,0,0,draw,0,0,1,9,6,4,4,4,3,19,17,2,3,0,0
-10393,S-2026-4,2026,4,League Two,M-2026-4-021,Rochdale vs Crawley Town,2026-08-22,T-074,Rochdale,T-029,Crawley Town,1-2,1,2,-1,1,away team win,0,1,0,7,12,3,2,5,3,12,14,4,4,0,0
-10394,S-2026-4,2026,4,League Two,M-2026-4-022,Rotherham United vs York City,2026-08-22,T-075,Rotherham United,T-100,York City,1-1,1,1,0,0,draw,0,0,1,10,17,2,5,5,9,11,5,2,0,0,0
-10395,S-2026-4,2026,4,League Two,M-2026-4-023,Shrewsbury Town vs Barnet,2026-08-22,T-080,Shrewsbury Town,T-004,Barnet,1-3,1,3,-2,2,away team win,0,1,0,10,15,1,3,7,9,14,14,1,0,0,0
-10396,S-2026-4,2026,4,League Two,M-2026-4-024,Swindon Town vs Cheltenham Town,2026-08-22,T-088,Swindon Town,T-025,Cheltenham Town,2-1,2,1,1,-1,home team win,1,0,0,5,14,3,6,2,5,7,12,1,1,0,0
-10397,S-2026-4,2026,4,League Two,M-2026-4-025,Barnet vs Cheltenham Town,2026-08-29,T-004,Barnet,T-025,Cheltenham Town,2-2,2,2,0,0,draw,0,0,1,14,9,3,5,11,4,7,19,1,3,0,0
-10398,S-2026-4,2026,4,League Two,M-2026-4-026,Port Vale vs Crewe Alexandra,2026-08-29,T-069,Port Vale,T-030,Crewe Alexandra,0-0,0,0,0,0,draw,0,0,1,11,14,4,3,3,1,15,15,0,1,0,0
-10399,S-2026-4,2026,4,League Two,M-2026-4-027,Rotherham United vs Chesterfield,2026-08-29,T-075,Rotherham United,T-026,Chesterfield,2-1,2,1,1,-1,home team win,1,0,0,13,7,4,2,2,0,14,11,2,1,0,0
-10400,S-2026-4,2026,4,League Two,M-2026-4-028,Colchester United vs Rochdale,2026-08-29,T-027,Colchester United,T-074,Rochdale,1-0,1,0,1,-1,home team win,1,0,0,11,11,5,4,5,3,10,15,1,2,0,0
-10401,S-2026-4,2026,4,League Two,M-2026-4-029,Crawley Town vs Bristol Rovers,2026-08-29,T-029,Crawley Town,T-016,Bristol Rovers,0-2,0,2,-2,2,away team win,0,1,0,8,27,1,5,2,4,6,16,3,4,0,0
-10402,S-2026-4,2026,4,League Two,M-2026-4-030,Gillingham vs Northampton Town,2026-08-29,T-039,Gillingham,T-061,Northampton Town,1-1,1,1,0,0,draw,0,0,1,11,5,3,1,4,4,10,16,2,4,0,0
-10403,S-2026-4,2026,4,League Two,M-2026-4-031,Grimsby Town vs Fleetwood Town,2026-08-29,T-040,Grimsby Town,T-036,Fleetwood Town,2-2,2,2,0,0,draw,0,0,1,15,11,5,4,7,5,15,11,2,4,0,0
-10404,S-2026-4,2026,4,League Two,M-2026-4-032,Newport County vs Tranmere Rovers,2026-08-29,T-060,Newport County,T-090,Tranmere Rovers,2-2,2,2,0,0,draw,0,0,1,11,15,4,5,4,6,14,11,2,2,0,0
-10405,S-2026-4,2026,4,League Two,M-2026-4-033,Oldham Athletic vs Swindon Town,2026-08-29,T-065,Oldham Athletic,T-088,Swindon Town,3-0,3,0,3,-3,home team win,1,0,0,26,3,9,1,14,4,6,12,0,3,0,0
-10406,S-2026-4,2026,4,League Two,M-2026-4-034,Shrewsbury Town vs Salford City,2026-08-29,T-080,Shrewsbury Town,T-076,Salford City,1-0,1,0,1,-1,home team win,1,0,0,9,13,2,1,5,3,13,11,1,0,0,0
-10407,S-2026-4,2026,4,League Two,M-2026-4-035,Walsall vs Accrington Stanley,2026-08-29,T-091,Walsall,T-001,Accrington Stanley,3-2,3,2,1,-1,home team win,1,0,0,16,22,5,6,4,4,8,18,4,3,0,0
-10408,S-2026-4,2026,4,League Two,M-2026-4-036,York City vs Exeter City,2026-08-29,T-100,York City,T-035,Exeter City,2-1,2,1,1,-1,home team win,1,0,0,11,8,8,2,7,5,12,10,2,3,0,0
-10409,S-2026-4,2026,4,League Two,M-2026-4-037,Accrington Stanley vs Grimsby Town,2026-09-01,T-001,Accrington Stanley,T-040,Grimsby Town,2-2,2,2,0,0,draw,0,0,1,12,19,5,7,2,8,9,10,4,1,0,0
-10410,S-2026-4,2026,4,League Two,M-2026-4-038,Bristol Rovers vs Colchester United,2026-09-01,T-016,Bristol Rovers,T-027,Colchester United,2-0,2,0,2,-2,home team win,1,0,0,24,13,8,1,3,2,17,9,3,1,0,0
-10411,S-2026-4,2026,4,League Two,M-2026-4-039,Cheltenham Town vs York City,2026-09-01,T-025,Cheltenham Town,T-100,York City,3-2,3,2,1,-1,home team win,1,0,0,13,20,5,5,4,4,11,6,1,0,0,0
-10412,S-2026-4,2026,4,League Two,M-2026-4-040,Chesterfield vs Gillingham,2026-09-01,T-026,Chesterfield,T-039,Gillingham,1-1,1,1,0,0,draw,0,0,1,24,7,10,1,8,2,8,12,1,2,0,0
-10413,S-2026-4,2026,4,League Two,M-2026-4-041,Crewe Alexandra vs Walsall,2026-09-01,T-030,Crewe Alexandra,T-091,Walsall,2-2,2,2,0,0,draw,0,0,1,20,14,5,4,9,4,11,14,0,2,0,0
-10414,S-2026-4,2026,4,League Two,M-2026-4-042,Exeter City vs Barnet,2026-09-01,T-035,Exeter City,T-004,Barnet,1-1,1,1,0,0,draw,0,0,1,9,10,5,4,1,2,13,12,1,4,0,0
-10415,S-2026-4,2026,4,League Two,M-2026-4-043,Fleetwood Town vs Oldham Athletic,2026-09-01,T-036,Fleetwood Town,T-065,Oldham Athletic,1-1,1,1,0,0,draw,0,0,1,16,12,3,3,7,4,12,7,1,0,0,0
-10416,S-2026-4,2026,4,League Two,M-2026-4-044,Northampton Town vs Crawley Town,2026-09-01,T-061,Northampton Town,T-029,Crawley Town,1-1,1,1,0,0,draw,0,0,1,8,22,3,5,4,4,6,9,0,2,1,0
-10417,S-2026-4,2026,4,League Two,M-2026-4-045,Rochdale vs Shrewsbury Town,2026-09-01,T-074,Rochdale,T-080,Shrewsbury Town,3-0,3,0,3,-3,home team win,1,0,0,7,16,3,5,1,3,9,11,1,4,0,0
-10418,S-2026-4,2026,4,League Two,M-2026-4-046,Salford City vs Newport County,2026-09-01,T-076,Salford City,T-060,Newport County,2-1,2,1,1,-1,home team win,1,0,0,32,4,7,2,10,0,11,19,1,3,0,0
-10419,S-2026-4,2026,4,League Two,M-2026-4-047,Swindon Town vs Port Vale,2026-09-01,T-088,Swindon Town,T-069,Port Vale,3-1,3,1,2,-2,home team win,1,0,0,14,8,6,2,10,4,10,7,1,1,0,0
-10420,S-2026-4,2026,4,League Two,M-2026-4-048,Tranmere Rovers vs Rotherham United,2026-09-01,T-090,Tranmere Rovers,T-075,Rotherham United,2-2,2,2,0,0,draw,0,0,1,12,14,4,3,2,4,9,10,3,2,1,0
-10421,S-2026-4,2026,4,League Two,M-2026-4-049,Fleetwood Town vs Shrewsbury Town,2026-09-05,T-036,Fleetwood Town,T-080,Shrewsbury Town,2-0,2,0,2,-2,home team win,1,0,0,10,10,3,1,3,4,13,15,3,5,0,0
-10422,S-2026-4,2026,4,League Two,M-2026-4-050,Salford City vs Port Vale,2026-09-05,T-076,Salford City,T-069,Port Vale,1-0,1,0,1,-1,home team win,1,0,0,8,13,2,3,6,6,11,18,1,2,0,0
-10423,S-2026-4,2026,4,League Two,M-2026-4-051,Accrington Stanley vs Crawley Town,2026-09-05,T-001,Accrington Stanley,T-029,Crawley Town,3-2,3,2,1,-1,home team win,1,0,0,10,15,4,5,1,4,21,8,4,2,0,0
-10424,S-2026-4,2026,4,League Two,M-2026-4-052,Bristol Rovers vs Rotherham United,2026-09-05,T-016,Bristol Rovers,T-075,Rotherham United,1-0,1,0,1,-1,home team win,1,0,0,12,7,5,2,10,4,9,9,1,3,0,0
-10425,S-2026-4,2026,4,League Two,M-2026-4-053,Cheltenham Town vs Grimsby Town,2026-09-05,T-025,Cheltenham Town,T-040,Grimsby Town,2-2,2,2,0,0,draw,0,0,1,8,12,4,5,3,7,8,10,1,1,0,0
-10426,S-2026-4,2026,4,League Two,M-2026-4-054,Chesterfield vs Barnet,2026-09-05,T-026,Chesterfield,T-004,Barnet,3-3,3,3,0,0,draw,0,0,1,15,23,7,6,4,8,9,19,3,3,0,0
-10427,S-2026-4,2026,4,League Two,M-2026-4-055,Crewe Alexandra vs York City,2026-09-05,T-030,Crewe Alexandra,T-100,York City,1-1,1,1,0,0,draw,0,0,1,17,27,6,6,5,9,11,10,1,2,0,0
-10428,S-2026-4,2026,4,League Two,M-2026-4-056,Exeter City vs Walsall,2026-09-05,T-035,Exeter City,T-091,Walsall,0-0,0,0,0,0,draw,0,0,1,13,8,3,2,4,8,16,20,0,1,0,0
-10429,S-2026-4,2026,4,League Two,M-2026-4-057,Northampton Town vs Newport County,2026-09-05,T-061,Northampton Town,T-060,Newport County,1-0,1,0,1,-1,home team win,1,0,0,8,4,4,2,2,0,15,11,3,2,0,0
-10430,S-2026-4,2026,4,League Two,M-2026-4-058,Rochdale vs Gillingham,2026-09-05,T-074,Rochdale,T-039,Gillingham,1-4,1,4,-3,3,away team win,0,1,0,7,16,4,6,6,6,12,12,2,1,1,0
-10431,S-2026-4,2026,4,League Two,M-2026-4-059,Swindon Town vs Colchester United,2026-09-05,T-088,Swindon Town,T-027,Colchester United,3-1,3,1,2,-2,home team win,1,0,0,14,18,6,6,4,6,8,7,2,0,0,0
-10432,S-2026-4,2026,4,League Two,M-2026-4-060,Tranmere Rovers vs Oldham Athletic,2026-09-05,T-090,Tranmere Rovers,T-065,Oldham Athletic,2-0,2,0,2,-2,home team win,1,0,0,9,22,4,6,2,10,11,16,3,2,0,0
-10433,S-2026-4,2026,4,League Two,M-2026-4-061,Crawley Town vs Cheltenham Town,2026-09-12,T-029,Crawley Town,T-025,Cheltenham Town,1-3,1,3,-2,2,away team win,0,1,0,18,9,6,3,8,3,13,11,4,2,0,0
-10434,S-2026-4,2026,4,League Two,M-2026-4-062,Grimsby Town vs Bristol Rovers,2026-09-12,T-040,Grimsby Town,T-016,Bristol Rovers,2-0,2,0,2,-2,home team win,1,0,0,8,3,3,1,8,8,9,12,2,3,0,1
-10435,S-2026-4,2026,4,League Two,M-2026-4-063,Barnet vs Accrington Stanley,2026-09-12,T-004,Barnet,T-001,Accrington Stanley,2-1,2,1,1,-1,home team win,1,0,0,15,8,5,2,6,4,9,19,0,6,0,1
-10436,S-2026-4,2026,4,League Two,M-2026-4-064,Colchester United vs Crewe Alexandra,2026-09-12,T-027,Colchester United,T-030,Crewe Alexandra,1-1,1,1,0,0,draw,0,0,1,16,9,5,1,1,3,12,17,0,1,0,0
-10437,S-2026-4,2026,4,League Two,M-2026-4-065,Gillingham vs Tranmere Rovers,2026-09-12,T-039,Gillingham,T-090,Tranmere Rovers,2-0,2,0,2,-2,home team win,1,0,0,10,15,5,3,5,5,8,10,3,2,0,0
-10438,S-2026-4,2026,4,League Two,M-2026-4-066,Newport County vs Fleetwood Town,2026-09-12,T-060,Newport County,T-036,Fleetwood Town,1-1,1,1,0,0,draw,0,0,1,16,14,2,3,9,3,10,16,0,5,0,0
-10439,S-2026-4,2026,4,League Two,M-2026-4-067,Oldham Athletic vs Chesterfield,2026-09-12,T-065,Oldham Athletic,T-026,Chesterfield,1-2,1,2,-1,1,away team win,0,1,0,8,13,6,5,1,4,16,10,2,3,0,0
-10440,S-2026-4,2026,4,League Two,M-2026-4-068,Port Vale vs Exeter City,2026-09-12,T-069,Port Vale,T-035,Exeter City,1-0,1,0,1,-1,home team win,1,0,0,14,10,4,0,6,4,14,9,3,2,0,0
-10441,S-2026-4,2026,4,League Two,M-2026-4-069,Rotherham United vs Salford City,2026-09-12,T-075,Rotherham United,T-076,Salford City,3-3,3,3,0,0,draw,0,0,1,20,10,9,5,4,3,17,12,3,3,0,1
-10442,S-2026-4,2026,4,League Two,M-2026-4-070,Shrewsbury Town vs Northampton Town,2026-09-12,T-080,Shrewsbury Town,T-061,Northampton Town,2-0,2,0,2,-2,home team win,1,0,0,11,7,4,5,1,5,16,9,1,1,0,0
-10443,S-2026-4,2026,4,League Two,M-2026-4-071,Walsall vs Rochdale,2026-09-12,T-091,Walsall,T-074,Rochdale,0-0,0,0,0,0,draw,0,0,1,24,9,7,1,7,4,9,7,1,3,0,0
-10444,S-2026-4,2026,4,League Two,M-2026-4-072,York City vs Swindon Town,2026-09-12,T-100,York City,T-088,Swindon Town,4-0,4,0,4,-4,home team win,1,0,0,20,7,9,4,6,1,5,15,1,1,0,1
+10302,S-2026-2,2026,2,Championship,M-2026-2-082,Bristol City vs Lincoln City,2026-09-15,T-015,Bristol City,T-049,Lincoln City,0-1,0,1,-1,1,away team win,0,1,0,18,9,4,3,13,4,13,19,2,5,0,0
+10303,S-2026-2,2026,2,Championship,M-2026-2-083,Middlesbrough vs Millwall,2026-09-15,T-055,Middlesbrough,T-056,Millwall,2-2,2,2,0,0,draw,0,0,1,22,11,7,4,14,1,3,12,1,1,0,0
+10304,S-2026-3,2026,3,League One,M-2026-3-001,Notts County vs Leicester City,2026-08-15,T-064,Notts County,T-047,Leicester City,1-1,1,1,0,0,draw,0,0,1,16,11,2,2,3,5,15,11,2,1,0,0
+10305,S-2026-3,2026,3,League One,M-2026-3-002,Oxford United vs Milton Keynes Dons,2026-08-15,T-066,Oxford United,T-057,Milton Keynes Dons,2-2,2,2,0,0,draw,0,0,1,17,24,4,6,8,9,14,14,2,3,0,0
+10306,S-2026-3,2026,3,League One,M-2026-3-003,Reading vs Luton Town,2026-08-15,T-073,Reading,T-051,Luton Town,3-4,3,4,-1,1,away team win,0,1,0,17,12,5,5,5,2,12,11,1,2,0,0
+10307,S-2026-3,2026,3,League One,M-2026-3-004,Barnsley vs Bromley,2026-08-15,T-005,Barnsley,T-017,Bromley,0-1,0,1,-1,1,away team win,0,1,0,22,12,8,3,12,2,12,11,3,2,0,0
+10308,S-2026-3,2026,3,League One,M-2026-3-005,Blackpool vs Wycombe Wanderers,2026-08-15,T-009,Blackpool,T-099,Wycombe Wanderers,1-1,1,1,0,0,draw,0,0,1,20,11,7,4,5,4,11,15,2,3,0,0
+10309,S-2026-3,2026,3,League One,M-2026-3-006,Bradford City vs Peterborough United,2026-08-15,T-012,Bradford City,T-067,Peterborough United,2-0,2,0,2,-2,home team win,1,0,0,17,7,5,2,7,3,16,13,2,3,0,1
+10310,S-2026-3,2026,3,League One,M-2026-3-007,Burton Albion vs Stevenage,2026-08-15,T-019,Burton Albion,T-082,Stevenage,1-1,1,1,0,0,draw,0,0,1,10,5,2,3,2,0,14,17,0,1,0,0
+10311,S-2026-3,2026,3,League One,M-2026-3-008,Cambridge United vs Wigan Athletic,2026-08-15,T-020,Cambridge United,T-095,Wigan Athletic,3-2,3,2,1,-1,home team win,1,0,0,17,18,6,4,8,5,9,8,1,0,0,0
+10312,S-2026-3,2026,3,League One,M-2026-3-009,Huddersfield Town vs Wimbledon,2026-08-15,T-043,Huddersfield Town,T-096,Wimbledon,3-0,3,0,3,-3,home team win,1,0,0,10,10,3,1,4,5,9,7,1,2,1,0
+10313,S-2026-3,2026,3,League One,M-2026-3-010,Leyton Orient vs Sheffield Wednesday,2026-08-15,T-048,Leyton Orient,T-079,Sheffield Wednesday,1-2,1,2,-1,1,away team win,0,1,0,10,15,3,5,5,7,15,19,2,2,0,0
+10314,S-2026-3,2026,3,League One,M-2026-3-011,Mansfield Town vs Doncaster Rovers,2026-08-15,T-054,Mansfield Town,T-033,Doncaster Rovers,2-1,2,1,1,-1,home team win,1,0,0,18,9,4,4,7,1,9,10,2,1,0,0
+10315,S-2026-3,2026,3,League One,M-2026-3-012,Plymouth Argyle vs Stockport County,2026-08-15,T-068,Plymouth Argyle,T-083,Stockport County,1-3,1,3,-2,2,away team win,0,1,0,15,9,4,4,5,3,13,10,2,0,0,0
+10316,S-2026-3,2026,3,League One,M-2026-3-013,Sheffield Wednesday vs Bradford City,2026-08-20,T-079,Sheffield Wednesday,T-012,Bradford City,0-1,0,1,-1,1,away team win,0,1,0,13,10,3,4,8,9,13,10,1,1,0,0
+10317,S-2026-3,2026,3,League One,M-2026-3-014,Doncaster Rovers vs Barnsley,2026-08-22,T-033,Doncaster Rovers,T-005,Barnsley,0-0,0,0,0,0,draw,0,0,1,12,13,3,1,4,4,13,11,1,1,0,0
+10318,S-2026-3,2026,3,League One,M-2026-3-015,Luton Town vs Notts County,2026-08-22,T-051,Luton Town,T-064,Notts County,2-2,2,2,0,0,draw,0,0,1,14,6,4,4,8,3,15,18,5,3,0,0
+10319,S-2026-3,2026,3,League One,M-2026-3-016,Wimbledon vs Reading,2026-08-22,T-096,Wimbledon,T-073,Reading,0-0,0,0,0,0,draw,0,0,1,4,12,2,3,7,7,15,13,2,3,0,0
+10320,S-2026-3,2026,3,League One,M-2026-3-017,Bromley vs Cambridge United,2026-08-22,T-017,Bromley,T-020,Cambridge United,1-1,1,1,0,0,draw,0,0,1,8,11,3,6,2,5,15,5,1,2,0,0
+10321,S-2026-3,2026,3,League One,M-2026-3-018,Leicester City vs Burton Albion,2026-08-22,T-047,Leicester City,T-019,Burton Albion,1-2,1,2,-1,1,away team win,0,1,0,13,13,3,6,5,3,13,19,1,3,1,0
+10322,S-2026-3,2026,3,League One,M-2026-3-019,Milton Keynes Dons vs Huddersfield Town,2026-08-22,T-057,Milton Keynes Dons,T-043,Huddersfield Town,1-1,1,1,0,0,draw,0,0,1,15,18,3,8,3,4,6,14,1,2,0,0
+10323,S-2026-3,2026,3,League One,M-2026-3-020,Peterborough United vs Mansfield Town,2026-08-22,T-067,Peterborough United,T-054,Mansfield Town,2-1,2,1,1,-1,home team win,1,0,0,15,10,5,4,6,3,9,18,2,2,0,0
+10324,S-2026-3,2026,3,League One,M-2026-3-021,Stevenage vs Oxford United,2026-08-22,T-082,Stevenage,T-066,Oxford United,1-2,1,2,-1,1,away team win,0,1,0,14,12,3,5,6,6,22,22,1,4,0,0
+10325,S-2026-3,2026,3,League One,M-2026-3-022,Stockport County vs Blackpool,2026-08-22,T-083,Stockport County,T-009,Blackpool,1-2,1,2,-1,1,away team win,0,1,0,28,10,9,3,14,2,8,7,2,1,0,0
+10326,S-2026-3,2026,3,League One,M-2026-3-023,Wigan Athletic vs Leyton Orient,2026-08-22,T-095,Wigan Athletic,T-048,Leyton Orient,0-2,0,2,-2,2,away team win,0,1,0,16,9,2,3,4,3,11,17,1,3,0,0
+10327,S-2026-3,2026,3,League One,M-2026-3-024,Wycombe Wanderers vs Plymouth Argyle,2026-08-22,T-099,Wycombe Wanderers,T-068,Plymouth Argyle,1-1,1,1,0,0,draw,0,0,1,14,12,5,3,5,5,10,15,1,3,0,0
+10328,S-2026-3,2026,3,League One,M-2026-3-025,Blackpool vs Peterborough United,2026-08-29,T-009,Blackpool,T-067,Peterborough United,4-0,4,0,4,-4,home team win,1,0,0,17,15,11,6,3,5,12,9,0,0,0,0
+10329,S-2026-3,2026,3,League One,M-2026-3-026,Milton Keynes Dons vs Leicester City,2026-08-29,T-057,Milton Keynes Dons,T-047,Leicester City,0-0,0,0,0,0,draw,0,0,1,7,24,1,7,4,9,9,6,0,3,0,0
+10330,S-2026-3,2026,3,League One,M-2026-3-027,Cambridge United vs Huddersfield Town,2026-08-29,T-020,Cambridge United,T-043,Huddersfield Town,1-2,1,2,-1,1,away team win,0,1,0,11,6,4,4,4,3,14,13,2,0,0,0
+10331,S-2026-3,2026,3,League One,M-2026-3-028,Leyton Orient vs Barnsley,2026-08-29,T-048,Leyton Orient,T-005,Barnsley,1-3,1,3,-2,2,away team win,0,1,0,7,16,3,7,4,9,12,14,4,4,0,0
+10332,S-2026-3,2026,3,League One,M-2026-3-029,Notts County vs Burton Albion,2026-08-29,T-064,Notts County,T-019,Burton Albion,2-1,2,1,1,-1,home team win,1,0,0,20,2,8,1,7,1,13,22,1,4,0,1
+10333,S-2026-3,2026,3,League One,M-2026-3-030,Plymouth Argyle vs Bradford City,2026-08-29,T-068,Plymouth Argyle,T-012,Bradford City,2-0,2,0,2,-2,home team win,1,0,0,14,4,3,0,8,6,14,15,1,2,0,0
+10334,S-2026-3,2026,3,League One,M-2026-3-031,Sheffield Wednesday vs Bromley,2026-08-29,T-079,Sheffield Wednesday,T-017,Bromley,7-2,7,2,5,-5,home team win,1,0,0,29,7,15,2,5,3,10,18,1,2,0,0
+10335,S-2026-3,2026,3,League One,M-2026-3-032,Stevenage vs Doncaster Rovers,2026-08-29,T-082,Stevenage,T-033,Doncaster Rovers,2-2,2,2,0,0,draw,0,0,1,9,12,5,4,9,9,9,16,0,3,0,0
+10336,S-2026-3,2026,3,League One,M-2026-3-033,Stockport County vs Wycombe Wanderers,2026-08-29,T-083,Stockport County,T-099,Wycombe Wanderers,5-1,5,1,4,-4,home team win,1,0,0,17,7,7,5,6,5,6,8,0,0,0,0
+10337,S-2026-3,2026,3,League One,M-2026-3-034,Wimbledon vs Wigan Athletic,2026-08-30,T-096,Wimbledon,T-095,Wigan Athletic,1-0,1,0,1,-1,home team win,1,0,0,13,16,2,5,5,9,14,11,4,4,0,0
+10338,S-2026-3,2026,3,League One,M-2026-3-035,Mansfield Town vs Luton Town,2026-08-30,T-054,Mansfield Town,T-051,Luton Town,5-2,5,2,3,-3,home team win,1,0,0,21,12,6,4,4,7,13,13,4,2,0,0
+10339,S-2026-3,2026,3,League One,M-2026-3-036,Bradford City vs Cambridge United,2026-09-01,T-012,Bradford City,T-020,Cambridge United,1-2,1,2,-1,1,away team win,0,1,0,20,6,5,2,12,3,10,8,1,0,0,0
+10340,S-2026-3,2026,3,League One,M-2026-3-037,Bromley vs Leyton Orient,2026-09-01,T-017,Bromley,T-048,Leyton Orient,0-5,0,5,-5,5,away team win,0,1,0,8,19,2,11,2,4,16,13,3,2,0,0
+10341,S-2026-3,2026,3,League One,M-2026-3-038,Doncaster Rovers vs Notts County,2026-09-01,T-033,Doncaster Rovers,T-064,Notts County,1-1,1,1,0,0,draw,0,0,1,14,14,2,3,4,6,11,11,2,3,0,0
+10342,S-2026-3,2026,3,League One,M-2026-3-039,Huddersfield Town vs Oxford United,2026-09-01,T-043,Huddersfield Town,T-066,Oxford United,3-1,3,1,2,-2,home team win,1,0,0,24,5,11,2,5,0,13,13,2,2,0,0
+10343,S-2026-3,2026,3,League One,M-2026-3-040,Leicester City vs Plymouth Argyle,2026-09-01,T-047,Leicester City,T-068,Plymouth Argyle,2-0,2,0,2,-2,home team win,1,0,0,18,13,5,4,5,9,5,16,3,1,0,0
+10344,S-2026-3,2026,3,League One,M-2026-3-041,Peterborough United vs Stevenage,2026-09-01,T-067,Peterborough United,T-082,Stevenage,0-0,0,0,0,0,draw,0,0,1,9,11,0,4,3,3,8,10,1,1,0,0
+10345,S-2026-3,2026,3,League One,M-2026-3-042,Wycombe Wanderers vs Sheffield Wednesday,2026-09-01,T-099,Wycombe Wanderers,T-079,Sheffield Wednesday,1-2,1,2,-1,1,away team win,0,1,0,14,16,6,7,6,6,9,16,1,2,0,0
+10346,S-2026-3,2026,3,League One,M-2026-3-043,Barnsley vs Blackpool,2026-09-02,T-005,Barnsley,T-009,Blackpool,2-1,2,1,1,-1,home team win,1,0,0,24,18,6,4,13,4,9,7,3,4,0,0
+10347,S-2026-3,2026,3,League One,M-2026-3-044,Burton Albion vs Wimbledon,2026-09-02,T-019,Burton Albion,T-096,Wimbledon,4-1,4,1,3,-3,home team win,1,0,0,10,19,5,4,4,7,8,14,1,1,0,0
+10348,S-2026-3,2026,3,League One,M-2026-3-045,Luton Town vs Stockport County,2026-09-02,T-051,Luton Town,T-083,Stockport County,2-0,2,0,2,-2,home team win,1,0,0,7,11,5,2,2,8,7,13,1,1,0,0
+10349,S-2026-3,2026,3,League One,M-2026-3-046,Wigan Athletic vs Milton Keynes Dons,2026-09-02,T-095,Wigan Athletic,T-057,Milton Keynes Dons,3-1,3,1,2,-2,home team win,1,0,0,19,18,6,4,5,5,11,11,2,2,0,0
+10350,S-2026-3,2026,3,League One,M-2026-3-047,Reading vs Mansfield Town,2026-09-02,T-073,Reading,T-054,Mansfield Town,5-0,5,0,5,-5,home team win,1,0,0,20,11,7,5,5,2,9,16,1,0,0,0
+10351,S-2026-3,2026,3,League One,M-2026-3-048,Peterborough United vs Sheffield Wednesday,2026-09-05,T-067,Peterborough United,T-079,Sheffield Wednesday,1-2,1,2,-1,1,away team win,0,1,0,20,13,3,5,4,9,9,10,2,3,0,0
+10352,S-2026-3,2026,3,League One,M-2026-3-049,Wigan Athletic vs Stockport County,2026-09-05,T-095,Wigan Athletic,T-083,Stockport County,0-4,0,4,-4,4,away team win,0,1,0,9,16,1,8,6,5,10,10,2,1,0,0
+10353,S-2026-3,2026,3,League One,M-2026-3-050,Barnsley vs Stevenage,2026-09-05,T-005,Barnsley,T-082,Stevenage,1-5,1,5,-4,4,away team win,0,1,0,17,10,4,5,7,3,18,9,1,2,0,0
+10354,S-2026-3,2026,3,League One,M-2026-3-051,Bradford City vs Mansfield Town,2026-09-05,T-012,Bradford City,T-054,Mansfield Town,1-0,1,0,1,-1,home team win,1,0,0,9,8,7,2,4,3,19,18,2,2,0,0
+10355,S-2026-3,2026,3,League One,M-2026-3-052,Burton Albion vs Cambridge United,2026-09-05,T-019,Burton Albion,T-020,Cambridge United,2-2,2,2,0,0,draw,0,0,1,13,10,3,3,2,7,12,18,1,2,0,0
+10356,S-2026-3,2026,3,League One,M-2026-3-053,Doncaster Rovers vs Plymouth Argyle,2026-09-05,T-033,Doncaster Rovers,T-068,Plymouth Argyle,2-3,2,3,-1,1,away team win,0,1,0,17,17,3,9,7,3,13,11,3,0,0,0
+10357,S-2026-3,2026,3,League One,M-2026-3-054,Huddersfield Town vs Notts County,2026-09-05,T-043,Huddersfield Town,T-064,Notts County,1-1,1,1,0,0,draw,0,0,1,18,9,7,3,9,6,9,15,1,2,0,0
+10358,S-2026-3,2026,3,League One,M-2026-3-055,Leicester City vs Oxford United,2026-09-05,T-047,Leicester City,T-066,Oxford United,0-4,0,4,-4,4,away team win,0,1,0,14,12,5,6,10,5,11,16,1,1,0,0
+10359,S-2026-3,2026,3,League One,M-2026-3-056,Luton Town vs Leyton Orient,2026-09-05,T-051,Luton Town,T-048,Leyton Orient,1-1,1,1,0,0,draw,0,0,1,23,7,7,3,7,2,9,12,2,4,0,0
+10360,S-2026-3,2026,3,League One,M-2026-3-057,Reading vs Blackpool,2026-09-05,T-073,Reading,T-009,Blackpool,3-1,3,1,2,-2,home team win,1,0,0,19,8,6,1,6,3,12,11,0,1,0,0
+10361,S-2026-3,2026,3,League One,M-2026-3-058,Wycombe Wanderers vs Milton Keynes Dons,2026-09-05,T-099,Wycombe Wanderers,T-057,Milton Keynes Dons,3-3,3,3,0,0,draw,0,0,1,9,12,7,5,5,5,9,18,0,3,0,0
+10362,S-2026-3,2026,3,League One,M-2026-3-059,Bromley vs Wimbledon,2026-09-07,T-017,Bromley,T-096,Wimbledon,0-2,0,2,-2,2,away team win,0,1,0,9,9,2,4,4,4,16,17,1,1,0,0
+10363,S-2026-3,2026,3,League One,M-2026-3-060,Stevenage vs Luton Town,2026-09-10,T-082,Stevenage,T-051,Luton Town,2-1,2,1,1,-1,home team win,1,0,0,9,10,3,2,2,4,15,10,5,2,0,0
+10364,S-2026-3,2026,3,League One,M-2026-3-061,Leyton Orient vs Wycombe Wanderers,2026-09-12,T-048,Leyton Orient,T-099,Wycombe Wanderers,2-3,2,3,-1,1,away team win,0,1,0,14,14,4,7,6,9,8,12,0,3,0,0
+10365,S-2026-3,2026,3,League One,M-2026-3-062,Notts County vs Bradford City,2026-09-12,T-064,Notts County,T-012,Bradford City,0-1,0,1,-1,1,away team win,0,1,0,9,8,1,3,5,4,12,19,4,4,0,0
+10366,S-2026-3,2026,3,League One,M-2026-3-063,Wimbledon vs Doncaster Rovers,2026-09-12,T-096,Wimbledon,T-033,Doncaster Rovers,1-0,1,0,1,-1,home team win,1,0,0,11,22,3,9,6,6,15,6,2,3,0,0
+10367,S-2026-3,2026,3,League One,M-2026-3-064,Blackpool vs Bromley,2026-09-12,T-009,Blackpool,T-017,Bromley,2-2,2,2,0,0,draw,0,0,1,18,15,4,8,12,6,13,14,0,1,0,0
+10368,S-2026-3,2026,3,League One,M-2026-3-065,Cambridge United vs Reading,2026-09-12,T-020,Cambridge United,T-073,Reading,2-1,2,1,1,-1,home team win,1,0,0,11,19,5,4,7,3,8,11,2,1,0,0
+10369,S-2026-3,2026,3,League One,M-2026-3-066,Mansfield Town vs Huddersfield Town,2026-09-12,T-054,Mansfield Town,T-043,Huddersfield Town,0-0,0,0,0,0,draw,0,0,1,9,19,1,2,2,6,10,14,1,0,1,0
+10370,S-2026-3,2026,3,League One,M-2026-3-067,Milton Keynes Dons vs Peterborough United,2026-09-12,T-057,Milton Keynes Dons,T-067,Peterborough United,1-1,1,1,0,0,draw,0,0,1,14,17,2,3,6,9,11,7,2,0,0,0
+10371,S-2026-3,2026,3,League One,M-2026-3-068,Oxford United vs Burton Albion,2026-09-12,T-066,Oxford United,T-019,Burton Albion,3-0,3,0,3,-3,home team win,1,0,0,11,9,5,2,2,5,14,16,1,1,0,0
+10372,S-2026-3,2026,3,League One,M-2026-3-069,Plymouth Argyle vs Barnsley,2026-09-12,T-068,Plymouth Argyle,T-005,Barnsley,3-0,3,0,3,-3,home team win,1,0,0,7,15,4,0,4,8,13,12,2,2,0,0
+10373,S-2026-3,2026,3,League One,M-2026-3-070,Sheffield Wednesday vs Wigan Athletic,2026-09-12,T-079,Sheffield Wednesday,T-095,Wigan Athletic,0-0,0,0,0,0,draw,0,0,1,12,13,3,2,8,7,7,8,2,3,0,0
+10374,S-2026-3,2026,3,League One,M-2026-3-071,Stockport County vs Leicester City,2026-09-12,T-083,Stockport County,T-047,Leicester City,3-4,3,4,-1,1,away team win,0,1,0,18,9,5,5,8,1,7,10,2,1,0,0
+10375,S-2026-3,2026,3,League One,M-2026-3-072,Wimbledon vs Milton Keynes Dons,2026-09-17,T-096,Wimbledon,T-057,Milton Keynes Dons,0-0,0,0,0,0,draw,0,0,1,11,11,2,2,5,6,6,18,0,0,0,0
+10376,S-2026-4,2026,4,League Two,M-2026-4-001,Newport County vs Rochdale,2026-08-15,T-060,Newport County,T-074,Rochdale,3-0,3,0,3,-3,home team win,1,0,0,12,5,6,0,9,6,11,14,2,4,0,1
+10377,S-2026-4,2026,4,League Two,M-2026-4-002,Oldham Athletic vs Port Vale,2026-08-15,T-065,Oldham Athletic,T-069,Port Vale,2-0,2,0,2,-2,home team win,1,0,0,11,13,3,2,1,6,12,16,2,4,0,0
+10378,S-2026-4,2026,4,League Two,M-2026-4-003,Accrington Stanley vs Colchester United,2026-08-15,T-001,Accrington Stanley,T-027,Colchester United,2-2,2,2,0,0,draw,0,0,1,20,7,11,5,9,4,20,10,1,0,0,0
+10379,S-2026-4,2026,4,League Two,M-2026-4-004,Barnet vs Salford City,2026-08-15,T-004,Barnet,T-076,Salford City,3-1,3,1,2,-2,home team win,1,0,0,20,14,7,3,6,5,20,12,2,3,0,0
+10380,S-2026-4,2026,4,League Two,M-2026-4-005,Cheltenham Town vs Rotherham United,2026-08-15,T-025,Cheltenham Town,T-075,Rotherham United,2-1,2,1,1,-1,home team win,1,0,0,6,19,4,5,5,4,10,11,3,1,0,0
+10381,S-2026-4,2026,4,League Two,M-2026-4-006,Chesterfield vs Fleetwood Town,2026-08-15,T-026,Chesterfield,T-036,Fleetwood Town,0-1,0,1,-1,1,away team win,0,1,0,15,14,3,7,5,1,8,14,1,3,0,0
+10382,S-2026-4,2026,4,League Two,M-2026-4-007,Crawley Town vs Crewe Alexandra,2026-08-15,T-029,Crawley Town,T-030,Crewe Alexandra,0-1,0,1,-1,1,away team win,0,1,0,9,18,3,4,4,11,6,18,2,5,2,1
+10383,S-2026-4,2026,4,League Two,M-2026-4-008,Gillingham vs Walsall,2026-08-15,T-039,Gillingham,T-091,Walsall,0-3,0,3,-3,3,away team win,0,1,0,17,17,7,5,6,9,12,8,4,2,0,0
+10384,S-2026-4,2026,4,League Two,M-2026-4-009,Grimsby Town vs Exeter City,2026-08-15,T-040,Grimsby Town,T-035,Exeter City,1-0,1,0,1,-1,home team win,1,0,0,21,8,4,2,6,3,15,8,1,1,0,0
+10385,S-2026-4,2026,4,League Two,M-2026-4-010,Northampton Town vs Swindon Town,2026-08-15,T-061,Northampton Town,T-088,Swindon Town,0-0,0,0,0,0,draw,0,0,1,11,4,3,0,10,1,7,6,0,2,0,0
+10386,S-2026-4,2026,4,League Two,M-2026-4-011,Tranmere Rovers vs Shrewsbury Town,2026-08-15,T-090,Tranmere Rovers,T-080,Shrewsbury Town,2-0,2,0,2,-2,home team win,1,0,0,7,15,4,5,3,5,15,11,3,2,0,0
+10387,S-2026-4,2026,4,League Two,M-2026-4-012,York City vs Bristol Rovers,2026-08-15,T-100,York City,T-016,Bristol Rovers,3-2,3,2,1,-1,home team win,1,0,0,16,13,5,3,7,6,9,10,2,0,0,0
+10388,S-2026-4,2026,4,League Two,M-2026-4-013,Bristol Rovers vs Newport County,2026-08-22,T-016,Bristol Rovers,T-060,Newport County,5-3,5,3,2,-2,home team win,1,0,0,26,8,9,3,11,1,6,8,2,1,0,0
+10389,S-2026-4,2026,4,League Two,M-2026-4-014,Salford City vs Chesterfield,2026-08-22,T-076,Salford City,T-026,Chesterfield,0-1,0,1,-1,1,away team win,0,1,0,10,14,3,3,5,1,12,17,2,3,0,0
+10390,S-2026-4,2026,4,League Two,M-2026-4-015,Walsall vs Grimsby Town,2026-08-22,T-091,Walsall,T-040,Grimsby Town,0-0,0,0,0,0,draw,0,0,1,16,13,2,1,8,7,12,15,1,1,0,0
+10391,S-2026-4,2026,4,League Two,M-2026-4-016,Colchester United vs Oldham Athletic,2026-08-22,T-027,Colchester United,T-065,Oldham Athletic,2-1,2,1,1,-1,home team win,1,0,0,17,6,5,2,8,2,14,17,2,5,0,1
+10392,S-2026-4,2026,4,League Two,M-2026-4-017,Crewe Alexandra vs Northampton Town,2026-08-22,T-030,Crewe Alexandra,T-061,Northampton Town,1-0,1,0,1,-1,home team win,1,0,0,6,15,3,6,7,6,14,12,1,1,0,0
+10393,S-2026-4,2026,4,League Two,M-2026-4-018,Exeter City vs Accrington Stanley,2026-08-22,T-035,Exeter City,T-001,Accrington Stanley,2-0,2,0,2,-2,home team win,1,0,0,19,14,5,2,9,1,13,12,3,2,0,0
+10394,S-2026-4,2026,4,League Two,M-2026-4-019,Fleetwood Town vs Gillingham,2026-08-22,T-036,Fleetwood Town,T-039,Gillingham,0-0,0,0,0,0,draw,0,0,1,17,9,0,3,10,2,13,15,1,2,0,0
+10395,S-2026-4,2026,4,League Two,M-2026-4-020,Port Vale vs Tranmere Rovers,2026-08-22,T-069,Port Vale,T-090,Tranmere Rovers,1-1,1,1,0,0,draw,0,0,1,9,6,4,4,4,3,19,17,2,3,0,0
+10396,S-2026-4,2026,4,League Two,M-2026-4-021,Rochdale vs Crawley Town,2026-08-22,T-074,Rochdale,T-029,Crawley Town,1-2,1,2,-1,1,away team win,0,1,0,7,12,3,2,5,3,12,14,4,4,0,0
+10397,S-2026-4,2026,4,League Two,M-2026-4-022,Rotherham United vs York City,2026-08-22,T-075,Rotherham United,T-100,York City,1-1,1,1,0,0,draw,0,0,1,10,17,2,5,5,9,11,5,2,0,0,0
+10398,S-2026-4,2026,4,League Two,M-2026-4-023,Shrewsbury Town vs Barnet,2026-08-22,T-080,Shrewsbury Town,T-004,Barnet,1-3,1,3,-2,2,away team win,0,1,0,10,15,1,3,7,9,14,14,1,0,0,0
+10399,S-2026-4,2026,4,League Two,M-2026-4-024,Swindon Town vs Cheltenham Town,2026-08-22,T-088,Swindon Town,T-025,Cheltenham Town,2-1,2,1,1,-1,home team win,1,0,0,5,14,3,6,2,5,7,12,1,1,0,0
+10400,S-2026-4,2026,4,League Two,M-2026-4-025,Barnet vs Cheltenham Town,2026-08-29,T-004,Barnet,T-025,Cheltenham Town,2-2,2,2,0,0,draw,0,0,1,14,9,3,5,11,4,7,19,1,3,0,0
+10401,S-2026-4,2026,4,League Two,M-2026-4-026,Port Vale vs Crewe Alexandra,2026-08-29,T-069,Port Vale,T-030,Crewe Alexandra,0-0,0,0,0,0,draw,0,0,1,11,14,4,3,3,1,15,15,0,1,0,0
+10402,S-2026-4,2026,4,League Two,M-2026-4-027,Rotherham United vs Chesterfield,2026-08-29,T-075,Rotherham United,T-026,Chesterfield,2-1,2,1,1,-1,home team win,1,0,0,13,7,4,2,2,0,14,11,2,1,0,0
+10403,S-2026-4,2026,4,League Two,M-2026-4-028,Colchester United vs Rochdale,2026-08-29,T-027,Colchester United,T-074,Rochdale,1-0,1,0,1,-1,home team win,1,0,0,11,11,5,4,5,3,10,15,1,2,0,0
+10404,S-2026-4,2026,4,League Two,M-2026-4-029,Crawley Town vs Bristol Rovers,2026-08-29,T-029,Crawley Town,T-016,Bristol Rovers,0-2,0,2,-2,2,away team win,0,1,0,8,27,1,5,2,4,6,16,3,4,0,0
+10405,S-2026-4,2026,4,League Two,M-2026-4-030,Gillingham vs Northampton Town,2026-08-29,T-039,Gillingham,T-061,Northampton Town,1-1,1,1,0,0,draw,0,0,1,11,5,3,1,4,4,10,16,2,4,0,0
+10406,S-2026-4,2026,4,League Two,M-2026-4-031,Grimsby Town vs Fleetwood Town,2026-08-29,T-040,Grimsby Town,T-036,Fleetwood Town,2-2,2,2,0,0,draw,0,0,1,15,11,5,4,7,5,15,11,2,4,0,0
+10407,S-2026-4,2026,4,League Two,M-2026-4-032,Newport County vs Tranmere Rovers,2026-08-29,T-060,Newport County,T-090,Tranmere Rovers,2-2,2,2,0,0,draw,0,0,1,11,15,4,5,4,6,14,11,2,2,0,0
+10408,S-2026-4,2026,4,League Two,M-2026-4-033,Oldham Athletic vs Swindon Town,2026-08-29,T-065,Oldham Athletic,T-088,Swindon Town,3-0,3,0,3,-3,home team win,1,0,0,26,3,9,1,14,4,6,12,0,3,0,0
+10409,S-2026-4,2026,4,League Two,M-2026-4-034,Shrewsbury Town vs Salford City,2026-08-29,T-080,Shrewsbury Town,T-076,Salford City,1-0,1,0,1,-1,home team win,1,0,0,9,13,2,1,5,3,13,11,1,0,0,0
+10410,S-2026-4,2026,4,League Two,M-2026-4-035,Walsall vs Accrington Stanley,2026-08-29,T-091,Walsall,T-001,Accrington Stanley,3-2,3,2,1,-1,home team win,1,0,0,16,22,5,6,4,4,8,18,4,3,0,0
+10411,S-2026-4,2026,4,League Two,M-2026-4-036,York City vs Exeter City,2026-08-29,T-100,York City,T-035,Exeter City,2-1,2,1,1,-1,home team win,1,0,0,11,8,8,2,7,5,12,10,2,3,0,0
+10412,S-2026-4,2026,4,League Two,M-2026-4-037,Accrington Stanley vs Grimsby Town,2026-09-01,T-001,Accrington Stanley,T-040,Grimsby Town,2-2,2,2,0,0,draw,0,0,1,12,19,5,7,2,8,9,10,4,1,0,0
+10413,S-2026-4,2026,4,League Two,M-2026-4-038,Bristol Rovers vs Colchester United,2026-09-01,T-016,Bristol Rovers,T-027,Colchester United,2-0,2,0,2,-2,home team win,1,0,0,24,13,8,1,3,2,17,9,3,1,0,0
+10414,S-2026-4,2026,4,League Two,M-2026-4-039,Cheltenham Town vs York City,2026-09-01,T-025,Cheltenham Town,T-100,York City,3-2,3,2,1,-1,home team win,1,0,0,13,20,5,5,4,4,11,6,1,0,0,0
+10415,S-2026-4,2026,4,League Two,M-2026-4-040,Chesterfield vs Gillingham,2026-09-01,T-026,Chesterfield,T-039,Gillingham,1-1,1,1,0,0,draw,0,0,1,24,7,10,1,8,2,8,12,1,2,0,0
+10416,S-2026-4,2026,4,League Two,M-2026-4-041,Crewe Alexandra vs Walsall,2026-09-01,T-030,Crewe Alexandra,T-091,Walsall,2-2,2,2,0,0,draw,0,0,1,20,14,5,4,9,4,11,14,0,2,0,0
+10417,S-2026-4,2026,4,League Two,M-2026-4-042,Exeter City vs Barnet,2026-09-01,T-035,Exeter City,T-004,Barnet,1-1,1,1,0,0,draw,0,0,1,9,10,5,4,1,2,13,12,1,4,0,0
+10418,S-2026-4,2026,4,League Two,M-2026-4-043,Fleetwood Town vs Oldham Athletic,2026-09-01,T-036,Fleetwood Town,T-065,Oldham Athletic,1-1,1,1,0,0,draw,0,0,1,16,12,3,3,7,4,12,7,1,0,0,0
+10419,S-2026-4,2026,4,League Two,M-2026-4-044,Northampton Town vs Crawley Town,2026-09-01,T-061,Northampton Town,T-029,Crawley Town,1-1,1,1,0,0,draw,0,0,1,8,22,3,5,4,4,6,9,0,2,1,0
+10420,S-2026-4,2026,4,League Two,M-2026-4-045,Rochdale vs Shrewsbury Town,2026-09-01,T-074,Rochdale,T-080,Shrewsbury Town,3-0,3,0,3,-3,home team win,1,0,0,7,16,3,5,1,3,9,11,1,4,0,0
+10421,S-2026-4,2026,4,League Two,M-2026-4-046,Salford City vs Newport County,2026-09-01,T-076,Salford City,T-060,Newport County,2-1,2,1,1,-1,home team win,1,0,0,32,4,7,2,10,0,11,19,1,3,0,0
+10422,S-2026-4,2026,4,League Two,M-2026-4-047,Swindon Town vs Port Vale,2026-09-01,T-088,Swindon Town,T-069,Port Vale,3-1,3,1,2,-2,home team win,1,0,0,14,8,6,2,10,4,10,7,1,1,0,0
+10423,S-2026-4,2026,4,League Two,M-2026-4-048,Tranmere Rovers vs Rotherham United,2026-09-01,T-090,Tranmere Rovers,T-075,Rotherham United,2-2,2,2,0,0,draw,0,0,1,12,14,4,3,2,4,9,10,3,2,1,0
+10424,S-2026-4,2026,4,League Two,M-2026-4-049,Fleetwood Town vs Shrewsbury Town,2026-09-05,T-036,Fleetwood Town,T-080,Shrewsbury Town,2-0,2,0,2,-2,home team win,1,0,0,10,10,3,1,3,4,13,15,3,5,0,0
+10425,S-2026-4,2026,4,League Two,M-2026-4-050,Salford City vs Port Vale,2026-09-05,T-076,Salford City,T-069,Port Vale,1-0,1,0,1,-1,home team win,1,0,0,8,13,2,3,6,6,11,18,1,2,0,0
+10426,S-2026-4,2026,4,League Two,M-2026-4-051,Accrington Stanley vs Crawley Town,2026-09-05,T-001,Accrington Stanley,T-029,Crawley Town,3-2,3,2,1,-1,home team win,1,0,0,10,15,4,5,1,4,21,8,4,2,0,0
+10427,S-2026-4,2026,4,League Two,M-2026-4-052,Bristol Rovers vs Rotherham United,2026-09-05,T-016,Bristol Rovers,T-075,Rotherham United,1-0,1,0,1,-1,home team win,1,0,0,12,7,5,2,10,4,9,9,1,3,0,0
+10428,S-2026-4,2026,4,League Two,M-2026-4-053,Cheltenham Town vs Grimsby Town,2026-09-05,T-025,Cheltenham Town,T-040,Grimsby Town,2-2,2,2,0,0,draw,0,0,1,8,12,4,5,3,7,8,10,1,1,0,0
+10429,S-2026-4,2026,4,League Two,M-2026-4-054,Chesterfield vs Barnet,2026-09-05,T-026,Chesterfield,T-004,Barnet,3-3,3,3,0,0,draw,0,0,1,15,23,7,6,4,8,9,19,3,3,0,0
+10430,S-2026-4,2026,4,League Two,M-2026-4-055,Crewe Alexandra vs York City,2026-09-05,T-030,Crewe Alexandra,T-100,York City,1-1,1,1,0,0,draw,0,0,1,17,27,6,6,5,9,11,10,1,2,0,0
+10431,S-2026-4,2026,4,League Two,M-2026-4-056,Exeter City vs Walsall,2026-09-05,T-035,Exeter City,T-091,Walsall,0-0,0,0,0,0,draw,0,0,1,13,8,3,2,4,8,16,20,0,1,0,0
+10432,S-2026-4,2026,4,League Two,M-2026-4-057,Northampton Town vs Newport County,2026-09-05,T-061,Northampton Town,T-060,Newport County,1-0,1,0,1,-1,home team win,1,0,0,8,4,4,2,2,0,15,11,3,2,0,0
+10433,S-2026-4,2026,4,League Two,M-2026-4-058,Rochdale vs Gillingham,2026-09-05,T-074,Rochdale,T-039,Gillingham,1-4,1,4,-3,3,away team win,0,1,0,7,16,4,6,6,6,12,12,2,1,1,0
+10434,S-2026-4,2026,4,League Two,M-2026-4-059,Swindon Town vs Colchester United,2026-09-05,T-088,Swindon Town,T-027,Colchester United,3-1,3,1,2,-2,home team win,1,0,0,14,18,6,6,4,6,8,7,2,0,0,0
+10435,S-2026-4,2026,4,League Two,M-2026-4-060,Tranmere Rovers vs Oldham Athletic,2026-09-05,T-090,Tranmere Rovers,T-065,Oldham Athletic,2-0,2,0,2,-2,home team win,1,0,0,9,22,4,6,2,10,11,16,3,2,0,0
+10436,S-2026-4,2026,4,League Two,M-2026-4-061,Crawley Town vs Cheltenham Town,2026-09-12,T-029,Crawley Town,T-025,Cheltenham Town,1-3,1,3,-2,2,away team win,0,1,0,18,9,6,3,8,3,13,11,4,2,0,0
+10437,S-2026-4,2026,4,League Two,M-2026-4-062,Grimsby Town vs Bristol Rovers,2026-09-12,T-040,Grimsby Town,T-016,Bristol Rovers,2-0,2,0,2,-2,home team win,1,0,0,8,3,3,1,8,8,9,12,2,3,0,1
+10438,S-2026-4,2026,4,League Two,M-2026-4-063,Barnet vs Accrington Stanley,2026-09-12,T-004,Barnet,T-001,Accrington Stanley,2-1,2,1,1,-1,home team win,1,0,0,15,8,5,2,6,4,9,19,0,6,0,1
+10439,S-2026-4,2026,4,League Two,M-2026-4-064,Colchester United vs Crewe Alexandra,2026-09-12,T-027,Colchester United,T-030,Crewe Alexandra,1-1,1,1,0,0,draw,0,0,1,16,9,5,1,1,3,12,17,0,1,0,0
+10440,S-2026-4,2026,4,League Two,M-2026-4-065,Gillingham vs Tranmere Rovers,2026-09-12,T-039,Gillingham,T-090,Tranmere Rovers,2-0,2,0,2,-2,home team win,1,0,0,10,15,5,3,5,5,8,10,3,2,0,0
+10441,S-2026-4,2026,4,League Two,M-2026-4-066,Newport County vs Fleetwood Town,2026-09-12,T-060,Newport County,T-036,Fleetwood Town,1-1,1,1,0,0,draw,0,0,1,16,14,2,3,9,3,10,16,0,5,0,0
+10442,S-2026-4,2026,4,League Two,M-2026-4-067,Oldham Athletic vs Chesterfield,2026-09-12,T-065,Oldham Athletic,T-026,Chesterfield,1-2,1,2,-1,1,away team win,0,1,0,8,13,6,5,1,4,16,10,2,3,0,0
+10443,S-2026-4,2026,4,League Two,M-2026-4-068,Port Vale vs Exeter City,2026-09-12,T-069,Port Vale,T-035,Exeter City,1-0,1,0,1,-1,home team win,1,0,0,14,10,4,0,6,4,14,9,3,2,0,0
+10444,S-2026-4,2026,4,League Two,M-2026-4-069,Rotherham United vs Salford City,2026-09-12,T-075,Rotherham United,T-076,Salford City,3-3,3,3,0,0,draw,0,0,1,20,10,9,5,4,3,17,12,3,3,0,1
+10445,S-2026-4,2026,4,League Two,M-2026-4-070,Shrewsbury Town vs Northampton Town,2026-09-12,T-080,Shrewsbury Town,T-061,Northampton Town,2-0,2,0,2,-2,home team win,1,0,0,11,7,4,5,1,5,16,9,1,1,0,0
+10446,S-2026-4,2026,4,League Two,M-2026-4-071,Walsall vs Rochdale,2026-09-12,T-091,Walsall,T-074,Rochdale,0-0,0,0,0,0,draw,0,0,1,24,9,7,1,7,4,9,7,1,3,0,0
+10447,S-2026-4,2026,4,League Two,M-2026-4-072,York City vs Swindon Town,2026-09-12,T-100,York City,T-088,Swindon Town,4-0,4,0,4,-4,home team win,1,0,0,20,7,9,4,6,1,5,15,1,1,0,1
