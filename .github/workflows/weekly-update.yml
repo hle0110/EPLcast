@@ -1,8 +1,8 @@
-name: Weekly data update
+name: Data update
 
 on:
   schedule:
-    - cron: "0 13 * * 2"
+    - cron: "0 13 * * 2,5"
   workflow_dispatch:
 
 permissions:
@@ -41,7 +41,7 @@ jobs:
           if [ "$status" -eq 0 ]; then
             echo "New matches were added"
           else
-            echo "No new matches this week"
+            echo "No new matches since the last run"
           fi
 
       - name: Retrain and rebuild projections
@@ -61,7 +61,7 @@ jobs:
             echo "Nothing changed, skipping commit"
             exit 0
           fi
-          git commit -m "Weekly update: refresh results and projections"
+          git commit -m "Update results and projections"
           for attempt in 1 2 3; do
             if git push; then
               echo "Pushed on attempt $attempt"
