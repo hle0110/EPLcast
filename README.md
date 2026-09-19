@@ -6,7 +6,7 @@ Premier League match prediction and season projection.
 
 ## What it does
 
-Points already won are taken from real results, and every remaining fixture is simulated 40 times to project how the season finishes, with title, top four and relegation probabilities. The page also shows the live table, recent form and how the title race has shifted over the season. Once a season ends the projection rolls forward to the next one.
+Points already won are taken from real results, and every remaining fixture is simulated 300 times to project how the season finishes, with title, top four and relegation probabilities. The page also shows the live table, recent form and how the title race has shifted over the season. Once a season ends the projection rolls forward to the next one.
 
 The model is trained on every match in the top four English divisions since the 2021/22 season, using Elo ratings, rolling 9 match form, shots on target, head to head records and last season's division.
 
@@ -32,7 +32,7 @@ python update_data.py
 python main.py
 ```
 
-Needs pandas, numpy, scikit learn and joblib. A full run takes about 15 seconds and writes `docs/index.html`, `predictions/epl_season_projection.csv` and `predictions/probability_history.csv`, which records the probabilities whenever new matches have been played, so the title race chart can be drawn.
+Needs pandas, numpy, scikit learn and joblib. A full run takes about 15 seconds and writes `docs/index.html`, `predictions/epl_season_projection.csv` and `predictions/probability_history.csv`, which records the probabilities whenever they move, so the title race chart can be drawn.
 
 Tests run with `python -m pytest tests`, covering data integrity, projection maths, feature leakage and the fetch exit codes. The scheduled workflow runs them too.
 

@@ -222,3 +222,30 @@ def test_history_replaces_same_day_entry(tmp_path):
     stored = pd.read_csv(path)
     assert len(stored) == 1
     assert stored['matches_played'].iloc[0] == 50
+
+def test_history_records_when_odds_move_without_new_matches(tmp_path, monkeypatch):
+    path = tmp_path / 'history.csv'
+
+    def make(title_alpha):
+        return pd.DataFrame([
+            {'Season': 2026, 'Team': 'Alpha', 'Rank': 1, 'Points': 80.0,
+             'TitleProb': title_alpha, 'Top4Prob': 1.0, 'RelegationProb': 0.0},
+            {'Season': 2026, 'Team': 'Beta', 'Rank': 2, 'Points': 70.0,
+             'TitleProb': 1 - title_alpha, 'Top4Prob': 1.0, 'RelegationProb': 0.0},
+        ])
+
+    class FixedDate(datetime.date):
+        current = datetime.date(2026, 9, 15)
+
+        @classmethod
+        def today(cls):
+            return cls.current
+
+    monkeypatch.setattr(main.datetime, 'date', FixedDate)
+
+    main.record_history(make(0.6), 2026, 40, path=str(path))
+    FixedDate.current = datetime.date(2026, 9, 18)
+    main.record_history(make(0.45), 2026, 40, path=str(path))
+    stored = pd.read_csv(path)
+    assert sorted(stored['recorded_on'].unique()) == ['2026-09-15', '2026-09-18']
+    assert sorted(stored['matches_played'].unique()) == [40]

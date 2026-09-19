@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from features import BASE_ELO, ELO_K, HOME_ADVANTAGE, ELO_MARGIN_MULTIPLIER, FORM_WINDOW, FEATURE_COLUMNS
+from features import BASE_ELO, ELO_K, HOME_ADVANTAGE, ELO_MARGIN_MULTIPLIER, FORM_WINDOW, FEATURE_COLUMNS, TIER_ADJUSTMENT
 
 LEAGUE_AVG_GOALS = 1.35
 LEAGUE_AVG_SOT = 4.5
@@ -97,8 +97,18 @@ def _recent_values(matches, team, home_col, away_col, default):
             values.append(getattr(row, away_col))
     return values or [default]
 
-def init_simulation_state(history, elo_ratings, teams, window=FORM_WINDOW):
+def last_played_tier(history):
+    ordered = history.sort_values('match_date', kind='mergesort')
+    tiers = {}
+    for row in ordered.itertuples():
+        tiers[row.home_team_name] = row.tier
+        tiers[row.away_team_name] = row.tier
+    return tiers
+
+
+def init_simulation_state(history, elo_ratings, teams, window=FORM_WINDOW, target_tier=1):
     state = {}
+    tiers = last_played_tier(history)
     for team in teams:
         team_matches = history[(history['home_team_name'] == team) | (history['away_team_name'] == team)]
         team_matches = team_matches.sort_values('match_date', kind='mergesort')
@@ -115,8 +125,10 @@ def init_simulation_state(history, elo_ratings, teams, window=FORM_WINDOW):
         sot_against_long = _recent_values(long_window, team, 'away_shots_on_target', 'home_shots_on_target', LEAGUE_AVG_SOT)
 
         points = [3.0 if f > a else (1.0 if f == a else 0.0) for f, a in zip(gf, ga)]
+        rating = elo_ratings.get(team, BASE_ELO)
+        rating -= (tiers.get(team, target_tier) - target_tier) * TIER_ADJUSTMENT
         state[team] = {
-            'elo': elo_ratings.get(team, BASE_ELO),
+            'elo': rating,
             'attack': float(np.mean(gf_long)),
             'defense': float(np.mean(ga_long)),
             'sot_attack': float(np.mean(sot_long)),

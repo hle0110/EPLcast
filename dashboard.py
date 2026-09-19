@@ -12,7 +12,7 @@ STYLES = """
   --warn: #f87171;
   --bar: #2b3240;
   --win: #22c55e;
-  --draw: #6b7280;
+  --draw: #eab308;
   --loss: #ef4444;
 }
 * { box-sizing: border-box; }
@@ -38,13 +38,14 @@ th.team, td.team { text-align: left; white-space: nowrap; }
 th.group { border-left: 1px solid var(--line); }
 td.group { border-left: 1px solid var(--line); }
 td.rank { color: var(--muted); width: 38px; }
+td.finish { white-space: nowrap; }
 tbody tr:last-child td { border-bottom: none; }
-tr.ucl td.rank { color: var(--accent); font-weight: 600; }
-tr.drop td.rank { color: var(--warn); font-weight: 600; }
+tr.ucl td.finish { color: var(--accent); font-weight: 600; }
+tr.drop td.finish { color: var(--warn); font-weight: 600; }
 .form { display: inline-flex; gap: 3px; }
 .form i { width: 16px; height: 16px; border-radius: 3px; font-style: normal; font-size: 10px; line-height: 16px; text-align: center; color: #0f1115; font-weight: 700; }
 .form i.W { background: var(--win); }
-.form i.D { background: var(--draw); color: #e8eaee; }
+.form i.D { background: var(--draw); }
 .form i.L { background: var(--loss); }
 .move { font-size: 12px; color: var(--muted); }
 .legend { color: var(--muted); font-size: 13px; margin-top: 14px; }
@@ -164,43 +165,43 @@ def _title_race_chart(history, season):
 def _main_table(projection, headline_season, standings, form):
     headline = projection[projection['Season'] == headline_season]
     team_count = len(headline)
-    positions = {}
-    played_map = {}
-    points_map = {}
-    if standings is not None:
-        for row in standings.itertuples():
-            positions[row.Team] = int(row.Position)
-            played_map[row.Team] = int(row.Played)
-            points_map[row.Team] = int(row.Points)
+    projected = {str(r['Team']): r for r in headline.to_dict('records')}
 
-    live = standings is not None
+    if standings is None:
+        order = [(int(r['Rank']), str(r['Team'])) for r in headline.to_dict('records')]
+        live = {}
+    else:
+        order = [(int(r.Position), str(r.Team)) for r in standings.itertuples()]
+        live = {str(r.Team): r for r in standings.itertuples()}
+
     header = ['<tr><th class="rank"></th><th class="team">Team</th>']
     if live:
-        header.append('<th class="hide">Form</th><th class="group">Pl</th><th>Pts</th>')
-    header.append('<th class="group">Proj</th><th class="hide">W</th><th class="hide">D</th><th class="hide">L</th><th class="hide">GD</th>')
+        header.append('<th class="hide">Form</th><th>Pl</th><th>Pts</th><th class="hide">GD</th>')
+    header.append('<th class="group">Proj</th><th>Finish</th>')
     header.append('<th class="group">Title</th><th>Top 4</th><th>Rel</th></tr>')
 
     rows = []
-    for record in headline.to_dict('records'):
-        rank = int(record['Rank'])
-        team = str(record['Team'])
-        if rank <= 4:
+    for position, team in order:
+        record = projected.get(team)
+        if record is None:
+            continue
+        finish = int(record['Rank'])
+        if finish <= 4:
             row_class = 'ucl'
-        elif rank > team_count - 3:
+        elif finish > team_count - 3:
             row_class = 'drop'
         else:
             row_class = ''
-        cells = [f'<tr class="{row_class}"><td class="rank">{rank}</td>',
-                 f'<td class="team">{html.escape(team)} {_movement(rank, positions.get(team))}</td>']
+        cells = [f'<tr class="{row_class}"><td class="rank">{position}</td>',
+                 f'<td class="team">{html.escape(team)}</td>']
         if live:
+            stat = live[team]
             cells.append(f'<td class="hide">{_form_cell((form or {}).get(team))}</td>')
-            cells.append(f'<td class="group">{played_map.get(team, 0)}</td>')
-            cells.append(f'<td>{points_map.get(team, 0)}</td>')
-        cells.append(f'<td class="group"><strong>{record["Points"]:.1f}</strong></td>')
-        cells.append(f'<td class="hide">{record["Wins"]:.1f}</td>')
-        cells.append(f'<td class="hide">{record["Draws"]:.1f}</td>')
-        cells.append(f'<td class="hide">{record["Losses"]:.1f}</td>')
-        cells.append(f'<td class="hide">{_goal_diff(record["GoalDiff"])}</td>')
+            cells.append(f'<td>{int(stat.Played)}</td>')
+            cells.append(f'<td><strong>{int(stat.Points)}</strong></td>')
+            cells.append(f'<td class="hide">{int(stat.GoalDiff):+d}</td>')
+        cells.append(f'<td class="group">{record["Points"]:.1f}</td>')
+        cells.append(f'<td class="finish">{finish}{_movement(finish, position if live else None)}</td>')
         for key in ['TitleProb', 'Top4Prob', 'RelegationProb']:
             value = record[key]
             css = 'class="group"' if key == 'TitleProb' else ''
@@ -240,8 +241,8 @@ def build_page(projection, headline_season, meta):
     table_html = _main_table(projection, headline_season, standings, form)
     chart_html = _title_race_chart(history, headline_season)
     future_html = _future_block(projection, headline_season)
-    note = ('Pts shows points won so far, Proj shows where the model expects each team to finish. '
-            'The arrow compares current position with projected finish.') if standings is not None else (
+    note = ('Ordered by the live table. Proj is the projected final points total and Finish the projected '
+            'position, with the arrow showing the expected move from where each club sits now.') if standings is not None else (
             'Projected points are the average across every simulation.')
 
     return f"""<!DOCTYPE html>

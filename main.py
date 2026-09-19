@@ -19,8 +19,8 @@ MODEL_PATH = "models/epl_predictive_model.pkl"
 PRED_TABLE_PATH = "predictions/epl_season_projection.csv"
 HISTORY_PATH = "predictions/probability_history.csv"
 DASHBOARD_PATH = "docs/index.html"
-N_FUTURE_SEASONS = 3
-N_SIMULATIONS = 40
+N_FUTURE_SEASONS = 1
+N_SIMULATIONS = 300
 MODEL_C = 0.8
 TEAMS_PER_SEASON = 20
 
@@ -188,8 +188,14 @@ def record_history(projection, season, matches_played, path=HISTORY_PATH):
     if os.path.exists(path):
         existing = pd.read_csv(path)
         prior = existing[existing['season'] == season]
-        if len(prior) and int(prior['matches_played'].max()) == matches_played:
-            return existing
+        if len(prior):
+            latest = prior[prior['recorded_on'] == prior['recorded_on'].max()]
+            same_progress = int(latest['matches_played'].iloc[0]) == matches_played
+            previous_odds = latest.set_index('Team')['TitleProb'].round(4)
+            current_odds = snapshot.set_index('Team')['TitleProb'].round(4)
+            same_odds = previous_odds.reindex(current_odds.index).equals(current_odds)
+            if same_progress and same_odds:
+                return existing
         existing = existing[~((existing['recorded_on'] == today) & (existing['season'] == season))]
         snapshot = pd.concat([existing, snapshot], ignore_index=True)
     snapshot.to_csv(path, index=False)
