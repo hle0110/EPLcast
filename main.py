@@ -1,123 +1,87 @@
 import datetime
 import os
 import sys
-import pandas as pd
 import numpy as np
-import joblib
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score, log_loss
+import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from features import load_data, engineer_features, FEATURE_COLUMNS, TOP_DIVISION
 from models import ScaledLogisticModel
-from simulate import run_simulations, summarize_simulations
-from dashboard import write_dashboard
+from simulate import run_simulations, summarize_simulations, predict_fixtures, OUTCOME_ORDER
+from schedule import load_schedule
+from insights import (position_probabilities, points_ranges, upcoming_fixtures, remaining_for_team, match_stakes,
+                      update_prediction_log, score_prediction_log, score_probabilities, bookmaker_probabilities,
+                      calibration_bins, elo_history, recent_results, PREDICTION_LOG_PATH)
+from site_builder import write_site
 
 DATA_PATH = "data/matches.csv"
-MODEL_PATH = "models/epl_predictive_model.pkl"
 PRED_TABLE_PATH = "predictions/epl_season_projection.csv"
 HISTORY_PATH = "predictions/probability_history.csv"
-DASHBOARD_PATH = "docs/index.html"
+DOCS_DIR = "docs"
+POSITION_PATH = "predictions/position_probabilities.csv"
 N_FUTURE_SEASONS = 1
-N_SIMULATIONS = 300
+N_SIMULATIONS = 5000
 MODEL_C = 0.8
 TEAMS_PER_SEASON = 20
-
+FIRST_TRAINING_SEASON = 2021
 MIN_TRAINING_SEASONS = 2
 
+def training_rows(df):
+    return df[df['season'] >= FIRST_TRAINING_SEASON]
+
 def rolling_origin_folds(top_flight):
-    seasons = sorted(top_flight['season'].unique())
+    seasons = sorted(s for s in top_flight['season'].unique() if s >= FIRST_TRAINING_SEASON)
     folds = []
     for season in seasons[MIN_TRAINING_SEASONS:]:
         season_matches = top_flight[top_flight['season'] == season]
         if len(season_matches) < 20:
             continue
-        season_start = season_matches['match_date'].min()
-        folds.append((f"{season}-{str(season + 1)[-2:]} full", season_start, season_matches.index))
-        midpoint = pd.Timestamp(year=season + 1, month=1, day=1)
-        second_half = season_matches[season_matches['match_date'] >= midpoint]
-        if len(second_half) >= 40:
-            folds.append((f"{season}-{str(season + 1)[-2:]} 2nd half", midpoint, second_half.index))
+        folds.append((f"{season}-{str(season + 1)[-2:]}", season_matches['match_date'].min(), season_matches.index))
     return folds
 
-def build_legacy_features(top_flight):
-    frame = top_flight.sort_values('match_date', kind='mergesort').copy()
-    encoder = LabelEncoder()
-    encoder.fit(pd.concat([frame['home_team_name'], frame['away_team_name']]))
-    frame['home_enc'] = encoder.transform(frame['home_team_name'])
-    frame['away_enc'] = encoder.transform(frame['away_team_name'])
-
-    home_part = frame[['match_date', 'home_team_name', 'result']].copy()
-    home_part.columns = ['match_date', 'team', 'result']
-    home_part['is_home'] = 1
-    home_part['win'] = (home_part['result'] == 'home team win').astype(float)
-    home_part['orig_index'] = frame.index
-    away_part = frame[['match_date', 'away_team_name', 'result']].copy()
-    away_part.columns = ['match_date', 'team', 'result']
-    away_part['is_home'] = 0
-    away_part['win'] = (away_part['result'] == 'away team win').astype(float)
-    away_part['orig_index'] = frame.index
-    long_df = pd.concat([home_part, away_part], ignore_index=True)
-    long_df = long_df.sort_values(['team', 'match_date'], kind='mergesort')
-    long_df['last3'] = long_df.groupby('team')['win'].transform(
-        lambda s: s.shift(1).rolling(3, min_periods=1).mean()
-    ).fillna(0.0)
-    frame['home_last3'] = long_df[long_df['is_home'] == 1].set_index('orig_index')['last3']
-    frame['away_last3'] = long_df[long_df['is_home'] == 0].set_index('orig_index')['last3']
-    return frame
-
-def evaluate_models(df, top_flight):
+def evaluate_model(df, top_flight):
     folds = rolling_origin_folds(top_flight)
     if not folds:
-        print("Not enough seasons for a held-out evaluation, skipping comparison")
+        print("Not enough seasons for a held-out evaluation, skipping it")
         return None
 
-    legacy = build_legacy_features(top_flight)
-    legacy_features = ['home_enc', 'away_enc', 'home_last3', 'away_last3']
-
-    totals = {'n': 0, 'majority': 0.0, 'legacy_acc': 0.0, 'legacy_ll': 0.0, 'new_acc': 0.0, 'new_ll': 0.0}
-    print(f"\nRolling-origin evaluation ({len(folds)} held-out windows, each trained only on earlier matches)")
+    seasons = []
+    pooled_probs = []
+    pooled_results = []
+    print(f"\nRolling-origin evaluation ({len(folds)} held-out seasons, each trained only on matches before it started)")
     for name, cutoff_date, test_index in folds:
         test = top_flight.loc[test_index]
-        train = df[df['match_date'] < cutoff_date]
-        train_top = top_flight[top_flight['match_date'] < cutoff_date]
-        if len(train_top) < 200 or len(test) < 20:
-            continue
-
-        majority_class = train_top['result'].value_counts().idxmax()
-        majority_acc = (test['result'] == majority_class).mean()
-
-        legacy_train = legacy[legacy['match_date'] < cutoff_date]
-        legacy_test = legacy.loc[test_index]
-        legacy_model = RandomForestClassifier(n_estimators=300, max_depth=12, n_jobs=-1, random_state=42)
-        legacy_model.fit(legacy_train[legacy_features], legacy_train['result'])
-        legacy_pred = legacy_model.predict(legacy_test[legacy_features])
-        legacy_acc = accuracy_score(legacy_test['result'], legacy_pred)
-        legacy_ll = log_loss(legacy_test['result'], legacy_model.predict_proba(legacy_test[legacy_features]), labels=legacy_model.classes_)
-
+        train = training_rows(df[df['match_date'] < cutoff_date])
         model = ScaledLogisticModel(C=MODEL_C)
         model.fit(train[FEATURE_COLUMNS], train['result'])
-        proba = model.predict_proba(test[FEATURE_COLUMNS])
-        new_acc = accuracy_score(test['result'], model.predict(test[FEATURE_COLUMNS]))
-        new_ll = log_loss(test['result'], proba, labels=model.classes_)
+        classes = list(model.classes_)
+        proba = model.predict_proba(test[FEATURE_COLUMNS])[:, [classes.index(o) for o in OUTCOME_ORDER]]
+        accuracy, loss = score_probabilities(proba, test['result'])
+        row = {'season': name, 'matches': len(test), 'baseline': float((test['result'] == 'home team win').mean()),
+               'accuracy': accuracy, 'log_loss': loss, 'book_accuracy': None, 'book_log_loss': None}
+        if test[['odds_home', 'odds_draw', 'odds_away']].notna().all().all():
+            row['book_accuracy'], row['book_log_loss'] = score_probabilities(bookmaker_probabilities(test), test['result'])
+        seasons.append(row)
+        pooled_probs.append(proba)
+        pooled_results.append(test['result'])
+        book = f"  bookmakers {row['book_accuracy']:.3f}" if row['book_accuracy'] is not None else ""
+        print(f"  {name:8s} n={len(test):3d}  home-win baseline {row['baseline']:.3f}  model {accuracy:.3f}  log loss {loss:.3f}{book}")
 
-        n = len(test)
-        totals['n'] += n
-        totals['majority'] += majority_acc * n
-        totals['legacy_acc'] += legacy_acc * n
-        totals['legacy_ll'] += legacy_ll * n
-        totals['new_acc'] += new_acc * n
-        totals['new_ll'] += new_ll * n
-        print(f"  {name:24s} n={n:3d}  baseline {majority_acc:.3f}  original {legacy_acc:.3f}  current {new_acc:.3f}")
-
-    n = totals['n']
+    n = sum(r['matches'] for r in seasons)
+    totals = {key: sum(r[key] * r['matches'] for r in seasons) / n for key in ['baseline', 'accuracy', 'log_loss']}
     print(f"\n  Weighted over {n:,} held-out matches")
-    print(f"    Always-predict-home-win baseline : accuracy {totals['majority']/n:.4f}")
-    print(f"    Original model (team id + form)  : accuracy {totals['legacy_acc']/n:.4f}  log loss {totals['legacy_ll']/n:.4f}")
-    print(f"    Current model                    : accuracy {totals['new_acc']/n:.4f}  log loss {totals['new_ll']/n:.4f}")
-    print(f"    Improvement over original        : {(totals['new_acc'] - totals['legacy_acc'])/n*100:+.2f} percentage points\n")
-    return {'accuracy': totals['new_acc'] / n, 'log_loss': totals['new_ll'] / n, 'matches': n}
+    print(f"    Always-predict-home-win baseline : accuracy {totals['baseline']:.4f}")
+    print(f"    Model                            : accuracy {totals['accuracy']:.4f}  log loss {totals['log_loss']:.4f}")
+    summary = {'accuracy': totals['accuracy'], 'log_loss': totals['log_loss'], 'baseline': totals['baseline'],
+               'matches': n, 'seasons': seasons, 'book_accuracy': None, 'book_log_loss': None}
+    priced = [r for r in seasons if r['book_accuracy'] is not None]
+    if len(priced) == len(seasons):
+        summary['book_accuracy'] = sum(r['book_accuracy'] * r['matches'] for r in seasons) / n
+        summary['book_log_loss'] = sum(r['book_log_loss'] * r['matches'] for r in seasons) / n
+        print(f"    Bookmakers' closing odds         : accuracy {summary['book_accuracy']:.4f}  log loss {summary['book_log_loss']:.4f}")
+    print()
+    summary['calibration'] = calibration_bins(np.vstack(pooled_probs), pd.concat(pooled_results))
+    return summary
 
 def resolve_current_teams(df, top_flight, current_season):
     season_matches = top_flight[top_flight['season'] == current_season]
@@ -202,6 +166,28 @@ def record_history(projection, season, matches_played, path=HISTORY_PATH):
     return snapshot
 
 
+def club_details(df, results, season, teams, schedule, season_matches, model, elo_ratings):
+    table = results['tables'][season]
+    ranges = points_ranges(table, teams).set_index('Team')
+    positions = position_probabilities(table, teams).set_index('Team')
+    remaining = {}
+    if season_matches is not None and schedule is not None:
+        remaining = {team: remaining_for_team(schedule, season_matches, team) for team in teams}
+    pairs = sorted({(home, away) for fixtures in remaining.values() for _, home, away in fixtures})
+    probabilities = predict_fixtures(model, df, elo_ratings, season, teams, pairs)
+    fixture_probs = {pair: p for pair, p in zip(pairs, probabilities)}
+    details = {}
+    for team in teams:
+        details[team] = {
+            'range': ranges.loc[team].to_dict(),
+            'positions': positions.loc[team].values.tolist(),
+            'elo': elo_history(df, team, season - 1),
+            'recent': recent_results(df, team, 6),
+            'remaining': [(kickoff, home, away, fixture_probs[(home, away)]) for kickoff, home, away in remaining.get(team, [])],
+        }
+    return details
+
+
 def main():
     print("Starting Premier League Predictor")
 
@@ -217,14 +203,13 @@ def main():
     top_flight = df[df['division'] == TOP_DIVISION]
     print(f"{len(top_flight):,} {TOP_DIVISION} matches, {len(df):,} matches in total across four divisions")
 
-    metrics = evaluate_models(df, top_flight)
+    metrics = evaluate_model(df, top_flight)
 
-    print("Training final model on every division and season available")
+    train = training_rows(df)
+    print(f"Training final model on {len(train):,} matches from {FIRST_TRAINING_SEASON}-{str(FIRST_TRAINING_SEASON + 1)[-2:]} onward, "
+          f"earlier seasons only warm up the ratings")
     final_model = ScaledLogisticModel(C=MODEL_C)
-    final_model.fit(df[FEATURE_COLUMNS], df['result'])
-    os.makedirs("models", exist_ok=True)
-    joblib.dump(final_model, MODEL_PATH)
-    print(f"Model saved to {MODEL_PATH}")
+    final_model.fit(train[FEATURE_COLUMNS], train['result'])
 
     current_season = int(top_flight['season'].max())
     season_label = f"{current_season}-{str(current_season + 1)[-2:]}"
@@ -232,22 +217,24 @@ def main():
     played = len(season_matches)
     total_fixtures = TEAMS_PER_SEASON * (TEAMS_PER_SEASON - 1)
     project_current = teams_known and played < total_fixtures
+    schedule = load_schedule(current_season, current_teams) if project_current else None
 
     if project_current:
         print(f"\n{season_label} is in progress: {played} of {total_fixtures} matches played")
-        print(f"Simulating the remaining {total_fixtures - played} fixtures {N_SIMULATIONS} times, "
+        print(f"Simulating the remaining {total_fixtures - played} fixtures {N_SIMULATIONS:,} times, "
               f"then {N_FUTURE_SEASONS} further seasons")
+        print("  using the published fixture order" if schedule is not None else "  fixture list unavailable, using a random fixture order")
     elif teams_known:
-        print(f"\n{season_label} is complete, simulating {N_FUTURE_SEASONS} future seasons {N_SIMULATIONS} times")
+        print(f"\n{season_label} is complete, simulating {N_FUTURE_SEASONS} future seasons {N_SIMULATIONS:,} times")
     else:
         print(f"\n{season_label} has only just started, projecting full seasons with last season's clubs")
 
-    table_df = run_simulations(
+    results = run_simulations(
         final_model, df, current_season, current_teams, elo_ratings,
         n_future_seasons=N_FUTURE_SEASONS, n_simulations=N_SIMULATIONS,
-        project_current=project_current,
+        project_current=project_current, schedule=schedule,
     )
-    projection = summarize_simulations(table_df, current_teams, N_SIMULATIONS)
+    projection = summarize_simulations(results, current_teams)
 
     os.makedirs("predictions", exist_ok=True)
     projection.to_csv(PRED_TABLE_PATH, index=False)
@@ -255,17 +242,35 @@ def main():
     headline_season = current_season if project_current else current_season + 1
     headline = projection[projection['Season'] == headline_season]
     label = f"{headline_season}-{str(headline_season + 1)[-2:]}"
-    print(f"\nProjected final {label} table (average of {N_SIMULATIONS} simulations)")
+    print(f"\nProjected final {label} table (average of {N_SIMULATIONS:,} simulations)")
     display = headline[['Rank', 'Team', 'Points', 'Wins', 'Draws', 'Losses', 'GoalDiff', 'TitleProb', 'Top4Prob', 'RelegationProb']]
     print(display.to_string(index=False))
 
+    position_table = position_probabilities(results['tables'][headline_season], current_teams)
+    position_table.insert(0, 'Season', headline_season)
+    position_table.to_csv(POSITION_PATH, index=False)
+
+    upcoming = []
+    prediction_log = None
     if project_current:
-        status_line = f"{played} of {total_fixtures} matches played. Remaining fixtures simulated {N_SIMULATIONS} times."
+        status_line = f"{played} of {total_fixtures} matches played. Remaining fixtures simulated {N_SIMULATIONS:,} times."
         standings = actual_table(season_matches, current_teams)
         form = recent_form(season_matches, df, current_teams)
         history_rows = record_history(projection, headline_season, played)
+        now = pd.Timestamp.now(tz='UTC')
+        upcoming = upcoming_fixtures(schedule, season_matches, now)
+        pairs = [(home, away) for _, home, away, _ in upcoming]
+        probabilities = predict_fixtures(final_model, df, elo_ratings, current_season, current_teams, pairs)
+        stakes = match_stakes(results, current_season, pairs)
+        upcoming = [{'kickoff': kickoff, 'home': home, 'away': away, 'round': rnd, 'p': p, 'stakes': stake}
+                    for (kickoff, home, away, rnd), p, stake in zip(upcoming, probabilities, stakes)]
+        log_rows = [{'predicted_on': datetime.date.today().isoformat(), 'season': current_season,
+                     'kickoff_utc': match['kickoff'].strftime('%Y-%m-%d %H:%M'), 'home_team_name': match['home'],
+                     'away_team_name': match['away'], 'p_home': round(float(match['p'][2]), 4),
+                     'p_draw': round(float(match['p'][1]), 4), 'p_away': round(float(match['p'][0]), 4)} for match in upcoming]
+        prediction_log = update_prediction_log(log_rows, datetime.date.today().isoformat(), PREDICTION_LOG_PATH)
     elif teams_known:
-        status_line = f"Season complete. Following seasons simulated {N_SIMULATIONS} times."
+        status_line = f"Season complete. Following seasons simulated {N_SIMULATIONS:,} times."
         standings = None
         form = None
         history_rows = None
@@ -275,24 +280,38 @@ def main():
         standings = None
         form = None
         history_rows = None
+    if prediction_log is None and os.path.exists(PREDICTION_LOG_PATH):
+        prediction_log = pd.read_csv(PREDICTION_LOG_PATH)
 
+    clubs = club_details(df, results, headline_season, current_teams, schedule,
+                         season_matches if project_current else None, final_model, elo_ratings)
     accuracy_text = f"{metrics['accuracy'] * 100:.1f}%" if metrics else "n/a"
-    write_dashboard(projection, headline_season, {
+    meta = {
         'status_line': status_line,
         'played': played if project_current else 0,
         'total': total_fixtures,
         'simulations': N_SIMULATIONS,
         'accuracy': accuracy_text,
-        'last_match_date': df['match_date'].max(),
+        'last_match_date': top_flight['match_date'].max(),
         'standings': standings,
         'form': form,
         'history': history_rows,
-    }, DASHBOARD_PATH)
+        'positions': position_table,
+        'upcoming': upcoming,
+        'clubs': clubs,
+        'metrics': metrics,
+        'live_score': score_prediction_log(prediction_log, df),
+        'generated': datetime.date.today().isoformat(),
+    }
+    write_site(projection, headline_season, meta, DOCS_DIR)
 
     print(f"\nSaved projected standings to {PRED_TABLE_PATH}")
+    print(f"Saved finishing position probabilities to {POSITION_PATH}")
     if history_rows is not None:
         print(f"Saved probability history to {HISTORY_PATH}")
-    print(f"Saved dashboard to {DASHBOARD_PATH}")
+    if upcoming:
+        print(f"Logged {len(upcoming)} upcoming match predictions to {PREDICTION_LOG_PATH}")
+    print(f"Saved the site to {DOCS_DIR}/")
     print("All done")
 
 if __name__ == "__main__":

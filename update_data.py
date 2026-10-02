@@ -7,9 +7,10 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from team_name_map import canonical_name
+from schedule import update_schedule
 
 DATA_PATH = "data/matches.csv"
-FIRST_SEASON = 2021
+FIRST_SEASON = 2017
 FETCH_ATTEMPTS = 3
 RETRY_DELAY_SECONDS = 10
 STATUS_UPDATED = 0
@@ -29,7 +30,12 @@ COLUMNS = [
     'home_shots', 'away_shots', 'home_shots_on_target', 'away_shots_on_target',
     'home_corners', 'away_corners', 'home_fouls', 'away_fouls',
     'home_yellow', 'away_yellow', 'home_red', 'away_red',
+    'odds_home', 'odds_draw', 'odds_away', 'home_xg', 'away_xg',
 ]
+OPTIONAL_COLUMNS = {
+    'odds_home': 'AvgCH', 'odds_draw': 'AvgCD', 'odds_away': 'AvgCA',
+    'home_xg': 'HxG', 'away_xg': 'AxG',
+}
 STAT_COLUMNS = {
     'home_shots': 'HS', 'away_shots': 'AS',
     'home_shots_on_target': 'HST', 'away_shots_on_target': 'AST',
@@ -80,7 +86,7 @@ def fetch_division(div_code, season_year, quiet=False):
     raw = raw.dropna(subset=['FTHG', 'FTAG', 'HomeTeam', 'AwayTeam'])
     if len(raw) == 0:
         return None, 'missing'
-    raw['parsed_date'] = pd.to_datetime(raw['Date'], dayfirst=True, errors='coerce')
+    raw['parsed_date'] = pd.to_datetime(raw['Date'], format='mixed', dayfirst=True, errors='coerce')
     raw = raw.sort_values('parsed_date', kind='mergesort').reset_index(drop=True)
     division, tier = DIVISIONS[div_code]
     rows = []
@@ -112,6 +118,9 @@ def fetch_division(div_code, season_year, quiet=False):
         for out_col, src_col in STAT_COLUMNS.items():
             value = r.get(src_col)
             row[out_col] = int(value) if pd.notna(value) else 0
+        for out_col, src_col in OPTIONAL_COLUMNS.items():
+            value = pd.to_numeric(r.get(src_col), errors='coerce')
+            row[out_col] = float(value) if pd.notna(value) else float('nan')
         rows.append(row)
     return pd.DataFrame(rows), 'ok'
 
@@ -187,7 +196,17 @@ def update_dataset(path=DATA_PATH, season_year=None):
     print(f"{label} matches on file: {before} -> {after} ({after - before:+d})")
     return STATUS_UPDATED if after != before else STATUS_UNCHANGED
 
+def refresh_fixture_list():
+    season = current_season_year()
+    print(f"Checking the {season}-{str(season + 1)[-2:]} fixture list")
+    update_schedule(season)
+
+
 if __name__ == "__main__":
     if '--rebuild' in sys.argv:
-        sys.exit(STATUS_UPDATED if rebuild_dataset() else STATUS_SOURCE_ERROR)
-    sys.exit(update_dataset())
+        status = STATUS_UPDATED if rebuild_dataset() else STATUS_SOURCE_ERROR
+    else:
+        status = update_dataset()
+    if status != STATUS_SOURCE_ERROR:
+        refresh_fixture_list()
+    sys.exit(status)

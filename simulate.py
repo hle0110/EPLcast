@@ -1,10 +1,18 @@
 import numpy as np
 import pandas as pd
-from features import BASE_ELO, ELO_K, HOME_ADVANTAGE, ELO_MARGIN_MULTIPLIER, FORM_WINDOW, FEATURE_COLUMNS, TIER_ADJUSTMENT
+from features import (BASE_ELO, ELO_K, HOME_ADVANTAGE, ELO_MARGIN_MULTIPLIER, FORM_WINDOW,
+                      FEATURE_COLUMNS, TIER_ADJUSTMENT, TOP_DIVISION, team_prev_tier_map, promoted_to_top)
 
 LEAGUE_AVG_GOALS = 1.35
 LEAGUE_AVG_SOT = 4.5
-MATCHES_PER_TEAM_SEASON = 38
+LONG_WINDOW = 10
+SCORELINE_TRIES = 12
+FORM_KEYS = ['points', 'gf', 'ga', 'sot_for', 'sot_against']
+FORM_DEFAULTS = {'points': 1.35, 'gf': LEAGUE_AVG_GOALS, 'ga': LEAGUE_AVG_GOALS,
+                 'sot_for': LEAGUE_AVG_SOT, 'sot_against': LEAGUE_AVG_SOT}
+TABLE_KEYS = ['Points', 'Wins', 'Draws', 'Losses', 'GoalsFor', 'GoalsAgainst']
+OUTCOME_ORDER = ['away team win', 'draw', 'home team win']
+
 
 def round_robin_schedule(teams, rng):
     teams = list(teams)
@@ -26,6 +34,7 @@ def round_robin_schedule(teams, rng):
     second_leg = [[(b, a) for (a, b) in rnd] for rnd in rounds]
     return rounds + second_leg
 
+
 def remaining_fixtures(season_matches, teams):
     played = set(zip(season_matches['home_team_name'], season_matches['away_team_name']))
     fixtures = []
@@ -34,6 +43,7 @@ def remaining_fixtures(season_matches, teams):
             if home != away and (home, away) not in played:
                 fixtures.append((home, away))
     return fixtures
+
 
 def group_into_rounds(fixtures, rng):
     remaining = list(fixtures)
@@ -54,18 +64,39 @@ def group_into_rounds(fixtures, rng):
         remaining = leftover
     return rounds
 
+
+def rounds_in_order(fixtures):
+    rounds = []
+    current = []
+    used = set()
+    for home, away in fixtures:
+        if home in used or away in used:
+            rounds.append(current)
+            current = []
+            used = set()
+        current.append((home, away))
+        used.add(home)
+        used.add(away)
+    if current:
+        rounds.append(current)
+    return rounds
+
+
+def ordered_remaining_fixtures(season_matches, teams, schedule):
+    remaining = set(remaining_fixtures(season_matches, teams))
+    ordered = []
+    if schedule is not None:
+        for row in schedule.sort_values(['kickoff_utc', 'home_team_name'], kind='mergesort').itertuples():
+            pair = (row.home_team_name, row.away_team_name)
+            if pair in remaining:
+                ordered.append(pair)
+                remaining.discard(pair)
+    return ordered, sorted(remaining)
+
+
 def empty_table(teams):
     return {t: {'Points': 0, 'Wins': 0, 'Draws': 0, 'Losses': 0, 'GoalsFor': 0, 'GoalsAgainst': 0, 'Played': 0} for t in teams}
 
-def table_from_results(season_matches, teams):
-    table = empty_table(teams)
-    for row in season_matches.itertuples():
-        home, away = row.home_team_name, row.away_team_name
-        if home not in table or away not in table:
-            continue
-        hg, ag = int(row.home_team_score), int(row.away_team_score)
-        _apply_result(table, home, away, hg, ag)
-    return table
 
 def _apply_result(table, home, away, hg, ag):
     if hg > ag:
@@ -88,14 +119,16 @@ def _apply_result(table, home, away, hg, ag):
     table[home]['Played'] += 1
     table[away]['Played'] += 1
 
-def _recent_values(matches, team, home_col, away_col, default):
-    values = []
-    for row in matches.itertuples():
-        if row.home_team_name == team:
-            values.append(getattr(row, home_col))
-        else:
-            values.append(getattr(row, away_col))
-    return values or [default]
+
+def table_from_results(season_matches, teams):
+    table = empty_table(teams)
+    for row in season_matches.itertuples():
+        home, away = row.home_team_name, row.away_team_name
+        if home not in table or away not in table:
+            continue
+        _apply_result(table, home, away, int(row.home_team_score), int(row.away_team_score))
+    return table
+
 
 def last_played_tier(history):
     ordered = history.sort_values('match_date', kind='mergesort')
@@ -106,248 +139,304 @@ def last_played_tier(history):
     return tiers
 
 
-def init_simulation_state(history, elo_ratings, teams, window=FORM_WINDOW, target_tier=1):
-    state = {}
+def _team_history(history, team):
+    played = history[(history['home_team_name'] == team) | (history['away_team_name'] == team)]
+    played = played.sort_values('match_date', kind='mergesort')
+    at_home = (played['home_team_name'] == team).values
+    gf = np.where(at_home, played['home_team_score'], played['away_team_score']).astype(float)
+    ga = np.where(at_home, played['away_team_score'], played['home_team_score']).astype(float)
+    sot_for = np.where(at_home, played['home_shots_on_target'], played['away_shots_on_target']).astype(float)
+    sot_against = np.where(at_home, played['away_shots_on_target'], played['home_shots_on_target']).astype(float)
+    points = np.where(gf > ga, 3.0, np.where(gf == ga, 1.0, 0.0))
+    return {'points': points, 'gf': gf, 'ga': ga, 'sot_for': sot_for, 'sot_against': sot_against}
+
+
+def _long_mean(values, default):
+    tail = values[-LONG_WINDOW:]
+    return float(tail.mean()) if len(tail) else default
+
+
+def init_state(history, elo_ratings, teams, n_simulations, target_tier=1, window=FORM_WINDOW):
     tiers = last_played_tier(history)
-    for team in teams:
-        team_matches = history[(history['home_team_name'] == team) | (history['away_team_name'] == team)]
-        team_matches = team_matches.sort_values('match_date', kind='mergesort')
-        recent = team_matches.tail(window)
-        long_window = team_matches.tail(max(window, 10))
-
-        gf = _recent_values(recent, team, 'home_team_score', 'away_team_score', LEAGUE_AVG_GOALS)
-        ga = _recent_values(recent, team, 'away_team_score', 'home_team_score', LEAGUE_AVG_GOALS)
-        sot_for = _recent_values(recent, team, 'home_shots_on_target', 'away_shots_on_target', LEAGUE_AVG_SOT)
-        sot_against = _recent_values(recent, team, 'away_shots_on_target', 'home_shots_on_target', LEAGUE_AVG_SOT)
-        gf_long = _recent_values(long_window, team, 'home_team_score', 'away_team_score', LEAGUE_AVG_GOALS)
-        ga_long = _recent_values(long_window, team, 'away_team_score', 'home_team_score', LEAGUE_AVG_GOALS)
-        sot_long = _recent_values(long_window, team, 'home_shots_on_target', 'away_shots_on_target', LEAGUE_AVG_SOT)
-        sot_against_long = _recent_values(long_window, team, 'away_shots_on_target', 'home_shots_on_target', LEAGUE_AVG_SOT)
-
-        points = [3.0 if f > a else (1.0 if f == a else 0.0) for f, a in zip(gf, ga)]
+    n_teams = len(teams)
+    base = {key: np.zeros(n_teams) for key in ['elo', 'attack', 'defense', 'sot_attack', 'sot_defense']}
+    buffers = {key: np.zeros((n_teams, window)) for key in FORM_KEYS}
+    counts = np.zeros(n_teams, dtype=int)
+    for i, team in enumerate(teams):
+        past = _team_history(history, team)
+        base['attack'][i] = _long_mean(past['gf'], LEAGUE_AVG_GOALS)
+        base['defense'][i] = _long_mean(past['ga'], LEAGUE_AVG_GOALS)
+        base['sot_attack'][i] = _long_mean(past['sot_for'], LEAGUE_AVG_SOT)
+        base['sot_defense'][i] = _long_mean(past['sot_against'], LEAGUE_AVG_SOT)
+        recent = min(len(past['gf']), window)
+        counts[i] = recent
+        if recent:
+            for key in FORM_KEYS:
+                buffers[key][i, :recent] = past[key][-recent:]
         rating = elo_ratings.get(team, BASE_ELO)
         rating -= (tiers.get(team, target_tier) - target_tier) * TIER_ADJUSTMENT
-        state[team] = {
-            'elo': rating,
-            'attack': float(np.mean(gf_long)),
-            'defense': float(np.mean(ga_long)),
-            'sot_attack': float(np.mean(sot_long)),
-            'sot_defense': float(np.mean(sot_against_long)),
-            'form_pts': list(points),
-            'form_gf': list(gf),
-            'form_ga': list(ga),
-            'form_sot_for': list(sot_for),
-            'form_sot_against': list(sot_against),
-        }
+        base['elo'][i] = rating
+    state = {key: np.tile(values, (n_simulations, 1)) for key, values in base.items()}
+    state['buffers'] = {key: np.tile(values, (n_simulations, 1, 1)) for key, values in buffers.items()}
+    state['counts'] = np.tile(counts, (n_simulations, 1))
     return state
 
-def init_h2h_state(history, teams, window=3):
-    h2h = {}
-    relevant = history[history['home_team_name'].isin(teams) & history['away_team_name'].isin(teams)]
-    relevant = relevant.sort_values('match_date', kind='mergesort')
-    for row in relevant.itertuples():
-        key = tuple(sorted((row.home_team_name, row.away_team_name)))
-        outcome = 1.0 if row.home_team_score > row.away_team_score else (0.0 if row.home_team_score < row.away_team_score else 0.5)
-        if row.home_team_name != key[0]:
-            outcome = 1.0 - outcome if outcome != 0.5 else 0.5
-        h2h.setdefault(key, []).append(outcome)
-    return {k: v[-window:] for k, v in h2h.items()}
 
-def _h2h_rate(h2h_state, home, away):
-    key = tuple(sorted((home, away)))
-    values = h2h_state.get(key)
-    if not values:
-        return 0.45
-    rate = float(np.mean(values))
-    return rate if home == key[0] else 1.0 - rate
+def _form_means(state):
+    counts = state['counts']
+    means = {}
+    for key in FORM_KEYS:
+        totals = state['buffers'][key].sum(axis=2)
+        means[key] = np.where(counts > 0, totals / np.maximum(counts, 1), FORM_DEFAULTS[key])
+    return means
 
-def _rolling_mean(values, window=FORM_WINDOW, default=1.35):
-    tail = values[-window:]
-    return float(np.mean(tail)) if tail else default
 
-def _clip(value, low, high):
-    return min(max(value, low), high)
+def _push_form(state, sims, teams, values):
+    window = state['buffers']['points'].shape[2]
+    counts = state['counts'][sims, teams]
+    full = counts >= window
+    for key in FORM_KEYS:
+        rows = state['buffers'][key][sims, teams]
+        shifted = np.concatenate([rows[:, 1:], values[key][:, None]], axis=1)
+        rows = np.where(full[:, None], shifted, rows)
+        open_slots = ~full
+        rows[open_slots, counts[open_slots]] = values[key][open_slots]
+        state['buffers'][key][sims, teams] = rows
+    state['counts'][sims, teams] = np.minimum(counts + 1, window)
 
-def _update_elo(state, home, away, hg, ag):
-    rh, ra = state[home]['elo'], state[away]['elo']
-    expected_home = 1.0 / (1.0 + 10.0 ** (-((rh + HOME_ADVANTAGE) - ra) / 400.0))
-    actual_home = 1.0 if hg > ag else (0.0 if hg < ag else 0.5)
-    k_eff = ELO_K * (1.0 + ELO_MARGIN_MULTIPLIER * np.log1p(abs(hg - ag)))
-    delta = k_eff * (actual_home - expected_home)
-    state[home]['elo'] = rh + delta
-    state[away]['elo'] = ra - delta
 
-def _update_form(state, home, away, hg, ag, home_sot, away_sot):
-    home_pts = 3.0 if hg > ag else (1.0 if hg == ag else 0.0)
-    away_pts = 3.0 if ag > hg else (1.0 if hg == ag else 0.0)
-    state[home]['form_pts'].append(home_pts)
-    state[home]['form_gf'].append(hg)
-    state[home]['form_ga'].append(ag)
-    state[home]['form_sot_for'].append(home_sot)
-    state[home]['form_sot_against'].append(away_sot)
-    state[away]['form_pts'].append(away_pts)
-    state[away]['form_gf'].append(ag)
-    state[away]['form_ga'].append(hg)
-    state[away]['form_sot_for'].append(away_sot)
-    state[away]['form_sot_against'].append(home_sot)
+def fixture_features(state, sims, home, away, prev_tier):
+    form = _form_means(state)
+    columns = {
+        'elo_diff': state['elo'][sims, home] - state['elo'][sims, away],
+        'home_form_points': form['points'][sims, home],
+        'away_form_points': form['points'][sims, away],
+        'home_form_gf': form['gf'][sims, home],
+        'home_form_ga': form['ga'][sims, home],
+        'away_form_gf': form['gf'][sims, away],
+        'away_form_ga': form['ga'][sims, away],
+        'home_form_sot_for': form['sot_for'][sims, home],
+        'home_form_sot_against': form['sot_against'][sims, home],
+        'away_form_sot_for': form['sot_for'][sims, away],
+        'away_form_sot_against': form['sot_against'][sims, away],
+        'home_prev_tier': prev_tier[home],
+        'away_prev_tier': prev_tier[away],
+        'home_promoted_top': promoted_to_top(1, prev_tier[home]),
+        'away_promoted_top': promoted_to_top(1, prev_tier[away]),
+    }
+    return pd.DataFrame({name: columns[name] for name in FEATURE_COLUMNS})
 
-    state[home]['attack'] = _clip(0.85 * state[home]['attack'] + 0.15 * hg, 0.15, 5.0)
-    state[home]['defense'] = _clip(0.85 * state[home]['defense'] + 0.15 * ag, 0.15, 5.0)
-    state[away]['attack'] = _clip(0.85 * state[away]['attack'] + 0.15 * ag, 0.15, 5.0)
-    state[away]['defense'] = _clip(0.85 * state[away]['defense'] + 0.15 * hg, 0.15, 5.0)
-    state[home]['sot_attack'] = _clip(0.85 * state[home]['sot_attack'] + 0.15 * home_sot, 0.5, 15.0)
-    state[home]['sot_defense'] = _clip(0.85 * state[home]['sot_defense'] + 0.15 * away_sot, 0.5, 15.0)
-    state[away]['sot_attack'] = _clip(0.85 * state[away]['sot_attack'] + 0.15 * away_sot, 0.5, 15.0)
-    state[away]['sot_defense'] = _clip(0.85 * state[away]['sot_defense'] + 0.15 * home_sot, 0.5, 15.0)
 
-def _update_h2h(h2h_state, home, away, hg, ag, window=3):
-    key = tuple(sorted((home, away)))
-    outcome = 1.0 if hg > ag else (0.0 if hg < ag else 0.5)
-    if home != key[0] and outcome != 0.5:
-        outcome = 1.0 - outcome
-    h2h_state.setdefault(key, []).append(outcome)
-    h2h_state[key] = h2h_state[key][-window:]
-
-def _sample_scoreline(rng, target_result, lam_home, lam_away, max_tries=12):
-    for _ in range(max_tries):
+def sample_scorelines(rng, outcome, lam_home, lam_away, tries=SCORELINE_TRIES):
+    n = len(outcome)
+    home_goals = np.zeros(n, dtype=int)
+    away_goals = np.zeros(n, dtype=int)
+    done = np.zeros(n, dtype=bool)
+    for _ in range(tries):
         hg = rng.poisson(lam_home)
         ag = rng.poisson(lam_away)
-        drawn = 'home team win' if hg > ag else ('away team win' if ag > hg else 'draw')
-        if drawn == target_result:
-            return int(hg), int(ag)
-    if target_result == 'home team win':
-        hg = max(1, int(rng.poisson(lam_home)))
-        return hg, max(0, hg - 1 - int(rng.poisson(0.5)))
-    if target_result == 'away team win':
-        ag = max(1, int(rng.poisson(lam_away)))
-        return max(0, ag - 1 - int(rng.poisson(0.5))), ag
-    g = int(rng.poisson((lam_home + lam_away) / 2.0))
-    return g, g
+        drawn = np.where(hg > ag, 2, np.where(hg < ag, 0, 1))
+        accept = ~done & (drawn == outcome)
+        home_goals[accept] = hg[accept]
+        away_goals[accept] = ag[accept]
+        done |= accept
+        if done.all():
+            return home_goals, away_goals
+    left = ~done
+    target = outcome[left]
+    winner_home = np.maximum(1, rng.poisson(lam_home[left]))
+    winner_away = np.maximum(1, rng.poisson(lam_away[left]))
+    margin = 1 + rng.poisson(0.5, size=left.sum())
+    level = rng.poisson((lam_home[left] + lam_away[left]) / 2.0)
+    home_goals[left] = np.where(target == 2, winner_home, np.where(target == 0, np.maximum(0, winner_away - margin), level))
+    away_goals[left] = np.where(target == 2, np.maximum(0, winner_home - margin), np.where(target == 0, winner_away, level))
+    return home_goals, away_goals
 
-def build_fixture_features(pairs, state, h2h_state, prev_tier_map):
-    rows = []
-    for home, away in pairs:
-        sh, sa = state[home], state[away]
-        rows.append({
-            'home': home,
-            'away': away,
-            'elo_diff': sh['elo'] - sa['elo'],
-            'home_form_points': _rolling_mean(sh['form_pts']),
-            'away_form_points': _rolling_mean(sa['form_pts']),
-            'home_form_gf': _rolling_mean(sh['form_gf']),
-            'home_form_ga': _rolling_mean(sh['form_ga']),
-            'away_form_gf': _rolling_mean(sa['form_gf']),
-            'away_form_ga': _rolling_mean(sa['form_ga']),
-            'home_form_sot_for': _rolling_mean(sh['form_sot_for'], default=LEAGUE_AVG_SOT),
-            'home_form_sot_against': _rolling_mean(sh['form_sot_against'], default=LEAGUE_AVG_SOT),
-            'away_form_sot_for': _rolling_mean(sa['form_sot_for'], default=LEAGUE_AVG_SOT),
-            'away_form_sot_against': _rolling_mean(sa['form_sot_against'], default=LEAGUE_AVG_SOT),
-            'h2h_home_rate': _h2h_rate(h2h_state, home, away),
-            'home_prev_tier': prev_tier_map.get(home, 1.0),
-            'away_prev_tier': prev_tier_map.get(away, 1.0),
-        })
-    return pd.DataFrame(rows)
 
-def play_rounds(model, rounds, state, h2h_state, prev_tier_map, table, rng, season_label):
-    for pairs in rounds:
-        if not pairs:
+def _update_ratings(state, sims, home, away, hg, ag, home_sot, away_sot):
+    rh = state['elo'][sims, home]
+    ra = state['elo'][sims, away]
+    expected = 1.0 / (1.0 + 10.0 ** (-((rh + HOME_ADVANTAGE) - ra) / 400.0))
+    actual = np.where(hg > ag, 1.0, np.where(hg < ag, 0.0, 0.5))
+    delta = ELO_K * (1.0 + ELO_MARGIN_MULTIPLIER * np.log1p(np.abs(hg - ag))) * (actual - expected)
+    state['elo'][sims, home] = rh + delta
+    state['elo'][sims, away] = ra - delta
+    for key, low, high, home_value, away_value in [
+        ('attack', 0.15, 5.0, hg, ag), ('defense', 0.15, 5.0, ag, hg),
+        ('sot_attack', 0.5, 15.0, home_sot, away_sot), ('sot_defense', 0.5, 15.0, away_sot, home_sot),
+    ]:
+        state[key][sims, home] = np.clip(0.85 * state[key][sims, home] + 0.15 * home_value, low, high)
+        state[key][sims, away] = np.clip(0.85 * state[key][sims, away] + 0.15 * away_value, low, high)
+
+
+def _record(table, sims, home, away, hg, ag):
+    home_points = np.where(hg > ag, 3, np.where(hg == ag, 1, 0))
+    away_points = np.where(ag > hg, 3, np.where(hg == ag, 1, 0))
+    table['Points'][sims, home] += home_points
+    table['Points'][sims, away] += away_points
+    table['Wins'][sims, home] += hg > ag
+    table['Wins'][sims, away] += ag > hg
+    table['Draws'][sims, home] += hg == ag
+    table['Draws'][sims, away] += hg == ag
+    table['Losses'][sims, home] += hg < ag
+    table['Losses'][sims, away] += ag < hg
+    table['GoalsFor'][sims, home] += hg
+    table['GoalsAgainst'][sims, home] += ag
+    table['GoalsFor'][sims, away] += ag
+    table['GoalsAgainst'][sims, away] += hg
+    return home_points, away_points
+
+
+def play_rounds(model, home_slots, away_slots, state, prev_tier, table, rng, fixture_slots=None, outcomes=None):
+    classes = list(model.classes_)
+    order = [classes.index(outcome) for outcome in OUTCOME_ORDER]
+    for r in range(home_slots.shape[1]):
+        valid = home_slots[:, r, :] >= 0
+        sims = np.nonzero(valid)[0]
+        if len(sims) == 0:
             continue
-        feats = build_fixture_features(pairs, state, h2h_state, prev_tier_map)
-        proba = model.predict_proba(feats[FEATURE_COLUMNS])
-        classes = model.classes_
-        for i, row in feats.iterrows():
-            home, away = row['home'], row['away']
-            p = proba[i]
-            result = rng.choice(classes, p=p / p.sum())
+        home = home_slots[:, r, :][valid]
+        away = away_slots[:, r, :][valid]
+        if outcomes is not None:
+            fixture_ids = fixture_slots[:, r, :][valid]
+        proba = model.predict_proba(fixture_features(state, sims, home, away, prev_tier))[:, order]
+        cumulative = np.cumsum(proba, axis=1)
+        cumulative[:, -1] = 1.0
+        outcome = (rng.random(len(sims))[:, None] > cumulative).sum(axis=1)
 
-            lam_home = _clip(state[home]['attack'] * state[away]['defense'] / LEAGUE_AVG_GOALS, 0.15, 6.0)
-            lam_away = _clip((state[away]['attack'] * state[home]['defense'] / LEAGUE_AVG_GOALS) * 0.9, 0.1, 6.0)
-            hg, ag = _sample_scoreline(rng, result, lam_home, lam_away)
+        lam_home = np.clip(state['attack'][sims, home] * state['defense'][sims, away] / LEAGUE_AVG_GOALS, 0.15, 6.0)
+        lam_away = np.clip(state['attack'][sims, away] * state['defense'][sims, home] / LEAGUE_AVG_GOALS * 0.9, 0.1, 6.0)
+        hg, ag = sample_scorelines(rng, outcome, lam_home, lam_away)
+        if outcomes is not None:
+            outcomes[sims, fixture_ids] = outcome
+        sot_home = np.clip(state['sot_attack'][sims, home] * state['sot_defense'][sims, away] / LEAGUE_AVG_SOT, 0.5, 16.0)
+        sot_away = np.clip(state['sot_attack'][sims, away] * state['sot_defense'][sims, home] / LEAGUE_AVG_SOT, 0.5, 16.0)
+        home_sot = np.maximum(hg, rng.poisson(sot_home))
+        away_sot = np.maximum(ag, rng.poisson(sot_away))
 
-            sot_lam_home = _clip(state[home]['sot_attack'] * state[away]['sot_defense'] / LEAGUE_AVG_SOT, 0.5, 16.0)
-            sot_lam_away = _clip(state[away]['sot_attack'] * state[home]['sot_defense'] / LEAGUE_AVG_SOT, 0.5, 16.0)
-            home_sot = max(hg, int(rng.poisson(sot_lam_home)))
-            away_sot = max(ag, int(rng.poisson(sot_lam_away)))
-
-            _apply_result(table, home, away, hg, ag)
-            _update_elo(state, home, away, hg, ag)
-            _update_form(state, home, away, hg, ag, home_sot, away_sot)
-            _update_h2h(h2h_state, home, away, hg, ag)
+        home_points, away_points = _record(table, sims, home, away, hg, ag)
+        _update_ratings(state, sims, home, away, hg, ag, home_sot, away_sot)
+        _push_form(state, sims, home, {'points': home_points.astype(float), 'gf': hg.astype(float), 'ga': ag.astype(float),
+                                       'sot_for': home_sot.astype(float), 'sot_against': away_sot.astype(float)})
+        _push_form(state, sims, away, {'points': away_points.astype(float), 'gf': ag.astype(float), 'ga': hg.astype(float),
+                                       'sot_for': away_sot.astype(float), 'sot_against': home_sot.astype(float)})
     return table
 
-def _table_rows(table, teams, season_label, sim_index):
-    rows = []
-    for team in teams:
-        row = dict(table[team])
-        row['Team'] = team
-        row['Season'] = season_label
-        row['GoalDiff'] = row['GoalsFor'] - row['GoalsAgainst']
-        row['Simulation'] = sim_index
-        rows.append(row)
-    return rows
+
+def pack_rounds(schedules, index, fixture_index=None):
+    n_rounds = max(len(schedule) for schedule in schedules)
+    n_slots = max(len(rnd) for schedule in schedules for rnd in schedule)
+    shape = (len(schedules), n_rounds, n_slots)
+    home_slots = -np.ones(shape, dtype=int)
+    away_slots = -np.ones(shape, dtype=int)
+    fixture_slots = -np.ones(shape, dtype=int)
+    for s, schedule in enumerate(schedules):
+        for r, pairs in enumerate(schedule):
+            for p, (home, away) in enumerate(pairs):
+                home_slots[s, r, p] = index[home]
+                away_slots[s, r, p] = index[away]
+                if fixture_index is not None:
+                    fixture_slots[s, r, p] = fixture_index[(home, away)]
+    return home_slots, away_slots, fixture_slots
+
+
+def _table_arrays(n_simulations, start):
+    return {key: np.tile(np.asarray(start[key], dtype=int), (n_simulations, 1)) for key in TABLE_KEYS}
+
 
 def run_simulations(model, history, current_season, current_teams, elo_ratings,
-                    n_future_seasons, n_simulations, project_current=True, seed=42):
+                    n_future_seasons, n_simulations, project_current=True, seed=42, schedule=None):
     rng = np.random.default_rng(seed)
-    top_flight = history[history['division'] == 'Premier League']
-    season_matches = top_flight[top_flight['season'] == current_season]
+    teams = list(current_teams)
+    index = {team: i for i, team in enumerate(teams)}
+    season_matches = history[(history['division'] == TOP_DIVISION) & (history['season'] == current_season)]
+    previous_tiers = team_prev_tier_map(history, current_season)
+    current_prev_tier = np.array([previous_tiers.get(team, 1.0) for team in teams])
+    future_prev_tier = np.ones(len(teams))
+    state = init_state(history, elo_ratings, teams, n_simulations)
+    tables = {}
+    fixtures = []
+    outcomes = np.zeros((n_simulations, 0), dtype=np.int8)
 
-    from features import team_prev_tier_map
-    current_prev_tier = team_prev_tier_map(history, current_season)
-    future_prev_tier = {t: 1.0 for t in current_teams}
+    if project_current:
+        played = table_from_results(season_matches, teams)
+        start = {key: [played[team][key] for team in teams] for key in TABLE_KEYS}
+        table = _table_arrays(n_simulations, start)
+        ordered, unscheduled = ordered_remaining_fixtures(season_matches, teams, schedule)
+        fixtures = ordered + unscheduled
+        if fixtures:
+            fixture_index = {pair: i for i, pair in enumerate(fixtures)}
+            outcomes = -np.ones((n_simulations, len(fixtures)), dtype=np.int8)
+            fixed = rounds_in_order(ordered)
+            schedules = [fixed + (group_into_rounds(unscheduled, rng) if unscheduled else []) for _ in range(n_simulations)]
+            home_slots, away_slots, fixture_slots = pack_rounds(schedules, index, fixture_index)
+            play_rounds(model, home_slots, away_slots, state, current_prev_tier, table, rng, fixture_slots, outcomes)
+        tables[current_season] = table
 
-    all_table_rows = []
+    for offset in range(n_future_seasons):
+        table = _table_arrays(n_simulations, {key: [0] * len(teams) for key in TABLE_KEYS})
+        schedules = [round_robin_schedule(teams, rng) for _ in range(n_simulations)]
+        home_slots, away_slots, _ = pack_rounds(schedules, index)
+        play_rounds(model, home_slots, away_slots, state, future_prev_tier, table, rng)
+        tables[current_season + 1 + offset] = table
+    return {'tables': tables, 'fixtures': fixtures, 'outcomes': outcomes, 'teams': teams}
 
-    for sim in range(n_simulations):
-        state = init_simulation_state(history, elo_ratings, current_teams)
-        h2h_state = init_h2h_state(history, current_teams)
 
-        if project_current:
-            table = table_from_results(season_matches, current_teams)
-            fixtures = remaining_fixtures(season_matches, current_teams)
-            rounds = group_into_rounds(fixtures, rng)
-            play_rounds(model, rounds, state, h2h_state, current_prev_tier, table, rng, current_season)
-            all_table_rows.extend(_table_rows(table, current_teams, current_season, sim))
+def predict_fixtures(model, history, elo_ratings, current_season, teams, fixtures):
+    if not fixtures:
+        return np.zeros((0, 3))
+    teams = list(teams)
+    index = {team: i for i, team in enumerate(teams)}
+    state = init_state(history, elo_ratings, teams, 1)
+    previous_tiers = team_prev_tier_map(history, current_season)
+    prev_tier = np.array([previous_tiers.get(team, 1.0) for team in teams])
+    home = np.array([index[h] for h, _ in fixtures])
+    away = np.array([index[a] for _, a in fixtures])
+    frame = fixture_features(state, np.zeros(len(fixtures), dtype=int), home, away, prev_tier)
+    classes = list(model.classes_)
+    return model.predict_proba(frame)[:, [classes.index(o) for o in OUTCOME_ORDER]]
 
-        for offset in range(n_future_seasons):
-            season_label = current_season + 1 + offset
-            table = empty_table(current_teams)
-            rounds = round_robin_schedule(current_teams, rng)
-            play_rounds(model, rounds, state, h2h_state, future_prev_tier, table, rng, season_label)
-            all_table_rows.extend(_table_rows(table, current_teams, season_label, sim))
 
-    return pd.DataFrame(all_table_rows)
+def finishing_positions(table):
+    points = table['Points']
+    goal_diff = table['GoalsFor'] - table['GoalsAgainst']
+    n_sims, n_teams = points.shape
+    positions = np.zeros((n_sims, n_teams), dtype=int)
+    tiebreak = np.arange(n_teams)
+    for s in range(n_sims):
+        order = np.lexsort((tiebreak, -table['GoalsFor'][s], -goal_diff[s], -points[s]))
+        positions[s, order] = np.arange(1, n_teams + 1)
+    return positions
 
-def summarize_simulations(table_df, current_teams, n_simulations):
-    summary = table_df.groupby(['Season', 'Team']).agg(
-        Points=('Points', 'mean'),
-        Wins=('Wins', 'mean'),
-        Draws=('Draws', 'mean'),
-        Losses=('Losses', 'mean'),
-        GoalsFor=('GoalsFor', 'mean'),
-        GoalsAgainst=('GoalsAgainst', 'mean'),
-        GoalDiff=('GoalDiff', 'mean'),
-    ).reset_index()
 
-    rank_frames = []
-    for _, group in table_df.groupby(['Season', 'Simulation']):
-        ranked = group.sort_values(['Points', 'GoalDiff', 'GoalsFor'], ascending=False).reset_index(drop=True)
-        ranked['Rank'] = ranked.index + 1
-        rank_frames.append(ranked[['Season', 'Team', 'Rank']])
-    ranks = pd.concat(rank_frames, ignore_index=True)
-
-    title_prob = ranks[ranks['Rank'] == 1].groupby(['Season', 'Team']).size().div(n_simulations).rename('TitleProb')
-    top4_prob = ranks[ranks['Rank'] <= 4].groupby(['Season', 'Team']).size().div(n_simulations).rename('Top4Prob')
-    relegation_prob = ranks[ranks['Rank'] >= len(current_teams) - 2].groupby(['Season', 'Team']).size().div(n_simulations).rename('RelegationProb')
-
-    summary = summary.set_index(['Season', 'Team'])
-    summary = summary.join(title_prob).join(top4_prob).join(relegation_prob).fillna(0.0).reset_index()
-    summary = summary.sort_values(['Season', 'Points', 'GoalDiff'], ascending=[True, False, False])
-    summary['Rank'] = summary.groupby('Season').cumcount() + 1
+def summarize_simulations(results, current_teams):
+    frames = []
+    teams = list(current_teams)
+    relegation_line = len(teams) - 2
+    for season, table in results['tables'].items():
+        positions = finishing_positions(table)
+        frame = pd.DataFrame({
+            'Season': season,
+            'Team': teams,
+            'Points': table['Points'].mean(axis=0),
+            'Wins': table['Wins'].mean(axis=0),
+            'Draws': table['Draws'].mean(axis=0),
+            'Losses': table['Losses'].mean(axis=0),
+            'GoalsFor': table['GoalsFor'].mean(axis=0),
+            'GoalsAgainst': table['GoalsAgainst'].mean(axis=0),
+            'GoalDiff': (table['GoalsFor'] - table['GoalsAgainst']).mean(axis=0),
+            'TitleProb': (positions == 1).mean(axis=0),
+            'Top4Prob': (positions <= 4).mean(axis=0),
+            'RelegationProb': (positions >= relegation_line).mean(axis=0),
+        })
+        frame = frame.sort_values(['Points', 'GoalDiff'], ascending=False, kind='mergesort')
+        frame['Rank'] = np.arange(1, len(teams) + 1)
+        frames.append(frame)
+    summary = pd.concat(frames, ignore_index=True)
     round_cols = ['Points', 'Wins', 'Draws', 'Losses', 'GoalsFor', 'GoalsAgainst', 'GoalDiff']
     summary[round_cols] = summary[round_cols].round(2)
     prob_cols = ['TitleProb', 'Top4Prob', 'RelegationProb']
-    summary[prob_cols] = summary[prob_cols].round(3)
+    summary[prob_cols] = summary[prob_cols].round(4)
     cols = ['Season', 'Rank', 'Team', 'Points', 'Wins', 'Draws', 'Losses',
             'GoalsFor', 'GoalsAgainst', 'GoalDiff', 'TitleProb', 'Top4Prob', 'RelegationProb']
     return summary[cols].reset_index(drop=True)

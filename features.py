@@ -8,7 +8,6 @@ HOME_ADVANTAGE = 60.0
 ELO_MARGIN_MULTIPLIER = 0.35
 TIER_ADJUSTMENT = 330.0
 FORM_WINDOW = 9
-H2H_WINDOW = 3
 TOP_DIVISION = 'Premier League'
 
 STAT_PAIRS = [
@@ -23,7 +22,8 @@ FEATURE_COLUMNS = [
     'away_form_gf', 'away_form_ga',
     'home_form_sot_for', 'home_form_sot_against',
     'away_form_sot_for', 'away_form_sot_against',
-    'h2h_home_rate', 'home_prev_tier', 'away_prev_tier',
+    'home_prev_tier', 'away_prev_tier',
+    'home_promoted_top', 'away_promoted_top',
 ]
 
 def extract_round(match_id):
@@ -100,17 +100,6 @@ def compute_rolling_form(df, window=FORM_WINDOW):
     away_rows.columns = [f'away_{c}' for c in form_cols]
     return df.join(home_rows).join(away_rows)
 
-def compute_h2h(df, window=H2H_WINDOW):
-    df = df.copy()
-    df['pair_key'] = [tuple(sorted((h, a))) for h, a in zip(df['home_team_name'], df['away_team_name'])]
-    df['home_win_flag'] = (df['result'] == 'home team win').astype(float)
-    values = pd.Series(index=df.index, dtype=float)
-    for _, group in df.groupby('pair_key'):
-        ordered = group.sort_values('match_date', kind='mergesort')
-        values.loc[ordered.index] = ordered['home_win_flag'].shift(1).rolling(window, min_periods=1).mean().values
-    df['h2h_home_rate'] = values.fillna(0.45)
-    return df.drop(columns=['pair_key', 'home_win_flag'])
-
 def season_tier_lookup(df):
     home = df[['season', 'home_team_name', 'tier']].rename(columns={'home_team_name': 'team'})
     away = df[['season', 'away_team_name', 'tier']].rename(columns={'away_team_name': 'team'})
@@ -127,12 +116,16 @@ def compute_prev_tier(df):
     df = df.drop(columns=['team']).rename(columns={'prev_tier': 'away_prev_tier'})
     df['home_prev_tier'] = df['home_prev_tier'].fillna(5.0)
     df['away_prev_tier'] = df['away_prev_tier'].fillna(5.0)
+    df['home_promoted_top'] = promoted_to_top(df['tier'], df['home_prev_tier'])
+    df['away_promoted_top'] = promoted_to_top(df['tier'], df['away_prev_tier'])
     return df
+
+def promoted_to_top(tier, prev_tier):
+    return ((tier == 1) & (prev_tier == 2)).astype(float)
 
 def engineer_features(df):
     df, elo_ratings = compute_elo(df)
     df = compute_rolling_form(df)
-    df = compute_h2h(df)
     df = compute_prev_tier(df)
     return df, elo_ratings
 
