@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EPLcast - how it works</title>
+<meta name="description" content="How EPLcast predicts Premier League matches and simulates the season.">
+<link rel="canonical" href="https://hle0110.github.io/EPLcast/methodology.html">
+<meta property="og:site_name" content="EPLcast">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EPLcast - how it works">
+<meta property="og:description" content="How EPLcast predicts Premier League matches and simulates the season.">
+<meta property="og:url" content="https://hle0110.github.io/EPLcast/methodology.html">
+<meta property="og:image" content="https://hle0110.github.io/EPLcast/og-image.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hle0110.github.io/EPLcast/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23171a21'/%3E%3Crect x='6' y='8' width='5' height='18' rx='1' fill='%234ade80'/%3E%3Crect x='13.5' y='13' width='5' height='13' rx='1' fill='%2360a5fa'/%3E%3Crect x='21' y='18' width='5' height='8' rx='1' fill='%23f87171'/%3E%3C/svg%3E">
+<meta name="twitter:title" content="EPLcast - how it works">
+<meta name="twitter:description" content="How EPLcast predicts Premier League matches and simulates the season.">
+<style>
+:root {
+  --bg: #0f1115;
+  --card: #171a21;
+  --line: #262b35;
+  --text: #e8eaee;
+  --muted: #9aa3b2;
+  --accent: #4ade80;
+  --warn: #f87171;
+  --bar: #2b3240;
+  --win: #22c55e;
+  --draw: #eab308;
+  --loss: #ef4444;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 32px 20px 64px;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.wrap { max-width: 1080px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.01em; }
+h2 { font-size: 17px; margin: 40px 0 12px; }
+.sub { color: var(--muted); margin: 0 0 28px; font-size: 14px; }
+.cards { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; flex: 1 1 170px; }
+.card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.card .value { font-size: 22px; font-weight: 600; margin-top: 4px; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+th, td { padding: 9px 11px; text-align: right; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; white-space: nowrap; }
+th.team, td.team { text-align: left; white-space: nowrap; }
+th.group { border-left: 1px solid var(--line); }
+td.group { border-left: 1px solid var(--line); }
+td.rank { color: var(--muted); width: 38px; }
+td.finish { white-space: nowrap; }
+tbody tr:last-child td { border-bottom: none; }
+tr.ucl td.finish { color: var(--accent); font-weight: 600; }
+tr.drop td.finish { color: var(--warn); font-weight: 600; }
+.form { display: inline-flex; gap: 3px; }
+.form i { width: 16px; height: 16px; border-radius: 3px; font-style: normal; font-size: 10px; line-height: 16px; text-align: center; color: #0f1115; font-weight: 700; }
+.form i.W { background: var(--win); }
+.form i.D { background: var(--draw); }
+.form i.L { background: var(--loss); }
+.move { font-size: 12px; color: var(--muted); }
+.legend { color: var(--muted); font-size: 13px; margin-top: 14px; }
+.chart { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 16px 10px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.keys { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 13px; color: var(--muted); }
+.keys span { display: inline-flex; align-items: center; gap: 6px; }
+.keys b { width: 18px; height: 3px; border-radius: 2px; display: inline-block; }
+.footer { color: var(--muted); font-size: 13px; margin-top: 36px; border-top: 1px solid var(--line); padding-top: 16px; }
+.footer a { color: var(--text); }
+a { color: inherit; }
+td.team a { text-decoration: none; }
+td.team a:hover { text-decoration: underline; }
+.nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 26px; }
+.nav a { color: var(--muted); text-decoration: none; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; }
+.nav a.on, .nav a:hover { color: var(--text); background: var(--card); }
+.scroll { overflow-x: auto; }
+.heat td { padding: 6px 4px; font-size: 11px; text-align: center; min-width: 26px; }
+.heat th { padding: 6px 4px; text-align: center; }
+.heat td.team { text-align: left; font-size: 13px; padding-left: 11px; }
+.prob3 { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 6px; min-width: 120px; }
+.prob3 b { display: block; height: 100%; }
+.muted { color: var(--muted); }
+.stake { font-size: 13px; color: var(--muted); }
+.posbar { display: flex; align-items: flex-end; gap: 3px; height: 120px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 12px 0; }
+.posbar div { flex: 1; background: var(--accent); border-radius: 2px 2px 0 0; min-height: 1px; }
+.posbar div.mid { background: #60a5fa; }
+.posbar div.low { background: var(--warn); }
+.poslabels { display: flex; gap: 3px; padding: 4px 12px 0; font-size: 10px; color: var(--muted); }
+.poslabels span { flex: 1; text-align: center; }
+.prose { max-width: 760px; }
+.prose p, .prose li { color: var(--text); }
+@media (max-width: 760px) {
+  body { padding: 20px 12px 48px; }
+  th.hide, td.hide { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="nav"><a href="index.html">Table</a><a href="matches.html">Matches</a><a href="clubs/index.html">Clubs</a><a href="accuracy.html">Accuracy</a><a class="on" href="methodology.html">Method</a></nav>
+<h1>How it works</h1>
+<div class="prose">
+<h2>Data</h2>
+<p>Results, shots on target and closing odds for the top four English divisions come from football-data.co.uk, and fixture
+dates from fixturedownload.com. Seasons from 2017-18 to 2020-21 only warm up the ratings; the model learns from 2021-22 onward.</p>
+<h2>The match model</h2>
+<p>A multinomial logistic regression gives the probability of a home win, draw and away win from fifteen inputs: the gap in
+Elo rating, each club's average points, goals and shots on target over its last nine matches, the division each club played
+in last season, and whether a club is in its first Premier League season after promotion. Promoted clubs had been overrated
+by about 0.16 points a game before that last input was added.</p>
+<h2>The season simulation</h2>
+<p>Points already won are banked. Every remaining fixture is played in its published order 5,000 times. Each
+simulated result updates the ratings and form that the following matches use, so a bad run carries forward as it does in
+reality. Title, top four and relegation chances are the share of simulations in which each happens.</p>
+<h2>How good is it</h2>
+<p>Over held-out seasons the model picks the right result 53.1% of the time. Bookmakers manage a little more, because
+they also see injuries, line-ups and team news. Three-way football results are hard to predict: published models rarely clear
+the mid 50s. See <a href="accuracy.html">Accuracy</a> for every number.</p>
+<h2>What it cannot see</h2>
+<ul><li>Injuries, suspensions, transfers and managerial changes, until they show up in results.</li>
+<li>Fixture congestion and cup or European commitments.</li>
+<li>Points deductions, until they appear in the official results.</li>
+<li>Expected goals, which the data only includes from 2026-27; it will be added once there is enough history to test it.</li></ul>
+<h2>Updates</h2>
+<p>The site rebuilds itself every Tuesday and Friday. Code and data are open at
+<a href="https://github.com/hle0110/EPLcast">github.com/hle0110/EPLcast</a>.</p>
+</div>
+<div class="footer">
+Built by <a href="https://github.com/hle0110/EPLcast">EPLcast</a>. Match data from football-data.co.uk, fixture dates from fixturedownload.com.
+Data as JSON: <a href="api/projection.json">projection</a>, <a href="api/fixtures.json">fixtures</a>, <a href="api/accuracy.json">accuracy</a>.
+Predictions are statistical estimates, not betting advice.
+</div>
+</div>
+</body>
+</html>

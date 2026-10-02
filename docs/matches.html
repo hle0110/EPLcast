@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EPLcast - next round predictions</title>
+<meta name="description" content="Premier League match predictions for the next round, with what each result means for the title, top four and relegation.">
+<link rel="canonical" href="https://hle0110.github.io/EPLcast/matches.html">
+<meta property="og:site_name" content="EPLcast">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EPLcast - next round predictions">
+<meta property="og:description" content="Premier League match predictions for the next round, with what each result means for the title, top four and relegation.">
+<meta property="og:url" content="https://hle0110.github.io/EPLcast/matches.html">
+<meta property="og:image" content="https://hle0110.github.io/EPLcast/og-image.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hle0110.github.io/EPLcast/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23171a21'/%3E%3Crect x='6' y='8' width='5' height='18' rx='1' fill='%234ade80'/%3E%3Crect x='13.5' y='13' width='5' height='13' rx='1' fill='%2360a5fa'/%3E%3Crect x='21' y='18' width='5' height='8' rx='1' fill='%23f87171'/%3E%3C/svg%3E">
+<meta name="twitter:title" content="EPLcast - next round predictions">
+<meta name="twitter:description" content="Premier League match predictions for the next round, with what each result means for the title, top four and relegation.">
+<style>
+:root {
+  --bg: #0f1115;
+  --card: #171a21;
+  --line: #262b35;
+  --text: #e8eaee;
+  --muted: #9aa3b2;
+  --accent: #4ade80;
+  --warn: #f87171;
+  --bar: #2b3240;
+  --win: #22c55e;
+  --draw: #eab308;
+  --loss: #ef4444;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 32px 20px 64px;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.wrap { max-width: 1080px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.01em; }
+h2 { font-size: 17px; margin: 40px 0 12px; }
+.sub { color: var(--muted); margin: 0 0 28px; font-size: 14px; }
+.cards { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; flex: 1 1 170px; }
+.card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.card .value { font-size: 22px; font-weight: 600; margin-top: 4px; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+th, td { padding: 9px 11px; text-align: right; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; white-space: nowrap; }
+th.team, td.team { text-align: left; white-space: nowrap; }
+th.group { border-left: 1px solid var(--line); }
+td.group { border-left: 1px solid var(--line); }
+td.rank { color: var(--muted); width: 38px; }
+td.finish { white-space: nowrap; }
+tbody tr:last-child td { border-bottom: none; }
+tr.ucl td.finish { color: var(--accent); font-weight: 600; }
+tr.drop td.finish { color: var(--warn); font-weight: 600; }
+.form { display: inline-flex; gap: 3px; }
+.form i { width: 16px; height: 16px; border-radius: 3px; font-style: normal; font-size: 10px; line-height: 16px; text-align: center; color: #0f1115; font-weight: 700; }
+.form i.W { background: var(--win); }
+.form i.D { background: var(--draw); }
+.form i.L { background: var(--loss); }
+.move { font-size: 12px; color: var(--muted); }
+.legend { color: var(--muted); font-size: 13px; margin-top: 14px; }
+.chart { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 16px 10px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.keys { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 13px; color: var(--muted); }
+.keys span { display: inline-flex; align-items: center; gap: 6px; }
+.keys b { width: 18px; height: 3px; border-radius: 2px; display: inline-block; }
+.footer { color: var(--muted); font-size: 13px; margin-top: 36px; border-top: 1px solid var(--line); padding-top: 16px; }
+.footer a { color: var(--text); }
+a { color: inherit; }
+td.team a { text-decoration: none; }
+td.team a:hover { text-decoration: underline; }
+.nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 26px; }
+.nav a { color: var(--muted); text-decoration: none; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; }
+.nav a.on, .nav a:hover { color: var(--text); background: var(--card); }
+.scroll { overflow-x: auto; }
+.heat td { padding: 6px 4px; font-size: 11px; text-align: center; min-width: 26px; }
+.heat th { padding: 6px 4px; text-align: center; }
+.heat td.team { text-align: left; font-size: 13px; padding-left: 11px; }
+.prob3 { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 6px; min-width: 120px; }
+.prob3 b { display: block; height: 100%; }
+.muted { color: var(--muted); }
+.stake { font-size: 13px; color: var(--muted); }
+.posbar { display: flex; align-items: flex-end; gap: 3px; height: 120px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 12px 0; }
+.posbar div { flex: 1; background: var(--accent); border-radius: 2px 2px 0 0; min-height: 1px; }
+.posbar div.mid { background: #60a5fa; }
+.posbar div.low { background: var(--warn); }
+.poslabels { display: flex; gap: 3px; padding: 4px 12px 0; font-size: 10px; color: var(--muted); }
+.poslabels span { flex: 1; text-align: center; }
+.prose { max-width: 760px; }
+.prose p, .prose li { color: var(--text); }
+@media (max-width: 760px) {
+  body { padding: 20px 12px 48px; }
+  th.hide, td.hide { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="nav"><a href="index.html">Table</a><a class="on" href="matches.html">Matches</a><a href="clubs/index.html">Clubs</a><a href="accuracy.html">Accuracy</a><a href="methodology.html">Method</a></nav>
+<h1>Round 6</h1><p class="sub">Match probabilities from the current model, and what each result would mean for the season.</p><div class="scroll"><table><thead><tr><th class="team">Kick-off (UK time)</th><th class="team">Match</th><th>Home</th><th>Draw</th><th>Away</th></tr></thead><tbody><tr><td class="team">Sat 10 Oct, 12:30</td><td class="team"><a href="clubs/arsenal.html">Arsenal</a> v <a href="clubs/leeds-united.html">Leeds United</a><div class="prob3"><b style="width:69.9%;background:var(--win)"></b><b style="width:19.5%;background:var(--draw)"></b><b style="width:10.7%;background:var(--loss)"></b></div><div class="stake">Arsenal’s chance to win the title: now 46%, if they win 50%, draw 38%, lose 35%</div><div class="stake">Leeds United’s chance to finish top four: now 12%, if they win 20%, draw 15%, lose 11%</div></td><td>70%</td><td>19%</td><td>11%</td></tr><tr><td class="team">Sat 10 Oct, 15:00</td><td class="team"><a href="clubs/aston-villa.html">Aston Villa</a> v <a href="clubs/brentford.html">Brentford</a><div class="prob3"><b style="width:47.3%;background:var(--win)"></b><b style="width:24.3%;background:var(--draw)"></b><b style="width:28.4%;background:var(--loss)"></b></div><div class="stake">Aston Villa’s chance to be relegated: now 9%, if they win 5%, draw 10%, lose 15%</div><div class="stake">Brentford’s chance to finish top four: now 10%, if they win 15%, draw 9%, lose 7%</div></td><td>47%</td><td>24%</td><td>28%</td></tr><tr><td class="team">Sat 10 Oct, 15:00</td><td class="team"><a href="clubs/chelsea.html">Chelsea</a> v <a href="clubs/bournemouth.html">Bournemouth</a><div class="prob3"><b style="width:34.0%;background:var(--win)"></b><b style="width:28.1%;background:var(--draw)"></b><b style="width:38.0%;background:var(--loss)"></b></div><div class="stake">Chelsea’s chance to finish top four: now 8%, if they win 12%, draw 7%, lose 4%</div><div class="stake">Bournemouth’s chance to finish top four: now 19%, if they win 27%, draw 17%, lose 13%</div></td><td>34%</td><td>28%</td><td>38%</td></tr><tr><td class="team">Sat 10 Oct, 15:00</td><td class="team"><a href="clubs/ipswich-town.html">Ipswich Town</a> v <a href="clubs/fulham.html">Fulham</a><div class="prob3"><b style="width:27.7%;background:var(--win)"></b><b style="width:24.2%;background:var(--draw)"></b><b style="width:48.2%;background:var(--loss)"></b></div><div class="stake">Ipswich Town’s chance to be relegated: now 59%, if they win 46%, draw 59%, lose 66%</div><div class="stake">Fulham’s chance to be relegated: now 15%, if they win 10%, draw 16%, lose 22%</div></td><td>28%</td><td>24%</td><td>48%</td></tr><tr><td class="team">Sat 10 Oct, 15:00</td><td class="team"><a href="clubs/sunderland.html">Sunderland</a> v <a href="clubs/brighton-hove-albion.html">Brighton &amp; Hove Albion</a><div class="prob3"><b style="width:33.9%;background:var(--win)"></b><b style="width:26.5%;background:var(--draw)"></b><b style="width:39.6%;background:var(--loss)"></b></div><div class="stake">Sunderland’s chance to finish top four: now 8%, if they win 12%, draw 8%, lose 5%</div><div class="stake">Brighton &amp; Hove Albion’s chance to finish top four: now 49%, if they win 58%, draw 47%, lose 40%</div></td><td>34%</td><td>27%</td><td>40%</td></tr><tr><td class="team">Sat 10 Oct, 17:30</td><td class="team"><a href="clubs/manchester-united.html">Manchester United</a> v <a href="clubs/tottenham-hotspur.html">Tottenham Hotspur</a><div class="prob3"><b style="width:61.6%;background:var(--win)"></b><b style="width:22.3%;background:var(--draw)"></b><b style="width:16.1%;background:var(--loss)"></b></div><div class="stake">Manchester United’s chance to finish top four: now 33%, if they win 37%, draw 31%, lose 24%</div><div class="stake">Tottenham Hotspur’s chance to be relegated: now 24%, if they win 14%, draw 22%, lose 28%</div></td><td>62%</td><td>22%</td><td>16%</td></tr><tr><td class="team">Sun 11 Oct, 14:00</td><td class="team"><a href="clubs/crystal-palace.html">Crystal Palace</a> v <a href="clubs/nottingham-forest.html">Nottingham Forest</a><div class="prob3"><b style="width:38.0%;background:var(--win)"></b><b style="width:26.7%;background:var(--draw)"></b><b style="width:35.4%;background:var(--loss)"></b></div><div class="stake">Crystal Palace’s chance to be relegated: now 23%, if they win 16%, draw 24%, lose 30%</div><div class="stake">Nottingham Forest’s chance to be relegated: now 8%, if they win 4%, draw 8%, lose 11%</div></td><td>38%</td><td>27%</td><td>35%</td></tr><tr><td class="team">Sun 11 Oct, 14:00</td><td class="team"><a href="clubs/hull-city.html">Hull City</a> v <a href="clubs/everton.html">Everton</a><div class="prob3"><b style="width:19.5%;background:var(--win)"></b><b style="width:21.6%;background:var(--draw)"></b><b style="width:58.9%;background:var(--loss)"></b></div><div class="stake">Hull City’s chance to be relegated: now 73%, if they win 60%, draw 72%, lose 78%</div><div class="stake">Everton’s chance to finish top four: now 20%, if they win 23%, draw 17%, lose 14%</div></td><td>19%</td><td>22%</td><td>59%</td></tr><tr><td class="team">Sun 11 Oct, 16:30</td><td class="team"><a href="clubs/liverpool.html">Liverpool</a> v <a href="clubs/manchester-city.html">Manchester City</a><div class="prob3"><b style="width:34.2%;background:var(--win)"></b><b style="width:26.3%;background:var(--draw)"></b><b style="width:39.5%;background:var(--loss)"></b></div><div class="stake">Liverpool’s chance to finish top four: now 31%, if they win 40%, draw 32%, lose 24%</div><div class="stake">Manchester City’s chance to win the title: now 42%, if they win 50%, draw 43%, lose 32%</div></td><td>34%</td><td>26%</td><td>39%</td></tr><tr><td class="team">Mon 12 Oct, 20:00</td><td class="team"><a href="clubs/coventry-city.html">Coventry City</a> v <a href="clubs/newcastle-united.html">Newcastle United</a><div class="prob3"><b style="width:34.2%;background:var(--win)"></b><b style="width:23.7%;background:var(--draw)"></b><b style="width:42.1%;background:var(--loss)"></b></div><div class="stake">Coventry City’s chance to be relegated: now 51%, if they win 42%, draw 52%, lose 59%</div><div class="stake">Newcastle United’s chance to be relegated: now 10%, if they win 6%, draw 11%, lose 14%</div></td><td>34%</td><td>24%</td><td>42%</td></tr></tbody></table></div><p class="legend">Bars show home win, draw and away win. The lines under each match show how the result moves the most affected season outcome for each club, measured across every simulation.</p><h2>Live track record</h2><p class="muted">Live tracking has started. Scores appear here once the first predicted matches are played.</p><p class="legend">Every prediction is saved before kick-off in <a href="https://github.com/hle0110/EPLcast/blob/main/predictions/match_predictions.csv">match_predictions.csv</a> and committed to the public repository, so each one has a dated history.</p>
+<div class="footer">
+Built by <a href="https://github.com/hle0110/EPLcast">EPLcast</a>. Match data from football-data.co.uk, fixture dates from fixturedownload.com.
+Data as JSON: <a href="api/projection.json">projection</a>, <a href="api/fixtures.json">fixtures</a>, <a href="api/accuracy.json">accuracy</a>.
+Predictions are statistical estimates, not betting advice.
+</div>
+</div>
+</body>
+</html>

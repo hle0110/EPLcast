@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EPLcast - accuracy</title>
+<meta name="description" content="EPLcast accuracy: 53.1% over 1,190 held-out Premier League matches, compared with bookmakers.">
+<link rel="canonical" href="https://hle0110.github.io/EPLcast/accuracy.html">
+<meta property="og:site_name" content="EPLcast">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EPLcast - accuracy">
+<meta property="og:description" content="EPLcast accuracy: 53.1% over 1,190 held-out Premier League matches, compared with bookmakers.">
+<meta property="og:url" content="https://hle0110.github.io/EPLcast/accuracy.html">
+<meta property="og:image" content="https://hle0110.github.io/EPLcast/og-image.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hle0110.github.io/EPLcast/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23171a21'/%3E%3Crect x='6' y='8' width='5' height='18' rx='1' fill='%234ade80'/%3E%3Crect x='13.5' y='13' width='5' height='13' rx='1' fill='%2360a5fa'/%3E%3Crect x='21' y='18' width='5' height='8' rx='1' fill='%23f87171'/%3E%3C/svg%3E">
+<meta name="twitter:title" content="EPLcast - accuracy">
+<meta name="twitter:description" content="EPLcast accuracy: 53.1% over 1,190 held-out Premier League matches, compared with bookmakers.">
+<style>
+:root {
+  --bg: #0f1115;
+  --card: #171a21;
+  --line: #262b35;
+  --text: #e8eaee;
+  --muted: #9aa3b2;
+  --accent: #4ade80;
+  --warn: #f87171;
+  --bar: #2b3240;
+  --win: #22c55e;
+  --draw: #eab308;
+  --loss: #ef4444;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 32px 20px 64px;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.wrap { max-width: 1080px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.01em; }
+h2 { font-size: 17px; margin: 40px 0 12px; }
+.sub { color: var(--muted); margin: 0 0 28px; font-size: 14px; }
+.cards { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; flex: 1 1 170px; }
+.card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.card .value { font-size: 22px; font-weight: 600; margin-top: 4px; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+th, td { padding: 9px 11px; text-align: right; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; white-space: nowrap; }
+th.team, td.team { text-align: left; white-space: nowrap; }
+th.group { border-left: 1px solid var(--line); }
+td.group { border-left: 1px solid var(--line); }
+td.rank { color: var(--muted); width: 38px; }
+td.finish { white-space: nowrap; }
+tbody tr:last-child td { border-bottom: none; }
+tr.ucl td.finish { color: var(--accent); font-weight: 600; }
+tr.drop td.finish { color: var(--warn); font-weight: 600; }
+.form { display: inline-flex; gap: 3px; }
+.form i { width: 16px; height: 16px; border-radius: 3px; font-style: normal; font-size: 10px; line-height: 16px; text-align: center; color: #0f1115; font-weight: 700; }
+.form i.W { background: var(--win); }
+.form i.D { background: var(--draw); }
+.form i.L { background: var(--loss); }
+.move { font-size: 12px; color: var(--muted); }
+.legend { color: var(--muted); font-size: 13px; margin-top: 14px; }
+.chart { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 16px 10px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.keys { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 13px; color: var(--muted); }
+.keys span { display: inline-flex; align-items: center; gap: 6px; }
+.keys b { width: 18px; height: 3px; border-radius: 2px; display: inline-block; }
+.footer { color: var(--muted); font-size: 13px; margin-top: 36px; border-top: 1px solid var(--line); padding-top: 16px; }
+.footer a { color: var(--text); }
+a { color: inherit; }
+td.team a { text-decoration: none; }
+td.team a:hover { text-decoration: underline; }
+.nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 26px; }
+.nav a { color: var(--muted); text-decoration: none; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; }
+.nav a.on, .nav a:hover { color: var(--text); background: var(--card); }
+.scroll { overflow-x: auto; }
+.heat td { padding: 6px 4px; font-size: 11px; text-align: center; min-width: 26px; }
+.heat th { padding: 6px 4px; text-align: center; }
+.heat td.team { text-align: left; font-size: 13px; padding-left: 11px; }
+.prob3 { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 6px; min-width: 120px; }
+.prob3 b { display: block; height: 100%; }
+.muted { color: var(--muted); }
+.stake { font-size: 13px; color: var(--muted); }
+.posbar { display: flex; align-items: flex-end; gap: 3px; height: 120px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 12px 0; }
+.posbar div { flex: 1; background: var(--accent); border-radius: 2px 2px 0 0; min-height: 1px; }
+.posbar div.mid { background: #60a5fa; }
+.posbar div.low { background: var(--warn); }
+.poslabels { display: flex; gap: 3px; padding: 4px 12px 0; font-size: 10px; color: var(--muted); }
+.poslabels span { flex: 1; text-align: center; }
+.prose { max-width: 760px; }
+.prose p, .prose li { color: var(--text); }
+@media (max-width: 760px) {
+  body { padding: 20px 12px 48px; }
+  th.hide, td.hide { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="nav"><a href="index.html">Table</a><a href="matches.html">Matches</a><a href="clubs/index.html">Clubs</a><a class="on" href="accuracy.html">Accuracy</a><a href="methodology.html">Method</a></nav>
+<h1>Accuracy</h1><p class="sub">Each season is predicted by a model trained only on matches played before it started, so none of these numbers use hindsight.</p><div class="cards"><div class="card"><div class="label">Model accuracy</div><div class="value">53.1%</div></div><div class="card"><div class="label">Bookmakers</div><div class="value">54.6%</div></div><div class="card"><div class="label">Always home win</div><div class="value">42.9%</div></div><div class="card"><div class="label">Matches tested</div><div class="value">1,190</div></div></div><div class="scroll"><table><thead><tr><th class="team">Season</th><th>Matches</th><th>Home win</th><th class="group">Model</th><th>Log loss</th><th class="group">Bookmakers</th><th>Log loss</th></tr></thead><tbody><tr><td class="team">2023-24</td><td>380</td><td>46.1%</td><td class="group">60.3%</td><td>0.925</td><td class="group">60.0%</td><td>0.901</td></tr><tr><td class="team">2024-25</td><td>380</td><td>40.8%</td><td class="group">53.2%</td><td>0.963</td><td class="group">55.5%</td><td>0.967</td></tr><tr><td class="team">2025-26</td><td>380</td><td>42.6%</td><td class="group">47.6%</td><td>1.045</td><td class="group">49.5%</td><td>1.012</td></tr><tr><td class="team">2026-27</td><td>50</td><td>36.0%</td><td class="group">40.0%</td><td>1.076</td><td class="group">46.0%</td><td>1.055</td></tr><tr><td class="team"><strong>All</strong></td><td>1,190</td><td>42.9%</td><td class="group"><strong>53.1%</strong></td><td><strong>0.982</strong></td><td class="group">54.6%</td><td>0.964</td></tr></tbody></table></div><p class="legend">Accuracy counts how often the most likely result happened. Log loss rewards honest probabilities and punishes confident misses; lower is better, and guessing a third for everything scores 1.099. Bookmaker figures use the average closing odds with the margin removed. They are the benchmark, not a target the model is tuned to.</p><h2>Calibration</h2><div class="scroll"><table><thead><tr><th class="team">Predicted chance</th><th>Average predicted</th><th>Actually happened</th><th>Outcomes</th></tr></thead><tbody><tr><td class="team">0-20%</td><td>14.7%</td><td>15.8%</td><td>787</td></tr><tr><td class="team">20-35%</td><td>25.7%</td><td>26.4%</td><td>1,507</td></tr><tr><td class="team">35-50%</td><td>42.4%</td><td>42.7%</td><td>578</td></tr><tr><td class="team">50-65%</td><td>57.0%</td><td>53.6%</td><td>427</td></tr><tr><td class="team">65-100%</td><td>72.9%</td><td>70.8%</td><td>271</td></tr></tbody></table></div><p class="legend">Every home win, draw and away win probability from the held-out seasons, grouped by size. When the two middle columns are close, a 40% forecast really does come true about 40% of the time.</p><h2>Live track record</h2><p class="muted">Live tracking has started. Scores appear here once the first predicted matches are played.</p>
+<div class="footer">
+Built by <a href="https://github.com/hle0110/EPLcast">EPLcast</a>. Match data from football-data.co.uk, fixture dates from fixturedownload.com.
+Data as JSON: <a href="api/projection.json">projection</a>, <a href="api/fixtures.json">fixtures</a>, <a href="api/accuracy.json">accuracy</a>.
+Predictions are statistical estimates, not betting advice.
+</div>
+</div>
+</body>
+</html>
