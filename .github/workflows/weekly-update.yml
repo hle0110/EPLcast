@@ -45,12 +45,15 @@ jobs:
             echo "No new matches since the last run"
           fi
 
+      - name: Check data health
+        run: python pipeline_checks.py
+
       - name: Retrain and rebuild projections
         run: python main.py
 
       - name: Run tests
         run: |
-          pip install pytest
+          pip install pytest==9.1.1
           python -m pytest tests -q
 
       - name: Commit refreshed files

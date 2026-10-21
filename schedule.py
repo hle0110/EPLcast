@@ -73,11 +73,11 @@ def fetch_schedule(season):
 def update_schedule(season, path=SCHEDULE_PATH):
     fresh = fetch_schedule(season)
     if fresh is None:
-        print("  keeping the fixture list already on file")
+        print("::warning::fixture list download failed, using the last saved copy")
         return False
     problems = schedule_problems(fresh)
     if problems:
-        print(f"  fixture list rejected ({', '.join(problems)}), keeping the one on file")
+        print(f"::warning::fixture list rejected ({', '.join(problems)}), using the last saved copy")
         return False
     if os.path.exists(path):
         existing = pd.read_csv(path)

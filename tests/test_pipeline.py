@@ -12,6 +12,7 @@ import dashboard
 import features
 import insights
 import main
+import pipeline_checks
 import schedule
 import simulate
 import site_builder
@@ -527,3 +528,145 @@ def test_club_slugs_are_unique_and_url_safe(projection):
     slugs = [dashboard.club_slug(t) for t in teams]
     assert len(set(slugs)) == len(slugs)
     assert all(s and all(ch.isalnum() or ch == '-' for ch in s) for s in slugs)
+
+
+def _season_fixtures(teams, season=2026, start='2026-08-01'):
+    return schedule.parse_schedule(_schedule_entries(teams, start), season)
+
+
+def _top_results(fixtures, played):
+    rows = fixtures.iloc[:played].copy()
+    rows['division'] = 'Premier League'
+    rows['match_date'] = pd.to_datetime(rows['kickoff_utc']).dt.strftime('%Y-%m-%d')
+    return rows[['season', 'division', 'match_date', 'home_team_name', 'away_team_name']]
+
+
+def test_health_check_accepts_a_complete_current_fixture_list():
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams)
+    assert pipeline_checks.fixture_list_problems(fixtures, _top_results(fixtures, 30), 2026) == []
+
+
+def test_health_check_fails_on_a_missing_or_empty_fixture_list():
+    teams = [f'Club{i}' for i in range(20)]
+    results = _top_results(_season_fixtures(teams), 30)
+    assert pipeline_checks.fixture_list_problems(None, results, 2026) != []
+    assert pipeline_checks.fixture_list_problems(_season_fixtures(teams).iloc[0:0], results, 2026) != []
+
+
+def test_health_check_fails_on_a_fixture_list_for_another_season():
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams, season=2025)
+    problems = pipeline_checks.fixture_list_problems(fixtures, _top_results(fixtures, 0), 2026)
+    assert any('stale' in problem for problem in problems)
+
+
+def test_health_check_fails_when_clubs_or_fixtures_are_not_20_and_380():
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams)
+    short = pipeline_checks.fixture_list_problems(fixtures.iloc[1:], _top_results(fixtures, 0), 2026)
+    assert any('379 fixtures' in problem for problem in short)
+    nineteen = fixtures[(fixtures['home_team_name'] != 'Club19') & (fixtures['away_team_name'] != 'Club19')]
+    problems = pipeline_checks.fixture_list_problems(nineteen, _top_results(fixtures, 0), 2026)
+    assert any('19 clubs' in problem for problem in problems)
+
+
+def test_health_check_fails_when_a_club_with_results_is_not_in_the_fixture_list():
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams)
+    results = _top_results(fixtures, 10)
+    results.iloc[0, results.columns.get_loc('home_team_name')] = 'Stranger'
+    problems = pipeline_checks.fixture_list_problems(fixtures, results, 2026)
+    assert any('Stranger' in problem for problem in problems)
+
+
+def test_stale_guard_fails_when_played_fixtures_have_no_results():
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams)
+    results = _top_results(fixtures, 50)
+    newest = pd.to_datetime(results['match_date']).max()
+    now = newest + pd.Timedelta(days=15, hours=17)
+    assert pipeline_checks.stale_results_problem(results, fixtures, now) is not None
+
+
+def test_stale_guard_passes_with_recent_results():
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams)
+    results = _top_results(fixtures, 50)
+    now = pd.to_datetime(results['match_date']).max() + pd.Timedelta(days=3, hours=17)
+    assert pipeline_checks.stale_results_problem(results, fixtures, now) is None
+
+
+def test_stale_guard_passes_through_a_break_with_no_fixtures():
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams)
+    results = _top_results(fixtures, 50)
+    newest = pd.to_datetime(results['match_date']).max()
+    later = pd.to_datetime(fixtures['kickoff_utc']) > newest + pd.Timedelta(days=1)
+    gap = pd.to_datetime(fixtures['kickoff_utc']) < newest + pd.Timedelta(days=16)
+    fixtures = fixtures[~(later & gap)]
+    now = newest + pd.Timedelta(days=15, hours=17)
+    assert (now - newest).days > pipeline_checks.MAX_RESULT_AGE_DAYS
+    assert pipeline_checks.stale_results_problem(results, fixtures, now) is None
+
+
+def test_stale_guard_passes_after_the_season_ends():
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams)
+    results = _top_results(fixtures, 380)
+    now = pd.to_datetime(results['match_date']).max() + pd.Timedelta(days=40)
+    assert pipeline_checks.stale_results_problem(results, fixtures, now) is None
+
+
+def test_run_checks_reports_problems_from_files(tmp_path):
+    teams = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(teams)
+    results = _top_results(fixtures, 50)
+    data_path = tmp_path / 'matches.csv'
+    schedule_path = tmp_path / 'fixtures.csv'
+    results.to_csv(data_path, index=False)
+    fixtures.to_csv(schedule_path, index=False)
+    newest = pd.to_datetime(results['match_date']).max()
+    assert pipeline_checks.run_checks(str(data_path), str(schedule_path), newest + pd.Timedelta(days=2)) == []
+    assert pipeline_checks.run_checks(str(data_path), str(schedule_path), newest + pd.Timedelta(days=20)) != []
+    assert pipeline_checks.run_checks(str(data_path), str(tmp_path / 'none.csv'), newest + pd.Timedelta(days=2)) != []
+
+
+def _division_rows(season, division, count):
+    return pd.DataFrame({'season': [season] * count, 'division': [division] * count})
+
+
+def test_update_fails_when_the_source_returns_fewer_matches_than_on_file(tmp_path, monkeypatch):
+    path = tmp_path / 'matches.csv'
+    existing = pd.concat([_division_rows(2026, 'Premier League', 70), _division_rows(2026, 'Championship', 100)])
+    existing.to_csv(path, index=False)
+    before = path.read_bytes()
+    fresh = _division_rows(2026, 'Championship', 110)
+    monkeypatch.setattr(update_data, 'fetch_season', lambda season, quiet=False: (fresh, []))
+    assert update_data.update_dataset(str(path), 2026) == update_data.STATUS_SOURCE_ERROR
+    assert path.read_bytes() == before
+
+
+def test_update_fails_when_a_division_is_unreachable(tmp_path, monkeypatch):
+    path = tmp_path / 'matches.csv'
+    _division_rows(2026, 'Premier League', 70).to_csv(path, index=False)
+    monkeypatch.setattr(update_data, 'fetch_season', lambda season, quiet=False: (None, ['E0']))
+    assert update_data.update_dataset(str(path), 2026) == update_data.STATUS_SOURCE_ERROR
+
+
+def test_divisions_losing_matches_ignores_growth_and_other_seasons():
+    existing = pd.concat([_division_rows(2026, 'Premier League', 70), _division_rows(2025, 'Championship', 552)])
+    fresh = _division_rows(2026, 'Premier League', 80)
+    assert update_data.divisions_losing_matches(existing, fresh, 2026) == []
+
+
+def test_fixture_download_failure_keeps_saved_copy_with_a_warning(tmp_path, monkeypatch, capsys):
+    teams = [f'Club{i}' for i in range(20)]
+    path = tmp_path / 'fixtures.csv'
+    _season_fixtures(teams).to_csv(path, index=False)
+    before = path.read_bytes()
+    monkeypatch.setattr(schedule, 'fetch_schedule', lambda season: None)
+    assert schedule.update_schedule(2026, str(path)) is False
+    assert '::warning::' in capsys.readouterr().out
+    assert path.read_bytes() == before
+

@@ -62,6 +62,8 @@ Tests run with `python -m pytest tests`, covering data integrity, projection mat
 
 Promotion and relegation are not modelled for future seasons, so anything beyond the current one uses today's 20 clubs. Injuries, transfers and fixture congestion are not represented. If the fixture list cannot be fetched, the last saved copy is used, and without one the remaining fixtures are simulated in a random order and the Matches page stays empty.
 
+Season rollover is not automated. Promotion and relegation for 2027-28 require a manual update of the team list: when the promoted clubs are known, check that the fixture source's spellings map to the names in the results data (`SCHEDULE_ALIASES` in `schedule.py`). If a spelling does not map, the new fixture list is rejected and the scheduled run fails its data health check until the alias is added.
+
 Data from [football-data.co.uk](https://www.football-data.co.uk/) and [fixturedownload.com](https://fixturedownload.com/). Predictions are statistical estimates, not betting advice.
 
 ## License

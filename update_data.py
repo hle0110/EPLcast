@@ -167,6 +167,11 @@ def rebuild_dataset(path=DATA_PATH, first_season=FIRST_SEASON, last_season=None)
     print(f"Wrote {len(full):,} matches to {path}")
     return True
 
+def divisions_losing_matches(existing, fresh, season_year):
+    on_file = existing[existing['season'] == season_year].groupby('division').size()
+    fetched = fresh.groupby('division').size() if fresh is not None else pd.Series(dtype=int)
+    return [division for division, count in on_file.items() if fetched.get(division, 0) < count]
+
 def update_dataset(path=DATA_PATH, season_year=None):
     season_year = season_year or current_season_year()
     label = f"{season_year}-{str(season_year + 1)[-2:]}"
@@ -182,6 +187,12 @@ def update_dataset(path=DATA_PATH, season_year=None):
     if errors:
         print(f"ERROR: the data source was unreachable for {', '.join(errors)}")
         print("Nothing was changed. This run is being failed so the outage is visible")
+        return STATUS_SOURCE_ERROR
+
+    shrunk = divisions_losing_matches(existing, fresh, season_year)
+    if shrunk:
+        print(f"ERROR: the source returned fewer {label} matches than are on file for {', '.join(shrunk)}")
+        print("Nothing was changed. This run is being failed so the problem is visible")
         return STATUS_SOURCE_ERROR
 
     if fresh is None:
