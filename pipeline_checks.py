@@ -6,6 +6,7 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from schedule import SCHEDULE_PATH, TEAMS_PER_SEASON, schedule_problems
 from update_data import DATA_PATH, current_season_year
+from main import infer_season_clubs
 
 TOP_DIVISION = 'Premier League'
 FULL_SEASON = TEAMS_PER_SEASON * (TEAMS_PER_SEASON - 1)
@@ -35,7 +36,23 @@ def fixture_list_problems(fixtures, matches, season):
     unknown = sorted(played - listed)
     if unknown:
         problems.append(f"clubs with results but missing from the fixture list: {', '.join(unknown)}")
+    expected = expected_clubs(matches, season)
+    if expected is not None and expected != listed:
+        missing = sorted(expected - listed)
+        extra = sorted(listed - expected)
+        problems.append(f"{season_label(season)} fixture list clubs do not match the clubs in the results data "
+                        f"(expected but missing: {', '.join(missing) or 'none'}; "
+                        f"listed but not expected: {', '.join(extra) or 'none'}); add the spelling to SCHEDULE_ALIASES")
     return problems
+
+
+def expected_clubs(matches, season):
+    top = matches[matches['division'] == TOP_DIVISION]
+    appeared, inferred, _ = infer_season_clubs(matches, top, season)
+    for clubs in (appeared, inferred):
+        if len(clubs) == TEAMS_PER_SEASON:
+            return clubs
+    return None
 
 
 def stale_results_problem(matches, fixtures, now):

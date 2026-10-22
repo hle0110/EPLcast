@@ -83,18 +83,23 @@ def evaluate_model(df, top_flight):
     summary['calibration'] = calibration_bins(np.vstack(pooled_probs), pd.concat(pooled_results))
     return summary
 
-def resolve_current_teams(df, top_flight, current_season):
+def infer_season_clubs(df, top_flight, current_season):
     season_matches = top_flight[top_flight['season'] == current_season]
     appeared = set(season_matches['home_team_name']) | set(season_matches['away_team_name'])
-    if len(appeared) == TEAMS_PER_SEASON:
-        return sorted(appeared), season_matches, True
-
     lower_divisions = df[(df['season'] == current_season) & (df['tier'] > 1)]
     playing_below = set(lower_divisions['home_team_name']) | set(lower_divisions['away_team_name'])
     previous = df[df['season'] == current_season - 1]
     stayed_up = set(previous[previous['tier'] == 1]['home_team_name']) | set(previous[previous['tier'] == 1]['away_team_name'])
     came_up = set(previous[previous['tier'] == 2]['home_team_name']) | set(previous[previous['tier'] == 2]['away_team_name'])
     inferred = appeared | ((stayed_up | came_up) - playing_below)
+    return appeared, inferred, stayed_up
+
+def resolve_current_teams(df, top_flight, current_season):
+    season_matches = top_flight[top_flight['season'] == current_season]
+    appeared, inferred, stayed_up = infer_season_clubs(df, top_flight, current_season)
+    if len(appeared) == TEAMS_PER_SEASON:
+        return sorted(appeared), season_matches, True
+
     if len(inferred) == TEAMS_PER_SEASON:
         print(f"  only {len(appeared)} clubs have played so far, "
               f"inferred the full {TEAMS_PER_SEASON} from this season's lower divisions")

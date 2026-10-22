@@ -537,8 +537,9 @@ def _season_fixtures(teams, season=2026, start='2026-08-01'):
 def _top_results(fixtures, played):
     rows = fixtures.iloc[:played].copy()
     rows['division'] = 'Premier League'
+    rows['tier'] = 1
     rows['match_date'] = pd.to_datetime(rows['kickoff_utc']).dt.strftime('%Y-%m-%d')
-    return rows[['season', 'division', 'match_date', 'home_team_name', 'away_team_name']]
+    return rows[['season', 'tier', 'division', 'match_date', 'home_team_name', 'away_team_name']]
 
 
 def test_health_check_accepts_a_complete_current_fixture_list():
@@ -669,4 +670,50 @@ def test_fixture_download_failure_keeps_saved_copy_with_a_warning(tmp_path, monk
     assert schedule.update_schedule(2026, str(path)) is False
     assert '::warning::' in capsys.readouterr().out
     assert path.read_bytes() == before
+
+
+def _division_season(season, tier, division, clubs, date):
+    pairs = list(zip(clubs[0::2], clubs[1::2]))
+    return pd.DataFrame({'season': season, 'tier': tier, 'division': division, 'match_date': date,
+                         'home_team_name': [h for h, _ in pairs], 'away_team_name': [a for _, a in pairs]})
+
+
+def _rollover_history(started_below=True):
+    top = [f'Club{i}' for i in range(20)]
+    second = [f'Champ{i}' for i in range(24)]
+    frames = [_division_season(2026, 1, 'Premier League', top, '2027-05-20'),
+              _division_season(2026, 2, 'Championship', second, '2027-05-01')]
+    if started_below:
+        staying_down = top[17:] + second[3:]
+        frames.append(_division_season(2027, 2, 'Championship', staying_down, '2027-08-07'))
+    return pd.concat(frames, ignore_index=True), top[:17] + second[:3]
+
+
+def test_health_check_passes_when_the_new_fixture_list_matches_the_inferred_clubs():
+    history, clubs = _rollover_history()
+    fixtures = _season_fixtures(clubs, season=2027, start='2027-08-07')
+    assert pipeline_checks.expected_clubs(history, 2027) == set(clubs)
+    assert pipeline_checks.fixture_list_problems(fixtures, history, 2027) == []
+
+
+def test_health_check_fails_before_kick_off_when_a_promoted_club_is_misspelled():
+    history, clubs = _rollover_history()
+    fixtures = _season_fixtures(clubs, season=2027, start='2027-08-07').replace({'Champ2': 'Champ Two FC'})
+    problems = pipeline_checks.fixture_list_problems(fixtures, history, 2027)
+    assert any('Champ2' in problem and 'Champ Two FC' in problem for problem in problems)
+
+
+def test_health_check_cannot_infer_clubs_before_the_lower_divisions_start():
+    history, clubs = _rollover_history(started_below=False)
+    fixtures = _season_fixtures(clubs, season=2027, start='2027-08-07').replace({'Champ2': 'Champ Two FC'})
+    assert pipeline_checks.expected_clubs(history, 2027) is None
+    assert pipeline_checks.fixture_list_problems(fixtures, history, 2027) == []
+
+
+def test_health_check_fails_when_the_fixture_list_has_last_seasons_clubs():
+    history, clubs = _rollover_history()
+    old_clubs = [f'Club{i}' for i in range(20)]
+    fixtures = _season_fixtures(old_clubs, season=2027, start='2027-08-07')
+    problems = pipeline_checks.fixture_list_problems(fixtures, history, 2027)
+    assert any('Champ0' in problem and 'Club19' in problem for problem in problems)
 
