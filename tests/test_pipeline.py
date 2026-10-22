@@ -373,6 +373,10 @@ def test_schedule_aliases_reach_canonical_names():
     assert schedule.schedule_name('Brighton') == 'Brighton & Hove Albion'
 
 
+def test_schedule_alias_maps_sheffield_utd():
+    assert schedule.schedule_name('Sheffield Utd') == 'Sheffield United'
+
+
 def test_schedule_validation_accepts_a_full_season_and_rejects_gaps():
     teams = [f'Club{i}' for i in range(20)]
     frame = schedule.parse_schedule(_schedule_entries(teams), 2026)

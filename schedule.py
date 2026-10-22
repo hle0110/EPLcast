@@ -16,6 +16,7 @@ TEAMS_PER_SEASON = 20
 SCHEDULE_ALIASES = {
     'Man Utd': 'Manchester United',
     'Spurs': 'Tottenham Hotspur',
+    'Sheffield Utd': 'Sheffield United',
 }
 SCHEDULE_COLUMNS = ['season', 'round', 'kickoff_utc', 'home_team_name', 'away_team_name']
 
