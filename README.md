@@ -22,14 +22,7 @@ The model is trained on every match in the top four English divisions since the 
 
 ## Accuracy
 
-| | Accuracy | Log loss |
-|---|---|---|
-| Always predict a home win | 42.9% | - |
-| Previous version | 52.9% | 0.987 |
-| Current model | **53.1%** | **0.982** |
-| Bookmakers' closing odds, for reference | 54.6% | 0.964 |
-
-Measured over 1,190 Premier League matches from 2023/24 onward, each season predicted by a model trained only on games played before it started. Published football models rarely clear the mid 50s on three way outcome prediction, since a team can dominate a match and still lose to a deflection.
+Current accuracy and log loss, with bookmakers' closing odds and an always-home-win baseline for comparison, are on the [Accuracy page](https://hle0110.github.io/EPLcast/accuracy.html). They are recalculated on every run over Premier League matches from 2023/24 onward, each season predicted by a model trained only on games played before it started, so they move as the season goes on. Published football models rarely clear the mid 50s on three way outcome prediction, since a team can dominate a match and still lose to a deflection.
 
 Season projections are checked separately by replaying 2023/24 to 2025/26 from three points in each season. Clubs in their first Premier League season had been overrated all season long, by about 0.16 points a game, so the model now learns that effect directly.
 

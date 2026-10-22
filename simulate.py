@@ -344,8 +344,16 @@ def _table_arrays(n_simulations, start):
     return {key: np.tile(np.asarray(start[key], dtype=int), (n_simulations, 1)) for key in TABLE_KEYS}
 
 
+def perturb_strength(state, sigma, seed):
+    if sigma <= 0:
+        return state
+    noise = np.random.default_rng([seed, 1]).standard_normal(state['elo'].shape)
+    state['elo'] = state['elo'] + sigma * noise
+    return state
+
+
 def run_simulations(model, history, current_season, current_teams, elo_ratings,
-                    n_future_seasons, n_simulations, project_current=True, seed=42, schedule=None):
+                    n_future_seasons, n_simulations, project_current=True, seed=42, schedule=None, elo_sigma=0.0):
     rng = np.random.default_rng(seed)
     teams = list(current_teams)
     index = {team: i for i, team in enumerate(teams)}
@@ -353,7 +361,7 @@ def run_simulations(model, history, current_season, current_teams, elo_ratings,
     previous_tiers = team_prev_tier_map(history, current_season)
     current_prev_tier = np.array([previous_tiers.get(team, 1.0) for team in teams])
     future_prev_tier = np.ones(len(teams))
-    state = init_state(history, elo_ratings, teams, n_simulations)
+    state = perturb_strength(init_state(history, elo_ratings, teams, n_simulations), elo_sigma, seed)
     tables = {}
     fixtures = []
     outcomes = np.zeros((n_simulations, 0), dtype=np.int8)

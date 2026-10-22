@@ -12,6 +12,7 @@ import dashboard
 import features
 import insights
 import main
+import models
 import pipeline_checks
 import schedule
 import simulate
@@ -720,4 +721,74 @@ def test_health_check_fails_when_the_fixture_list_has_last_seasons_clubs():
     fixtures = _season_fixtures(old_clubs, season=2027, start='2027-08-07')
     problems = pipeline_checks.fixture_list_problems(fixtures, history, 2027)
     assert any('Champ0' in problem and 'Club19' in problem for problem in problems)
+
+
+def _elo_model(engineered):
+    train = main.training_rows(engineered[engineered['season'] < int(engineered['season'].max())])
+    model = models.ScaledLogisticModel(C=main.MODEL_C)
+    return model.fit(train[features.FEATURE_COLUMNS], train['result'])
+
+
+def _projection_inputs(engineered):
+    season = int(engineered['season'].max())
+    top = engineered[(engineered['division'] == 'Premier League') & (engineered['season'] == season - 1)]
+    teams = sorted(set(top['home_team_name']))
+    history = engineered[engineered['season'] < season]
+    _, ratings = features.compute_elo(history)
+    return history, season - 1, teams, ratings
+
+
+def test_zero_elo_sigma_reproduces_the_unperturbed_projection(engineered):
+    model = _elo_model(engineered)
+    history, season, teams, ratings = _projection_inputs(engineered)
+    default = simulate.run_simulations(model, history, season, teams, ratings, n_future_seasons=1,
+                                       n_simulations=40, project_current=False, seed=42)
+    zero = simulate.run_simulations(model, history, season, teams, ratings, n_future_seasons=1,
+                                    n_simulations=40, project_current=False, seed=42, elo_sigma=0.0)
+    perturbed = simulate.run_simulations(model, history, season, teams, ratings, n_future_seasons=1,
+                                         n_simulations=40, project_current=False, seed=42, elo_sigma=60.0)
+    for key in simulate.TABLE_KEYS:
+        np.testing.assert_array_equal(default['tables'][season + 1][key], zero['tables'][season + 1][key])
+    assert not np.array_equal(default['tables'][season + 1]['Points'], perturbed['tables'][season + 1]['Points'])
+    assert main.SIMULATION_ELO_SIGMA == 0.0
+
+
+def test_strength_perturbation_is_one_draw_per_club_and_simulation():
+    state = {'elo': np.tile(np.array([1500.0, 1600.0, 1400.0]), (2000, 1))}
+    perturbed = simulate.perturb_strength({'elo': state['elo'].copy()}, 30.0, 42)
+    noise = perturbed['elo'] - state['elo']
+    assert noise.shape == (2000, 3)
+    assert noise.std() == pytest.approx(30.0, rel=0.05)
+    assert simulate.perturb_strength(state, 0.0, 42)['elo'] is state['elo']
+
+
+def test_draw_calibrated_probabilities_sum_to_one(engineered):
+    model = _elo_model(engineered)
+    rows = engineered[engineered['season'] == int(engineered['season'].max())][features.FEATURE_COLUMNS].head(50)
+    for factor in [0.8, 1.0, 1.1, 1.3]:
+        proba = models.DrawCalibratedModel(model, factor).predict_proba(rows)
+        assert np.allclose(proba.sum(axis=1), 1.0)
+        assert (proba >= 0).all()
+    np.testing.assert_allclose(models.DrawCalibratedModel(model, 1.0).predict_proba(rows), model.predict_proba(rows))
+    draw = list(model.classes_).index('draw')
+    raised = models.DrawCalibratedModel(model, 1.2).predict_proba(rows)[:, draw]
+    assert (raised > model.predict_proba(rows)[:, draw]).all()
+
+
+def _held_out_season(draw_rate, n=400, seed=0):
+    rng = np.random.default_rng(seed)
+    proba = np.tile([0.3, 0.25, 0.45], (n, 1))
+    codes = rng.choice(3, size=n, p=[(1 - draw_rate) * 0.4, draw_rate, (1 - draw_rate) * 0.6])
+    results = pd.DataFrame({'result': [simulate.OUTCOME_ORDER[c] for c in codes]})
+    return proba, results
+
+
+def test_draw_calibration_is_fitted_without_the_evaluated_season():
+    held_out = {2022: _held_out_season(0.25, seed=1), 2023: _held_out_season(0.25, seed=2), 2024: _held_out_season(0.45, seed=3)}
+    factor = main.draw_factor_before(held_out, 2024)
+    changed = dict(held_out)
+    changed[2024] = _held_out_season(0.05, seed=4)
+    assert main.draw_factor_before(changed, 2024) == factor
+    assert main.draw_factor_before(held_out, 2025) > factor
+    assert main.draw_factor_before(held_out, 2022) == 1.0
 

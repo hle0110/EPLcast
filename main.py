@@ -6,12 +6,12 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from features import load_data, engineer_features, FEATURE_COLUMNS, TOP_DIVISION
-from models import ScaledLogisticModel
+from models import ScaledLogisticModel, DrawCalibratedModel, adjust_draws, fit_draw_factor
 from simulate import run_simulations, summarize_simulations, predict_fixtures, OUTCOME_ORDER
 from schedule import load_schedule
 from insights import (position_probabilities, points_ranges, upcoming_fixtures, remaining_for_team, match_stakes,
                       update_prediction_log, score_prediction_log, score_probabilities, bookmaker_probabilities,
-                      calibration_bins, elo_history, recent_results, PREDICTION_LOG_PATH)
+                      calibration_bins, elo_history, recent_results, outcome_codes, PREDICTION_LOG_PATH)
 from site_builder import write_site
 
 DATA_PATH = "data/matches.csv"
@@ -25,6 +25,8 @@ MODEL_C = 0.8
 TEAMS_PER_SEASON = 20
 FIRST_TRAINING_SEASON = 2021
 MIN_TRAINING_SEASONS = 2
+SIMULATION_ELO_SIGMA = 0.0
+DRAW_INDEX = OUTCOME_ORDER.index('draw')
 
 def training_rows(df):
     return df[df['season'] >= FIRST_TRAINING_SEASON]
@@ -39,7 +41,30 @@ def rolling_origin_folds(top_flight):
         folds.append((f"{season}-{str(season + 1)[-2:]}", season_matches['match_date'].min(), season_matches.index))
     return folds
 
-def evaluate_model(df, top_flight):
+def season_probabilities(df, top_flight, season):
+    test = top_flight[top_flight['season'] == season]
+    train = training_rows(df[df['match_date'] < test['match_date'].min()])
+    model = ScaledLogisticModel(C=MODEL_C)
+    model.fit(train[FEATURE_COLUMNS], train['result'])
+    classes = list(model.classes_)
+    return model.predict_proba(test[FEATURE_COLUMNS])[:, [classes.index(o) for o in OUTCOME_ORDER]], test
+
+
+def held_out_probabilities(df, top_flight):
+    seasons = sorted(s for s in top_flight['season'].unique() if s > FIRST_TRAINING_SEASON)
+    return {int(s): season_probabilities(df, top_flight, s) for s in seasons}
+
+
+def draw_factor_before(held_out, season):
+    earlier = [s for s in sorted(held_out) if s < season]
+    if not earlier:
+        return 1.0
+    proba = np.vstack([held_out[s][0] for s in earlier])
+    codes = np.concatenate([outcome_codes(held_out[s][1]['result']) for s in earlier])
+    return fit_draw_factor(proba, codes, DRAW_INDEX)
+
+
+def evaluate_model(df, top_flight, held_out=None):
     folds = rolling_origin_folds(top_flight)
     if not folds:
         print("Not enough seasons for a held-out evaluation, skipping it")
@@ -49,23 +74,24 @@ def evaluate_model(df, top_flight):
     pooled_probs = []
     pooled_results = []
     print(f"\nRolling-origin evaluation ({len(folds)} held-out seasons, each trained only on matches before it started)")
+    held_out = held_out if held_out is not None else held_out_probabilities(df, top_flight)
     for name, cutoff_date, test_index in folds:
         test = top_flight.loc[test_index]
-        train = training_rows(df[df['match_date'] < cutoff_date])
-        model = ScaledLogisticModel(C=MODEL_C)
-        model.fit(train[FEATURE_COLUMNS], train['result'])
-        classes = list(model.classes_)
-        proba = model.predict_proba(test[FEATURE_COLUMNS])[:, [classes.index(o) for o in OUTCOME_ORDER]]
+        season = int(test['season'].iloc[0])
+        draw_factor = draw_factor_before(held_out, season)
+        proba = adjust_draws(held_out[season][0], DRAW_INDEX, draw_factor)
         accuracy, loss = score_probabilities(proba, test['result'])
         row = {'season': name, 'matches': len(test), 'baseline': float((test['result'] == 'home team win').mean()),
-               'accuracy': accuracy, 'log_loss': loss, 'book_accuracy': None, 'book_log_loss': None}
+               'accuracy': accuracy, 'log_loss': loss, 'book_accuracy': None, 'book_log_loss': None,
+               'draw_factor': draw_factor}
         if test[['odds_home', 'odds_draw', 'odds_away']].notna().all().all():
             row['book_accuracy'], row['book_log_loss'] = score_probabilities(bookmaker_probabilities(test), test['result'])
         seasons.append(row)
         pooled_probs.append(proba)
         pooled_results.append(test['result'])
         book = f"  bookmakers {row['book_accuracy']:.3f}" if row['book_accuracy'] is not None else ""
-        print(f"  {name:8s} n={len(test):3d}  home-win baseline {row['baseline']:.3f}  model {accuracy:.3f}  log loss {loss:.3f}{book}")
+        print(f"  {name:8s} n={len(test):3d}  home-win baseline {row['baseline']:.3f}  model {accuracy:.3f}  log loss {loss:.3f}"
+              f"  draw factor {draw_factor:.2f}{book}")
 
     n = sum(r['matches'] for r in seasons)
     totals = {key: sum(r[key] * r['matches'] for r in seasons) / n for key in ['baseline', 'accuracy', 'log_loss']}
@@ -208,13 +234,17 @@ def main():
     top_flight = df[df['division'] == TOP_DIVISION]
     print(f"{len(top_flight):,} {TOP_DIVISION} matches, {len(df):,} matches in total across four divisions")
 
-    metrics = evaluate_model(df, top_flight)
+    held_out = held_out_probabilities(df, top_flight)
+    metrics = evaluate_model(df, top_flight, held_out)
 
     train = training_rows(df)
     print(f"Training final model on {len(train):,} matches from {FIRST_TRAINING_SEASON}-{str(FIRST_TRAINING_SEASON + 1)[-2:]} onward, "
           f"earlier seasons only warm up the ratings")
-    final_model = ScaledLogisticModel(C=MODEL_C)
-    final_model.fit(train[FEATURE_COLUMNS], train['result'])
+    base_model = ScaledLogisticModel(C=MODEL_C)
+    base_model.fit(train[FEATURE_COLUMNS], train['result'])
+    current_season = int(top_flight['season'].max())
+    final_model = DrawCalibratedModel(base_model, draw_factor_before(held_out, current_season))
+    print(f"Draw calibration factor {final_model.draw_factor:.2f}, fitted on held-out seasons before {current_season}")
 
     current_season = int(top_flight['season'].max())
     season_label = f"{current_season}-{str(current_season + 1)[-2:]}"
@@ -237,7 +267,7 @@ def main():
     results = run_simulations(
         final_model, df, current_season, current_teams, elo_ratings,
         n_future_seasons=N_FUTURE_SEASONS, n_simulations=N_SIMULATIONS,
-        project_current=project_current, schedule=schedule,
+        project_current=project_current, schedule=schedule, elo_sigma=SIMULATION_ELO_SIGMA,
     )
     projection = summarize_simulations(results, current_teams)
 
