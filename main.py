@@ -246,7 +246,6 @@ def main():
     final_model = DrawCalibratedModel(base_model, draw_factor_before(held_out, current_season))
     print(f"Draw calibration factor {final_model.draw_factor:.2f}, fitted on held-out seasons before {current_season}")
 
-    current_season = int(top_flight['season'].max())
     season_label = f"{current_season}-{str(current_season + 1)[-2:]}"
     current_teams, season_matches, teams_known = resolve_current_teams(df, top_flight, current_season)
     played = len(season_matches)

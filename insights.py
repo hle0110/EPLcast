@@ -144,6 +144,7 @@ def score_prediction_log(log, matches):
     if len(joined) == 0:
         return None
     model_probs = joined[['p_away', 'p_draw', 'p_home']].astype(float).values
+    model_probs = model_probs / model_probs.sum(axis=1, keepdims=True)
     accuracy, loss = score_probabilities(model_probs, joined['result'])
     scored = {'matches': len(joined), 'accuracy': accuracy, 'log_loss': loss,
               'first': str(joined['predicted_on'].min()), 'book_accuracy': None, 'book_log_loss': None}

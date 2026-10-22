@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import re
 
 BASE_ELO = 1500.0
 ELO_K = 24.0
@@ -26,17 +25,12 @@ FEATURE_COLUMNS = [
     'home_promoted_top', 'away_promoted_top',
 ]
 
-def extract_round(match_id):
-    m = re.search(r'(\d+)$', str(match_id))
-    return int(m.group(1)) if m else 0
-
 def load_data(path):
     df = pd.read_csv(path, low_memory=False)
     df = df.dropna(subset=['home_team_name', 'away_team_name', 'home_team_score', 'away_team_score', 'result']).copy()
     df['home_team_score'] = df['home_team_score'].astype(int)
     df['away_team_score'] = df['away_team_score'].astype(int)
     df['match_date'] = pd.to_datetime(df['match_date'], errors='coerce')
-    df['round_num'] = df['match_id'].apply(extract_round)
     df = df.sort_values(['match_date', 'tier', 'match_id'], kind='mergesort').reset_index(drop=True)
     return df
 
