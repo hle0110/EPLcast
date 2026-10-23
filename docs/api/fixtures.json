@@ -1,32 +1,32 @@
 {
- "generated": "2026-10-22",
+ "generated": "2026-10-23",
  "fixtures": [
   {
    "kickoff_utc": "2026-10-23T19:00Z",
    "round": 8,
    "home": "Ipswich Town",
    "away": "Nottingham Forest",
-   "home_win": 0.2543,
-   "draw": 0.2523,
-   "away_win": 0.4933,
+   "home_win": 0.2481,
+   "draw": 0.2707,
+   "away_win": 0.4812,
    "stakes": {
     "Ipswich Town": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.522,
-     "home_win": 0.4063,
-     "draw": 0.493,
-     "away_win": 0.5963,
-     "swing": 0.19
+     "overall": 0.5054,
+     "home_win": 0.3669,
+     "draw": 0.4908,
+     "away_win": 0.585,
+     "swing": 0.218
     },
     "Nottingham Forest": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.1132,
-     "home_win": 0.1738,
-     "draw": 0.1352,
-     "away_win": 0.0707,
-     "swing": 0.1031
+     "overall": 0.1158,
+     "home_win": 0.1815,
+     "draw": 0.1308,
+     "away_win": 0.0735,
+     "swing": 0.1079
     }
    }
   },
@@ -35,27 +35,27 @@
    "round": 8,
    "home": "Aston Villa",
    "away": "Manchester City",
-   "home_win": 0.2684,
-   "draw": 0.2825,
-   "away_win": 0.4491,
+   "home_win": 0.2611,
+   "draw": 0.3022,
+   "away_win": 0.4368,
    "stakes": {
     "Aston Villa": {
      "metric": "Top4Prob",
      "label": "finish top four",
-     "overall": 0.0956,
-     "home_win": 0.1585,
-     "draw": 0.0706,
-     "away_win": 0.0712,
-     "swing": 0.0879
+     "overall": 0.088,
+     "home_win": 0.1411,
+     "draw": 0.0896,
+     "away_win": 0.0528,
+     "swing": 0.0883
     },
     "Manchester City": {
      "metric": "TitleProb",
      "label": "win the title",
-     "overall": 0.4548,
-     "home_win": 0.3795,
-     "draw": 0.4272,
-     "away_win": 0.5202,
-     "swing": 0.1407
+     "overall": 0.4396,
+     "home_win": 0.3382,
+     "draw": 0.4245,
+     "away_win": 0.5152,
+     "swing": 0.177
     }
    }
   },
@@ -64,27 +64,27 @@
    "round": 8,
    "home": "Arsenal",
    "away": "Everton",
-   "home_win": 0.6637,
-   "draw": 0.2118,
-   "away_win": 0.1245,
+   "home_win": 0.6499,
+   "draw": 0.2282,
+   "away_win": 0.1219,
    "stakes": {
     "Arsenal": {
      "metric": "TitleProb",
      "label": "win the title",
-     "overall": 0.4196,
-     "home_win": 0.4617,
-     "draw": 0.3478,
-     "away_win": 0.3053,
-     "swing": 0.1564
+     "overall": 0.4378,
+     "home_win": 0.4688,
+     "draw": 0.4042,
+     "away_win": 0.3278,
+     "swing": 0.1411
     },
     "Everton": {
      "metric": "Top4Prob",
      "label": "finish top four",
-     "overall": 0.0746,
-     "home_win": 0.063,
-     "draw": 0.0709,
-     "away_win": 0.1452,
-     "swing": 0.0822
+     "overall": 0.0702,
+     "home_win": 0.0608,
+     "draw": 0.0657,
+     "away_win": 0.1304,
+     "swing": 0.0696
     }
    }
   },
@@ -93,27 +93,27 @@
    "round": 8,
    "home": "Coventry City",
    "away": "Fulham",
-   "home_win": 0.2609,
-   "draw": 0.2371,
-   "away_win": 0.502,
+   "home_win": 0.2549,
+   "draw": 0.2548,
+   "away_win": 0.4904,
    "stakes": {
     "Coventry City": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.5706,
-     "home_win": 0.4517,
-     "draw": 0.544,
-     "away_win": 0.6477,
-     "swing": 0.196
+     "overall": 0.5742,
+     "home_win": 0.4203,
+     "draw": 0.5763,
+     "away_win": 0.656,
+     "swing": 0.2357
     },
     "Fulham": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.1156,
-     "home_win": 0.185,
-     "draw": 0.1243,
-     "away_win": 0.074,
-     "swing": 0.1111
+     "overall": 0.1178,
+     "home_win": 0.1855,
+     "draw": 0.1232,
+     "away_win": 0.0784,
+     "swing": 0.1071
     }
    }
   },
@@ -122,27 +122,27 @@
    "round": 8,
    "home": "Chelsea",
    "away": "Tottenham Hotspur",
-   "home_win": 0.4896,
-   "draw": 0.27,
-   "away_win": 0.2404,
+   "home_win": 0.4767,
+   "draw": 0.2892,
+   "away_win": 0.2341,
    "stakes": {
     "Chelsea": {
      "metric": "Top4Prob",
      "label": "finish top four",
-     "overall": 0.2308,
-     "home_win": 0.274,
-     "draw": 0.216,
-     "away_win": 0.1589,
-     "swing": 0.1151
+     "overall": 0.2482,
+     "home_win": 0.3067,
+     "draw": 0.2218,
+     "away_win": 0.16,
+     "swing": 0.1468
     },
     "Tottenham Hotspur": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.1786,
-     "home_win": 0.2114,
-     "draw": 0.1726,
-     "away_win": 0.1181,
-     "swing": 0.0932
+     "overall": 0.176,
+     "home_win": 0.2178,
+     "draw": 0.1656,
+     "away_win": 0.1027,
+     "swing": 0.1151
     }
    }
   },
@@ -151,27 +151,27 @@
    "round": 8,
    "home": "Crystal Palace",
    "away": "Newcastle United",
-   "home_win": 0.4114,
-   "draw": 0.2776,
-   "away_win": 0.3111,
+   "home_win": 0.4003,
+   "draw": 0.2971,
+   "away_win": 0.3026,
    "stakes": {
     "Crystal Palace": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.213,
-     "home_win": 0.1586,
-     "draw": 0.209,
-     "away_win": 0.2875,
-     "swing": 0.1289
+     "overall": 0.2184,
+     "home_win": 0.1528,
+     "draw": 0.2209,
+     "away_win": 0.302,
+     "swing": 0.1492
     },
     "Newcastle United": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.2064,
-     "home_win": 0.2662,
-     "draw": 0.2032,
-     "away_win": 0.131,
-     "swing": 0.1351
+     "overall": 0.2006,
+     "home_win": 0.2658,
+     "draw": 0.1975,
+     "away_win": 0.1181,
+     "swing": 0.1477
     }
    }
   },
@@ -180,27 +180,27 @@
    "round": 8,
    "home": "Hull City",
    "away": "Brentford",
-   "home_win": 0.2188,
-   "draw": 0.2082,
-   "away_win": 0.573,
+   "home_win": 0.2144,
+   "draw": 0.2243,
+   "away_win": 0.5613,
    "stakes": {
     "Hull City": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.7662,
-     "home_win": 0.6347,
-     "draw": 0.7276,
-     "away_win": 0.8293,
-     "swing": 0.1947
+     "overall": 0.7638,
+     "home_win": 0.6331,
+     "draw": 0.7674,
+     "away_win": 0.811,
+     "swing": 0.178
     },
     "Brentford": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.0642,
-     "home_win": 0.1072,
-     "draw": 0.0733,
-     "away_win": 0.0448,
-     "swing": 0.0623
+     "overall": 0.0602,
+     "home_win": 0.1169,
+     "draw": 0.066,
+     "away_win": 0.0368,
+     "swing": 0.0801
     }
    }
   },
@@ -209,27 +209,27 @@
    "round": 8,
    "home": "Liverpool",
    "away": "Brighton & Hove Albion",
-   "home_win": 0.4588,
-   "draw": 0.2405,
-   "away_win": 0.3007,
+   "home_win": 0.448,
+   "draw": 0.2583,
+   "away_win": 0.2936,
    "stakes": {
     "Liverpool": {
      "metric": "Top4Prob",
      "label": "finish top four",
-     "overall": 0.3936,
-     "home_win": 0.4766,
-     "draw": 0.3862,
-     "away_win": 0.2738,
-     "swing": 0.2028
+     "overall": 0.3938,
+     "home_win": 0.4769,
+     "draw": 0.3586,
+     "away_win": 0.2991,
+     "swing": 0.1779
     },
     "Brighton & Hove Albion": {
      "metric": "Top4Prob",
      "label": "finish top four",
-     "overall": 0.7066,
-     "home_win": 0.6391,
-     "draw": 0.6972,
-     "away_win": 0.8161,
-     "swing": 0.177
+     "overall": 0.7152,
+     "home_win": 0.6351,
+     "draw": 0.7343,
+     "away_win": 0.8194,
+     "swing": 0.1842
     }
    }
   },
@@ -238,27 +238,27 @@
    "round": 8,
    "home": "Manchester United",
    "away": "Bournemouth",
-   "home_win": 0.4615,
-   "draw": 0.2585,
-   "away_win": 0.28,
+   "home_win": 0.4498,
+   "draw": 0.2772,
+   "away_win": 0.273,
    "stakes": {
     "Manchester United": {
      "metric": "Top4Prob",
      "label": "finish top four",
-     "overall": 0.1982,
-     "home_win": 0.2555,
-     "draw": 0.1842,
-     "away_win": 0.1187,
-     "swing": 0.1369
+     "overall": 0.1852,
+     "home_win": 0.241,
+     "draw": 0.1585,
+     "away_win": 0.1215,
+     "swing": 0.1195
     },
     "Bournemouth": {
      "metric": "Top4Prob",
      "label": "finish top four",
-     "overall": 0.1176,
-     "home_win": 0.0725,
-     "draw": 0.1172,
-     "away_win": 0.1901,
-     "swing": 0.1177
+     "overall": 0.112,
+     "home_win": 0.0849,
+     "draw": 0.0975,
+     "away_win": 0.1692,
+     "swing": 0.0842
     }
    }
   },
@@ -267,27 +267,27 @@
    "round": 8,
    "home": "Sunderland",
    "away": "Leeds United",
-   "home_win": 0.4152,
-   "draw": 0.2705,
-   "away_win": 0.3143,
+   "home_win": 0.4043,
+   "draw": 0.2897,
+   "away_win": 0.306,
    "stakes": {
     "Sunderland": {
      "metric": "RelegationProb",
      "label": "be relegated",
-     "overall": 0.1026,
-     "home_win": 0.0631,
-     "draw": 0.1063,
-     "away_win": 0.1517,
-     "swing": 0.0886
+     "overall": 0.1058,
+     "home_win": 0.0633,
+     "draw": 0.1078,
+     "away_win": 0.16,
+     "swing": 0.0967
     },
     "Leeds United": {
      "metric": "Top4Prob",
      "label": "finish top four",
-     "overall": 0.099,
-     "home_win": 0.0713,
-     "draw": 0.0863,
-     "away_win": 0.1466,
-     "swing": 0.0753
+     "overall": 0.098,
+     "home_win": 0.0628,
+     "draw": 0.0919,
+     "away_win": 0.1502,
+     "swing": 0.0874
     }
    }
   }

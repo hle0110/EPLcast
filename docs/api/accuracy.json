@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-22",
+ "generated": "2026-10-23",
  "held_out": {
   "matches": 1210,
   "accuracy": 0.5322,
-  "log_loss": 0.9813,
+  "log_loss": 0.9807,
   "baseline": 0.4298,
   "book_accuracy": 0.5471,
   "book_log_loss": 0.9624
@@ -16,66 +16,70 @@
    "accuracy": 0.6026,
    "log_loss": 0.9255,
    "book_accuracy": 0.6,
-   "book_log_loss": 0.9007
+   "book_log_loss": 0.9007,
+   "draw_factor": 1.01
   },
   {
    "season": "2024-25",
    "matches": 380,
    "baseline": 0.4079,
    "accuracy": 0.5316,
-   "log_loss": 0.9631,
+   "log_loss": 0.9634,
    "book_accuracy": 0.5553,
-   "book_log_loss": 0.9667
+   "book_log_loss": 0.9667,
+   "draw_factor": 0.99
   },
   {
    "season": "2025-26",
    "matches": 380,
    "baseline": 0.4263,
    "accuracy": 0.4763,
-   "log_loss": 1.0451,
+   "log_loss": 1.0434,
    "book_accuracy": 0.4947,
-   "book_log_loss": 1.0118
+   "book_log_loss": 1.0118,
+   "draw_factor": 1.05
   },
   {
    "season": "2026-27",
    "matches": 70,
    "baseline": 0.4,
    "accuracy": 0.4571,
-   "log_loss": 1.0374,
+   "log_loss": 1.0339,
    "book_accuracy": 0.5,
-   "book_log_loss": 1.0055
+   "book_log_loss": 1.0055,
+   "draw_factor": 1.1
   }
  ],
  "calibration": [
   {
    "range": "0-20%",
-   "predicted": 0.1471,
-   "observed": 0.1558,
-   "count": 796
+   "predicted": 0.1457,
+   "observed": 0.1528,
+   "count": 772
   },
   {
    "range": "20-35%",
-   "predicted": 0.2577,
-   "observed": 0.2643,
-   "count": 1536
+   "predicted": 0.2593,
+   "observed": 0.2662,
+   "count": 1570
   },
   {
    "range": "35-50%",
    "predicted": 0.4239,
-   "observed": 0.4274,
-   "count": 592
+   "observed": 0.4233,
+   "count": 593
   },
   {
    "range": "50-65%",
-   "predicted": 0.5703,
-   "observed": 0.537,
-   "count": 432
+   "predicted": 0.5711,
+   "observed": 0.5465,
+   "count": 430
   },
   {
    "range": "65-100%",
-   "predicted": 0.7293,
-   "observed": 0.7117,
-   "count": 274
+   "predicted": 0.73,
+   "observed": 0.7094,
+   "count": 265
   }
  ],
  "live": {
