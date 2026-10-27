@@ -29,3 +29,13 @@ predicted_on,season,kickoff_utc,home_team_name,away_team_name,p_home,p_draw,p_aw
 2026-10-23,2026,2026-10-25 14:00,Liverpool,Brighton & Hove Albion,0.448,0.2583,0.2936
 2026-10-23,2026,2026-10-25 14:00,Manchester United,Bournemouth,0.4498,0.2772,0.273
 2026-10-23,2026,2026-10-25 16:30,Sunderland,Leeds United,0.4043,0.2897,0.306
+2026-10-27,2026,2026-10-31 12:30,Chelsea,Manchester United,0.3205,0.2953,0.3842
+2026-10-27,2026,2026-10-31 15:00,Bournemouth,Leeds United,0.5138,0.253,0.2332
+2026-10-27,2026,2026-10-31 15:00,Brentford,Nottingham Forest,0.4205,0.269,0.3105
+2026-10-27,2026,2026-10-31 15:00,Coventry City,Sunderland,0.2498,0.2741,0.4761
+2026-10-27,2026,2026-10-31 15:00,Hull City,Ipswich Town,0.3512,0.2642,0.3846
+2026-10-27,2026,2026-10-31 15:00,Manchester City,Brighton & Hove Albion,0.5789,0.2369,0.1842
+2026-10-27,2026,2026-10-31 17:30,Tottenham Hotspur,Crystal Palace,0.466,0.285,0.2491
+2026-10-27,2026,2026-10-31 20:00,Aston Villa,Fulham,0.4448,0.2822,0.2729
+2026-10-27,2026,2026-11-01 16:30,Liverpool,Arsenal,0.3581,0.3107,0.3312
+2026-10-27,2026,2026-11-02 20:00,Newcastle United,Everton,0.3719,0.2884,0.3398

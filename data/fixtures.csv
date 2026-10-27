@@ -119,46 +119,46 @@ season,round,kickoff_utc,home_team_name,away_team_name
 2026,12,2026-11-29 14:05,Fulham,Bournemouth
 2026,12,2026-11-29 14:05,Sunderland,Tottenham Hotspur
 2026,12,2026-11-29 16:30,Arsenal,Manchester City
-2026,13,2026-12-02 20:00,Aston Villa,Everton
-2026,13,2026-12-02 20:00,Bournemouth,Brighton & Hove Albion
-2026,13,2026-12-02 20:00,Brentford,Arsenal
-2026,13,2026-12-02 20:00,Chelsea,Crystal Palace
-2026,13,2026-12-02 20:00,Coventry City,Ipswich Town
-2026,13,2026-12-02 20:00,Hull City,Nottingham Forest
-2026,13,2026-12-02 20:00,Liverpool,Sunderland
-2026,13,2026-12-02 20:00,Manchester City,Leeds United
-2026,13,2026-12-02 20:00,Newcastle United,Manchester United
-2026,13,2026-12-02 20:00,Tottenham Hotspur,Fulham
+2026,13,2026-12-01 20:00,Coventry City,Ipswich Town
+2026,13,2026-12-02 19:30,Chelsea,Crystal Palace
+2026,13,2026-12-02 19:30,Hull City,Nottingham Forest
+2026,13,2026-12-02 19:30,Liverpool,Sunderland
+2026,13,2026-12-02 19:30,Manchester City,Leeds United
+2026,13,2026-12-02 20:15,Aston Villa,Everton
+2026,13,2026-12-02 20:15,Bournemouth,Brighton & Hove Albion
+2026,13,2026-12-02 20:15,Brentford,Arsenal
+2026,13,2026-12-02 20:15,Newcastle United,Manchester United
+2026,13,2026-12-03 20:00,Tottenham Hotspur,Fulham
+2026,14,2026-12-05 12:30,Chelsea,Liverpool
 2026,14,2026-12-05 15:00,Aston Villa,Crystal Palace
 2026,14,2026-12-05 15:00,Bournemouth,Hull City
-2026,14,2026-12-05 15:00,Brentford,Manchester City
-2026,14,2026-12-05 15:00,Chelsea,Liverpool
-2026,14,2026-12-05 15:00,Everton,Fulham
 2026,14,2026-12-05 15:00,Leeds United,Ipswich Town
 2026,14,2026-12-05 15:00,Manchester United,Coventry City
-2026,14,2026-12-05 15:00,Newcastle United,Sunderland
-2026,14,2026-12-05 15:00,Nottingham Forest,Brighton & Hove Albion
-2026,14,2026-12-05 15:00,Tottenham Hotspur,Arsenal
-2026,15,2026-12-12 15:00,Arsenal,Bournemouth
-2026,15,2026-12-12 15:00,Brighton & Hove Albion,Everton
-2026,15,2026-12-12 15:00,Coventry City,Aston Villa
-2026,15,2026-12-12 15:00,Crystal Palace,Manchester United
+2026,14,2026-12-05 17:30,Nottingham Forest,Brighton & Hove Albion
+2026,14,2026-12-05 20:00,Brentford,Manchester City
+2026,14,2026-12-06 14:00,Everton,Fulham
+2026,14,2026-12-06 14:00,Newcastle United,Sunderland
+2026,14,2026-12-06 16:30,Tottenham Hotspur,Arsenal
 2026,15,2026-12-12 15:00,Fulham,Brentford
-2026,15,2026-12-12 15:00,Hull City,Tottenham Hotspur
 2026,15,2026-12-12 15:00,Ipswich Town,Newcastle United
 2026,15,2026-12-12 15:00,Liverpool,Leeds United
-2026,15,2026-12-12 15:00,Manchester City,Chelsea
-2026,15,2026-12-12 15:00,Sunderland,Nottingham Forest
-2026,16,2026-12-19 15:00,Arsenal,Manchester United
+2026,15,2026-12-12 17:30,Manchester City,Chelsea
+2026,15,2026-12-13 14:00,Arsenal,Bournemouth
+2026,15,2026-12-13 14:00,Brighton & Hove Albion,Everton
+2026,15,2026-12-13 14:00,Sunderland,Nottingham Forest
+2026,15,2026-12-13 16:30,Coventry City,Aston Villa
+2026,15,2026-12-13 19:00,Crystal Palace,Manchester United
+2026,15,2026-12-14 20:00,Hull City,Tottenham Hotspur
+2026,16,2026-12-19 12:30,Brentford,Newcastle United
 2026,16,2026-12-19 15:00,Bournemouth,Coventry City
-2026,16,2026-12-19 15:00,Brentford,Newcastle United
-2026,16,2026-12-19 15:00,Brighton & Hove Albion,Ipswich Town
-2026,16,2026-12-19 15:00,Chelsea,Aston Villa
 2026,16,2026-12-19 15:00,Leeds United,Fulham
-2026,16,2026-12-19 15:00,Liverpool,Tottenham Hotspur
 2026,16,2026-12-19 15:00,Manchester City,Hull City
 2026,16,2026-12-19 15:00,Nottingham Forest,Everton
-2026,16,2026-12-19 15:00,Sunderland,Crystal Palace
+2026,16,2026-12-19 17:30,Liverpool,Tottenham Hotspur
+2026,16,2026-12-20 14:00,Brighton & Hove Albion,Ipswich Town
+2026,16,2026-12-20 14:00,Sunderland,Crystal Palace
+2026,16,2026-12-20 16:30,Arsenal,Manchester United
+2026,16,2026-12-21 20:00,Chelsea,Aston Villa
 2026,17,2026-12-26 12:30,Aston Villa,Leeds United
 2026,17,2026-12-26 15:00,Everton,Sunderland
 2026,17,2026-12-26 15:00,Fulham,Brighton & Hove Albion
