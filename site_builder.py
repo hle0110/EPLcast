@@ -217,6 +217,54 @@ def _position_bars(positions):
             '<p class="legend">How often the club finishes in each position across all simulations.</p>')
 
 
+def _points(value):
+    return f'{value:.0f} point' + ('' if round(value) == 1 else 's')
+
+
+def _scenario_fixture(team, item, kickoffs):
+    at_home = item['home'] == team
+    opponent = item['away'] if at_home else item['home']
+    kickoff = kickoffs.get((item['home'], item['away']))
+    when = f'{_format_date(kickoff)}, ' if kickoff is not None else ''
+    parts = [f'{label} {value * 100:.0f}%' for label, value in (('win', item['win']), ('draw', item['draw']), ('lose', item['lose']))
+             if value is not None]
+    return (f'<li>{when}{"H" if at_home else "A"} v {club_link(opponent, "../")}: {", ".join(parts)}</li>')
+
+
+def _scenarios_block(team, scenarios, remaining):
+    if not scenarios:
+        return ''
+    kickoffs = {(home, away): kickoff for kickoff, home, away, _ in remaining}
+    items = []
+    for entry in scenarios:
+        title = f'To {entry["label"]}'
+        if entry['status'] != 'open':
+            note = ('under 0.5%, out of reach in almost every simulation' if entry['status'] == 'out of reach'
+                    else 'over 99.5%, happens in almost every simulation')
+            items.append(f'<div class="scenario"><h3>{title} <span class="muted">{note}</span></h3></div>')
+            continue
+        line = (f'<p>The club they need to finish above typically ends on {_points(entry["line_median"])}, and on '
+                f'{_points(entry["line_p90"])} or fewer in 9 of 10 simulations. That means about '
+                f'{_points(entry["needed_median"])} more from {entry["games"]} games, or {_points(entry["needed_p90"])} to be safe '
+                'in most simulations. Ties go to goal difference.</p>')
+        record = ''
+        if entry.get('record'):
+            w, d, l = entry['record']
+            record = (f'<p>In simulations where {html.escape(team)} did it, their typical record in the remaining games was '
+                      f'{w} won, {d} drawn, {l} lost.</p>')
+        fixtures = ''
+        if entry.get('key_fixtures'):
+            fixtures = (f'<p>Of the next few games, these matter most. The chance to {entry["label"]} in simulations where '
+                        f'{html.escape(team)} won, drew or lost each one:</p><ul>'
+                        + ''.join(_scenario_fixture(team, item, kickoffs) for item in entry['key_fixtures']) + '</ul>')
+        items.append(f'<div class="scenario"><h3>{title} <span class="muted">now {_pct(entry["probability"])}</span></h3>'
+                     f'{line}{record}{fixtures}</div>')
+    return ('<h2>What they need</h2>' + ''.join(items)
+            + '<p class="legend">Worked out from every simulated season, not written by hand. Each figure needs at least 100 '
+              'simulations behind it, otherwise it is left out. A result and the final outcome are linked partly because a side that wins '
+              'one game tends to be stronger in that simulation, so these show what goes with success rather than a guarantee.</p>')
+
+
 def build_club_page(team, record, standing, detail, form, season):
     cards = []
     if standing is not None:
@@ -249,13 +297,14 @@ def build_club_page(team, record, standing, detail, form, season):
                             f'<td>{lose * 100:.0f}%</td></tr>')
     fixtures = ('<h2>Remaining fixtures</h2><div class="scroll"><table><thead><tr><th class="team">Kick-off</th>'
                 '<th class="team">Opponent</th><th>Win</th><th>Draw</th><th>Lose</th></tr></thead>'
-                f'<tbody>{"".join(fixture_rows)}</tbody></table></div><p class="legend">Probabilities use the ratings and form '
-                'as they stand today. The season simulation lets them change as results come in, so later fixtures are less certain '
-                'than these single numbers suggest.</p>') if fixture_rows else ''
+                f'<tbody>{"".join(fixture_rows)}</tbody></table></div><p class="legend">How often each result happened across '
+                'every simulated season. Ratings and form move as simulated results come in, so later fixtures carry that uncertainty. '
+                'The Matches page shows the model\u2019s direct probabilities for the next round, which can differ by about a point.</p>') if fixture_rows else ''
 
+    scenarios_html = _scenarios_block(team, detail.get('scenarios') or [], detail.get('remaining') or [])
     form_html = f'<p class="sub">Form {_form_cell(form)}</p>' if form else ''
     body = (f'<h1>{html.escape(team)}</h1><p class="sub">{_season_label(season)} projection</p>{form_html}{card_html}'
-            f'{_position_bars(detail.get("positions"))}{_elo_chart(detail.get("elo"))}{recent}{fixtures}')
+            f'{_position_bars(detail.get("positions"))}{scenarios_html}{_elo_chart(detail.get("elo"))}{recent}{fixtures}')
     description = (f'{team} {_season_label(season)}: projected {record["Points"]:.0f} points, '
                    f'title {_pct(record["TitleProb"])}, top four {_pct(record["Top4Prob"])}, relegation {_pct(record["RelegationProb"])}.')
     return page_shell(f'EPLcast - {team}', description, body, f'clubs/{club_slug(team)}.html', '../')

@@ -7,12 +7,13 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from features import load_data, engineer_features, FEATURE_COLUMNS, TOP_DIVISION
 from models import ScaledLogisticModel, DrawCalibratedModel, adjust_draws, fit_draw_factor
-from simulate import run_simulations, summarize_simulations, predict_fixtures, OUTCOME_ORDER
+from simulate import (run_simulations, summarize_simulations, predict_fixtures, finishing_positions,
+                      table_from_results, OUTCOME_ORDER)
 from schedule import load_schedule, SCHEDULE_PATH
 from insights import (position_probabilities, points_ranges, upcoming_fixtures, remaining_for_team, match_stakes,
                       update_prediction_log, score_prediction_log, score_probabilities, bookmaker_probabilities,
                       calibration_bins, elo_history, recent_results, outcome_codes, live_match_records,
-                      cumulative_track_record, PREDICTION_LOG_PATH)
+                      cumulative_track_record, simulated_fixture_probabilities, club_scenarios, PREDICTION_LOG_PATH)
 from site_builder import write_site
 
 DATA_PATH = "data/matches.csv"
@@ -206,11 +207,18 @@ def club_details(df, results, season, teams, schedule, season_matches, model, el
     if season_matches is not None and schedule is not None:
         remaining = {team: remaining_for_team(schedule, season_matches, team) for team in teams}
     pairs = sorted({(home, away) for fixtures in remaining.values() for _, home, away in fixtures})
-    probabilities = predict_fixtures(model, df, elo_ratings, season, teams, pairs)
-    fixture_probs = {pair: p for pair, p in zip(pairs, probabilities)}
+    simulated = simulated_fixture_probabilities(results) if remaining else {}
+    missing = [pair for pair in pairs if pair not in simulated]
+    fixture_probs = dict(simulated)
+    fixture_probs.update({pair: p for pair, p in zip(missing, predict_fixtures(model, df, elo_ratings, season, teams, missing))})
+    simulated_positions = finishing_positions(table) if remaining and results['fixtures'] else None
+    current = table_from_results(season_matches, teams) if simulated_positions is not None else {}
     details = {}
     for team in teams:
+        scenarios = (club_scenarios(results, season, team, simulated_positions, current[team]['Points'])
+                     if simulated_positions is not None else [])
         details[team] = {
+            'scenarios': scenarios,
             'range': ranges.loc[team].to_dict(),
             'positions': positions.loc[team].values.tolist(),
             'elo': elo_history(df, team, season - 1),

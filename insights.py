@@ -89,6 +89,89 @@ def match_stakes(results, season, fixtures):
     return stakes
 
 
+SCENARIO_TARGETS = [('stay up', lambda pos, n: pos <= n - 3, lambda others, n: np.sort(others, axis=1)[:, 2]),
+                    ('finish top four', lambda pos, n: pos <= 4, lambda others, n: -np.sort(-others, axis=1)[:, 3]),
+                    ('win the title', lambda pos, n: pos == 1, lambda others, n: others.max(axis=1))]
+SCENARIO_RANGE = (0.005, 0.995)
+KEY_FIXTURES = 3
+KEY_FIXTURE_HORIZON = 5
+
+
+def simulated_fixture_probabilities(results):
+    probabilities = {}
+    outcomes = results['outcomes']
+    for index, pair in enumerate(results['fixtures']):
+        column = outcomes[:, index]
+        played = column >= 0
+        if played.any():
+            probabilities[pair] = np.array([(column[played] == code).mean() for code in (0, 1, 2)])
+    return probabilities
+
+
+def _team_outcomes(results, team):
+    columns, venues = [], []
+    for index, (home, away) in enumerate(results['fixtures']):
+        if team in (home, away):
+            columns.append(index)
+            venues.append(home == team)
+    if not columns:
+        return [], np.zeros((results['outcomes'].shape[0], 0), dtype=int)
+    raw = results['outcomes'][:, columns].astype(int)
+    at_home = np.array(venues)
+    view = np.where(raw == 1, 1, np.where((raw == 2) == at_home, 2, 0))
+    return columns, view
+
+
+def club_scenarios(results, season, team, positions, current_points, min_samples=MIN_STAKE_SAMPLES):
+    table = results['tables'][season]
+    teams = results['teams']
+    n_teams = len(teams)
+    col = teams.index(team)
+    points = table['Points']
+    others = np.delete(points, col, axis=1)
+    columns, view = _team_outcomes(results, team)
+    if not columns:
+        return []
+    wins = (view == 2).sum(axis=1)
+    draws = (view == 1).sum(axis=1)
+    scenarios = []
+    for label, test, line_of in SCENARIO_TARGETS:
+        hit = test(positions[:, col], n_teams)
+        probability = float(hit.mean())
+        entry = {'label': label, 'probability': probability, 'games': len(columns), 'status': 'open'}
+        if probability < SCENARIO_RANGE[0]:
+            entry['status'] = 'out of reach'
+        elif probability > SCENARIO_RANGE[1]:
+            entry['status'] = 'all but certain'
+        if entry['status'] != 'open':
+            scenarios.append(entry)
+            continue
+        line = line_of(others, n_teams)
+        entry['line_median'] = float(np.median(line))
+        entry['line_p90'] = float(np.percentile(line, 90))
+        entry['needed_median'] = max(0.0, entry['line_median'] + 1 - current_points)
+        entry['needed_p90'] = max(0.0, entry['line_p90'] + 1 - current_points)
+        if hit.sum() >= min_samples:
+            won = int(round(np.median(wins[hit])))
+            drawn = min(int(round(np.median(draws[hit]))), len(columns) - won)
+            entry['record'] = (won, drawn, len(columns) - won - drawn)
+        key = []
+        for position, index in enumerate(columns[:KEY_FIXTURE_HORIZON]):
+            by_result = []
+            for code in (2, 1, 0):
+                mask = view[:, position] == code
+                by_result.append(float(hit[mask].mean()) if mask.sum() >= min_samples else None)
+            known = [v for v in by_result if v is not None]
+            if len(known) < 2:
+                continue
+            home, away = results['fixtures'][index]
+            key.append({'home': home, 'away': away, 'win': by_result[0], 'draw': by_result[1], 'lose': by_result[2],
+                        'swing': max(known) - min(known)})
+        entry['key_fixtures'] = sorted(key, key=lambda item: item['swing'], reverse=True)[:KEY_FIXTURES]
+        scenarios.append(entry)
+    return scenarios
+
+
 def update_prediction_log(rows, today, path=PREDICTION_LOG_PATH):
     fresh = pd.DataFrame(rows, columns=LOG_COLUMNS)
     if os.path.exists(path):

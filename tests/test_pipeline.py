@@ -858,3 +858,99 @@ def test_track_record_section_renders_without_javascript():
     full = dashboard.track_record_section(live, records, insights.cumulative_track_record(records), recent_rounds=0)
     assert full.count('<tr>') == 1 + 4
 
+
+def _scenario_results(n_sims=400, hit_share=0.5):
+    teams = [f'T{i}' for i in range(20)]
+    fixtures = [('T0', 'T1'), ('T2', 'T0'), ('T0', 'T3'), ('T4', 'T0'), ('T0', 'T5'), ('T6', 'T0'), ('T7', 'T8')]
+    hit = np.arange(n_sims) < int(n_sims * hit_share)
+    outcomes = np.zeros((n_sims, len(fixtures)), dtype=np.int8)
+    for index, (home, away) in enumerate(fixtures[:-1]):
+        team_won = np.where(hit, True, False)
+        outcomes[:, index] = np.where(team_won, 2 if home == 'T0' else 0, 0 if home == 'T0' else 2)
+    outcomes[:, -1] = 1
+    rng = np.random.default_rng(5)
+    points = rng.integers(20, 80, size=(n_sims, 20))
+    table = {'Points': points}
+    positions = np.tile(np.arange(1, 21), (n_sims, 1))
+    positions[:, 0] = np.where(hit, 10, 19)
+    return {'tables': {2026: table}, 'teams': teams, 'fixtures': fixtures, 'outcomes': outcomes}, positions, hit
+
+
+def test_simulated_fixture_probabilities_are_outcome_frequencies():
+    results = {'fixtures': [('A', 'B'), ('C', 'D')],
+               'outcomes': np.array([[2, 1], [2, 0], [0, 1], [1, 1]], dtype=np.int8)}
+    probabilities = insights.simulated_fixture_probabilities(results)
+    assert probabilities[('A', 'B')] == pytest.approx([0.25, 0.25, 0.5])
+    assert probabilities[('C', 'D')] == pytest.approx([0.25, 0.75, 0.0])
+    for value in probabilities.values():
+        assert value.sum() == pytest.approx(1.0)
+
+
+def test_club_scenarios_points_line_matches_hand_calculation():
+    results, positions, hit = _scenario_results()
+    scenarios = insights.club_scenarios(results, 2026, 'T0', positions, current_points=12, min_samples=50)
+    stay_up = scenarios[0]
+    assert stay_up['label'] == 'stay up' and stay_up['status'] == 'open'
+    assert stay_up['probability'] == pytest.approx(hit.mean())
+    others = np.delete(results['tables'][2026]['Points'], 0, axis=1)
+    line = np.sort(others, axis=1)[:, 2]
+    assert stay_up['line_median'] == pytest.approx(np.median(line))
+    assert stay_up['line_p90'] == pytest.approx(np.percentile(line, 90))
+    assert stay_up['needed_median'] == pytest.approx(max(0.0, np.median(line) + 1 - 12))
+    assert stay_up['games'] == 6
+
+
+def test_club_scenarios_record_counts_only_successful_simulations():
+    results, positions, hit = _scenario_results()
+    stay_up = insights.club_scenarios(results, 2026, 'T0', positions, current_points=12, min_samples=50)[0]
+    assert stay_up['record'] == (6, 0, 0)
+    flipped, positions_flipped, _ = _scenario_results(hit_share=0.25)
+    assert insights.club_scenarios(flipped, 2026, 'T0', positions_flipped, current_points=12, min_samples=50)[0]['record'] == (6, 0, 0)
+    assert 'record' not in insights.club_scenarios(results, 2026, 'T0', positions, current_points=12, min_samples=1000)[0]
+
+
+def test_club_scenarios_key_fixtures_are_ranked_and_near_term():
+    results, positions, hit = _scenario_results()
+    stay_up = insights.club_scenarios(results, 2026, 'T0', positions, current_points=12, min_samples=50)[0]
+    key = stay_up['key_fixtures']
+    assert len(key) == insights.KEY_FIXTURES
+    allowed = set(results['fixtures'][:insights.KEY_FIXTURE_HORIZON])
+    assert all((item['home'], item['away']) in allowed for item in key)
+    assert [item['swing'] for item in key] == sorted([item['swing'] for item in key], reverse=True)
+    assert all(item['win'] == 1.0 and item['lose'] == 0.0 and item['draw'] is None for item in key)
+
+
+def test_club_scenarios_skip_targets_outside_the_open_range():
+    results, positions, _ = _scenario_results()
+    scenarios = {entry['label']: entry for entry in
+                 insights.club_scenarios(results, 2026, 'T0', positions, current_points=12, min_samples=50)}
+    assert scenarios['win the title']['status'] == 'out of reach'
+    assert scenarios['finish top four']['status'] == 'out of reach'
+    assert 'line_median' not in scenarios['win the title']
+    certain = positions.copy()
+    certain[:, 0] = 1
+    title = insights.club_scenarios(results, 2026, 'T0', certain, current_points=12, min_samples=50)[2]
+    assert title['status'] == 'all but certain'
+
+
+def test_club_page_shows_scenarios_without_javascript():
+    results, positions, _ = _scenario_results()
+    scenarios = insights.club_scenarios(results, 2026, 'T0', positions, current_points=12, min_samples=50)
+    record = {'Points': 45.0, 'TitleProb': 0.0, 'Top4Prob': 0.0, 'RelegationProb': 0.5}
+    page = site_builder.build_club_page('T0', record, None, {'scenarios': scenarios, 'remaining': []}, None, 2026)
+    assert 'What they need' in page and 'To stay up' in page
+    assert '<script' not in page.lower()
+
+
+def test_club_scenarios_ignore_fixtures_beyond_the_horizon():
+    results, positions, hit = _scenario_results()
+    rng = np.random.default_rng(9)
+    n_sims = len(hit)
+    for index in range(5):
+        home, _ = results['fixtures'][index]
+        team_won = rng.random(n_sims) < 0.5
+        results['outcomes'][:, index] = np.where(team_won, 2 if home == 'T0' else 0, 0 if home == 'T0' else 2)
+    stay_up = insights.club_scenarios(results, 2026, 'T0', positions, current_points=12, min_samples=50)[0]
+    assert all(item['swing'] < 1.0 for item in stay_up['key_fixtures'])
+    assert ('T6', 'T0') not in {(item['home'], item['away']) for item in stay_up['key_fixtures']}
+
