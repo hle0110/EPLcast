@@ -6,7 +6,7 @@ import os
 import numpy as np
 import pandas as pd
 from dashboard import (build_page, page_shell, club_link, club_slug, _pct, _season_label, _format_date,
-                       _form_cell, LINE_COLOURS, SITE_URL)
+                       _form_cell, track_record_section, LINE_COLOURS, SITE_URL)
 
 try:
     from zoneinfo import ZoneInfo
@@ -127,7 +127,7 @@ def build_accuracy_page(meta):
             f'<p class="legend">Accuracy counts how often the most likely result happened. Log loss rewards honest probabilities '
             f'and punishes confident misses; lower is better, and guessing a third for everything scores 1.099. Bookmaker figures '
             f'use the average closing odds with the margin removed. They are the benchmark, not a target the model is tuned to.</p>'
-            f'{calibration}<h2>Live track record</h2>{_live_summary(meta.get("live_score"))}')
+            f'{calibration}{track_record_section(meta.get("live_score"), meta.get("live_records") or [], meta.get("live_cumulative") or [], recent_rounds=0)}')
     description = f'EPLcast accuracy: {_percent(metrics["accuracy"])} over {metrics["matches"]:,} held-out Premier League matches, compared with bookmakers.'
     return page_shell('EPLcast - accuracy', description, body, 'accuracy.html')
 

@@ -8,10 +8,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from features import load_data, engineer_features, FEATURE_COLUMNS, TOP_DIVISION
 from models import ScaledLogisticModel, DrawCalibratedModel, adjust_draws, fit_draw_factor
 from simulate import run_simulations, summarize_simulations, predict_fixtures, OUTCOME_ORDER
-from schedule import load_schedule
+from schedule import load_schedule, SCHEDULE_PATH
 from insights import (position_probabilities, points_ranges, upcoming_fixtures, remaining_for_team, match_stakes,
                       update_prediction_log, score_prediction_log, score_probabilities, bookmaker_probabilities,
-                      calibration_bins, elo_history, recent_results, outcome_codes, PREDICTION_LOG_PATH)
+                      calibration_bins, elo_history, recent_results, outcome_codes, live_match_records,
+                      cumulative_track_record, PREDICTION_LOG_PATH)
 from site_builder import write_site
 
 DATA_PATH = "data/matches.csv"
@@ -317,6 +318,7 @@ def main():
     if prediction_log is None and os.path.exists(PREDICTION_LOG_PATH):
         prediction_log = pd.read_csv(PREDICTION_LOG_PATH)
 
+    live_records = live_match_records(prediction_log, df, pd.read_csv(SCHEDULE_PATH) if os.path.exists(SCHEDULE_PATH) else None)
     clubs = club_details(df, results, headline_season, current_teams, schedule,
                          season_matches if project_current else None, final_model, elo_ratings)
     accuracy_text = f"{metrics['accuracy'] * 100:.1f}%" if metrics else "n/a"
@@ -335,6 +337,8 @@ def main():
         'clubs': clubs,
         'metrics': metrics,
         'live_score': score_prediction_log(prediction_log, df),
+        'live_records': live_records,
+        'live_cumulative': cumulative_track_record(live_records),
         'generated': datetime.date.today().isoformat(),
     }
     write_site(projection, headline_season, meta, DOCS_DIR)

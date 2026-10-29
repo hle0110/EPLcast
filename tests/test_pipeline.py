@@ -792,3 +792,69 @@ def test_draw_calibration_is_fitted_without_the_evaluated_season():
     assert main.draw_factor_before(held_out, 2025) > factor
     assert main.draw_factor_before(held_out, 2022) == 1.0
 
+
+def _live_log_and_results():
+    fixtures = [('A', 'B', '2026-10-10 14:00', 6, (0.6, 0.25, 0.15), (2, 0), (1.5, 4.0, 6.0)),
+                ('C', 'D', '2026-10-11 14:00', 6, (0.3, 0.3, 0.4), (1, 1), (2.5, 3.2, 2.9)),
+                ('A', 'C', '2026-10-17 14:00', 7, (0.5, 0.3, 0.2), (0, 1), (2.0, 3.5, 3.8)),
+                ('B', 'D', '2026-10-18 14:00', 7, (0.2, 0.3, 0.5), (0, 2), (4.0, 3.6, 1.9))]
+    log = pd.DataFrame([{'predicted_on': '2026-10-06', 'season': 2026, 'kickoff_utc': k, 'home_team_name': h, 'away_team_name': a,
+                         'p_home': p[0], 'p_draw': p[1], 'p_away': p[2]} for h, a, k, _, p, _, _ in fixtures])
+    results = pd.DataFrame([{'division': 'Premier League', 'season': 2026, 'home_team_name': h, 'away_team_name': a,
+                             'home_team_score': s[0], 'away_team_score': s[1],
+                             'result': update_data.result_of(s[0], s[1]),
+                             'odds_home': o[0], 'odds_draw': o[1], 'odds_away': o[2]} for h, a, _, _, _, s, o in fixtures])
+    schedule = pd.DataFrame([{'season': 2026, 'round': r, 'kickoff_utc': k, 'home_team_name': h, 'away_team_name': a}
+                             for h, a, k, r, _, _, _ in fixtures])
+    return log, results, schedule
+
+
+def test_live_match_records_match_hand_calculation():
+    log, results, schedule = _live_log_and_results()
+    records = insights.live_match_records(log, results, schedule)
+    assert [r['round'] for r in records] == [6, 6, 7, 7]
+    assert [r['model_pick'] for r in records] == [2, 0, 2, 0]
+    assert [r['result'] for r in records] == [2, 1, 0, 0]
+    assert [r['model_correct'] for r in records] == [True, False, False, True]
+    implied = 1 / np.array([2.9, 3.2, 2.5])
+    assert records[1]['book_p'] == pytest.approx(list(implied / implied.sum()))
+    assert records[1]['book_pick'] == 2 and records[1]['book_correct'] is False
+    assert records[0]['score'] == '2-0'
+
+
+def test_cumulative_track_record_ends_at_the_overall_score():
+    log, results, schedule = _live_log_and_results()
+    records = insights.live_match_records(log, results, schedule)
+    cumulative = insights.cumulative_track_record(records)
+    overall = insights.score_prediction_log(log, results)
+    assert [row['round'] for row in cumulative] == [6, 7]
+    assert [row['matches'] for row in cumulative] == [2, 4]
+    assert cumulative[0]['log_loss'] == pytest.approx(-(np.log(0.6) + np.log(0.3)) / 2)
+    assert cumulative[-1]['log_loss'] == pytest.approx(overall['log_loss'])
+    assert cumulative[-1]['accuracy'] == pytest.approx(overall['accuracy'])
+    assert cumulative[-1]['book_log_loss'] == pytest.approx(overall['book_log_loss'])
+    assert cumulative[-1]['book_accuracy'] == pytest.approx(overall['book_accuracy'])
+
+
+def test_track_record_says_plainly_when_bookmakers_lead():
+    behind = {'matches': 30, 'accuracy': 0.5, 'log_loss': 1.004, 'first': '2026-10-06', 'book_accuracy': 0.5, 'book_log_loss': 0.951}
+    ahead = dict(behind, log_loss=0.90)
+    assert insights.live_leader(behind) == 'bookmakers'
+    assert insights.live_leader(ahead) == 'model'
+    assert 'Bookmakers are ahead' in dashboard.track_record_verdict(behind)
+    assert 'model is ahead' in dashboard.track_record_verdict(ahead)
+    assert 'Bookmakers are ahead' not in dashboard.track_record_verdict(ahead)
+
+
+def test_track_record_section_renders_without_javascript():
+    log, results, schedule = _live_log_and_results()
+    records = insights.live_match_records(log, results, schedule)
+    live = insights.score_prediction_log(log, results)
+    section = dashboard.track_record_section(live, records, insights.cumulative_track_record(records), recent_rounds=1)
+    assert '<script' not in section.lower()
+    assert 'accuracy.html#track-record' in section
+    assert section.count('<tr>') == 1 + 2
+    assert '<svg' in section
+    full = dashboard.track_record_section(live, records, insights.cumulative_track_record(records), recent_rounds=0)
+    assert full.count('<tr>') == 1 + 4
+

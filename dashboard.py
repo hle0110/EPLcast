@@ -253,6 +253,120 @@ def race_chart(history, season, column='TitleProb', heading='Title race', legend
             f'<p class="legend">{legend}</p>')
 
 
+def _outcome_label(code, home, away):
+    return html.escape(str(home)) if code == 2 else (html.escape(str(away)) if code == 0 else 'Draw')
+
+
+def _yes_no(value):
+    if value is None:
+        return '-'
+    return '<span style="color:var(--accent)">yes</span>' if value else '<span style="color:var(--warn)">no</span>'
+
+
+def track_record_verdict(live):
+    if not live:
+        return ''
+    if live.get('book_log_loss') is None:
+        return f'<p>The model has predicted {live["matches"]} matches before kick-off. Bookmaker odds are missing for some of them, so there is no comparison yet.</p>'
+    model, book = live['log_loss'], live['book_log_loss']
+    accuracy_note = (f'Both picked the right result {live["accuracy"] * 100:.1f}% of the time.' if live['accuracy'] == live['book_accuracy']
+                     else f'Correct picks: model {live["accuracy"] * 100:.1f}%, bookmakers {live["book_accuracy"] * 100:.1f}%.')
+    if book < model:
+        lead = (f'<strong>Bookmakers are ahead on the live record.</strong> Over {live["matches"]} matches their log loss is '
+                f'{book:.3f} against the model\u2019s {model:.3f} (lower is better).')
+    elif model < book:
+        lead = (f'<strong>The model is ahead on the live record.</strong> Over {live["matches"]} matches its log loss is '
+                f'{model:.3f} against the bookmakers\u2019 {book:.3f} (lower is better).')
+    else:
+        lead = f'<strong>The model and bookmakers are level</strong> on log loss over {live["matches"]} matches.'
+    return f'<p>{lead} {accuracy_note}</p>'
+
+
+def track_record_chart(cumulative):
+    rows = [r for r in cumulative if r['book_log_loss'] is not None]
+    if len(rows) < 2:
+        return ''
+    width, height = 720, 220
+    pad_left, pad_right, pad_top, pad_bottom = 46, 14, 14, 30
+    plot_w = width - pad_left - pad_right
+    plot_h = height - pad_top - pad_bottom
+    values = [r['log_loss'] for r in rows] + [r['book_log_loss'] for r in rows]
+    low = min(values) - 0.02
+    high = max(values) + 0.02
+
+    def x_of(index):
+        return pad_left + plot_w * index / (len(rows) - 1)
+
+    def y_of(value):
+        return pad_top + plot_h * (high - value) / (high - low)
+
+    parts = [f'<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" role="img">']
+    for i in range(5):
+        value = low + (high - low) * i / 4
+        y = y_of(value)
+        parts.append(f'<line x1="{pad_left}" y1="{y:.1f}" x2="{width - pad_right}" y2="{y:.1f}" stroke="#262b35" stroke-width="1"/>')
+        parts.append(f'<text x="{pad_left - 8}" y="{y + 4:.1f}" fill="#9aa3b2" font-size="11" text-anchor="end">{value:.2f}</text>')
+    for index, row in enumerate(rows):
+        label = f'R{row["round"]}' if row['round'] is not None else '-'
+        parts.append(f'<text x="{x_of(index):.1f}" y="{height - 8}" fill="#9aa3b2" font-size="11" text-anchor="middle">{label}</text>')
+    keys = []
+    for key, name, colour in (('log_loss', 'Model', LINE_COLOURS[0]), ('book_log_loss', 'Bookmakers', LINE_COLOURS[1])):
+        points = ' '.join(f'{x_of(i):.1f},{y_of(r[key]):.1f}' for i, r in enumerate(rows))
+        parts.append(f'<polyline fill="none" stroke="{colour}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" points="{points}"/>')
+        keys.append(f'<span><b style="background:{colour}"></b>{name}</span>')
+    parts.append('</svg>')
+    return (f'<div class="chart">{"".join(parts)}<div class="keys">{"".join(keys)}</div></div>'
+            '<p class="legend">Running log loss after each round, over every match scored so far. Lower is better.</p>')
+
+
+def track_record_table(records):
+    if not records:
+        return ''
+    rows = []
+    for r in sorted(records, key=lambda item: (item['round'] or 0, item['kickoff'], item['home']), reverse=True):
+        p_away, p_draw, p_home = r['p']
+        book = _outcome_label(r['book_pick'], r['home'], r['away']) if r['book_pick'] is not None else '-'
+        rows.append(f'<tr><td class="rank">{r["round"] if r["round"] is not None else "-"}</td>'
+                    f'<td class="team">{html.escape(str(r["home"]))} v {html.escape(str(r["away"]))}</td>'
+                    f'<td class="team">{_outcome_label(r["model_pick"], r["home"], r["away"])}</td>'
+                    f'<td>{p_home * 100:.0f}%</td><td>{p_draw * 100:.0f}%</td><td>{p_away * 100:.0f}%</td>'
+                    f'<td class="team group">{book}</td>'
+                    f'<td class="team group">{r["score"]} {_outcome_label(r["result"], r["home"], r["away"])}</td>'
+                    f'<td>{_yes_no(r["model_correct"])}</td><td>{_yes_no(r["book_correct"])}</td></tr>')
+    return ('<div class="scroll"><table><thead><tr><th class="rank">Rd</th><th class="team">Match</th><th class="team">Model pick</th>'
+            '<th>Home</th><th>Draw</th><th>Away</th><th class="team group">Bookmaker pick</th><th class="team group">Result</th>'
+            f'<th>Model right</th><th>Book right</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>')
+
+
+TRACK_RECORD_NOTE = ('Each model prediction is the last one saved before kick-off, which can be up to four days earlier. '
+                     'Bookmaker figures use average closing odds, set at kick-off with the margin removed, so they include later '
+                     'team news. Log loss rewards honest probabilities and punishes confident misses.')
+
+
+def track_record_section(live, records, cumulative, recent_rounds=2, prefix=''):
+    heading = '<h2 id="track-record">Live track record</h2>'
+    if not live:
+        return (heading + '<p class="muted">Live tracking has started. Scores appear here once the first predicted matches are played.</p>')
+    book_acc = f'{live["book_accuracy"] * 100:.1f}%' if live.get('book_accuracy') is not None else '-'
+    book_loss = f'{live["book_log_loss"]:.3f}' if live.get('book_log_loss') is not None else '-'
+    cards = ('<div class="cards">'
+             f'<div class="card"><div class="label">Model</div><div class="value">{live["accuracy"] * 100:.1f}%</div>'
+             f'<div class="label">log loss {live["log_loss"]:.3f}</div></div>'
+             f'<div class="card"><div class="label">Bookmakers</div><div class="value">{book_acc}</div>'
+             f'<div class="label">log loss {book_loss}</div></div>'
+             f'<div class="card"><div class="label">Matches scored</div><div class="value">{live["matches"]}</div>'
+             f'<div class="label">since {html.escape(str(live["first"]))}</div></div></div>')
+    shown = records
+    if recent_rounds:
+        known = sorted({r['round'] for r in records if r['round'] is not None})
+        latest = set(known[-recent_rounds:])
+        shown = [r for r in records if r['round'] in latest] or records
+    more = (f'<p class="legend">Latest {recent_rounds} rounds shown. The full round-by-round record and the long-run backtest are on the '
+            f'<a href="{prefix}accuracy.html#track-record">Accuracy page</a>.</p>') if recent_rounds else ''
+    return (heading + cards + track_record_verdict(live) + track_record_chart(cumulative) + track_record_table(shown) + more
+            + f'<p class="legend">{TRACK_RECORD_NOTE}</p>')
+
+
 def _main_table(projection, headline_season, standings, form):
     headline = projection[projection['Season'] == headline_season]
     team_count = len(headline)
@@ -383,6 +497,8 @@ def build_page(projection, headline_season, meta):
 
 {table_html}
 <p class="legend">{note}</p>
+
+{track_record_section(meta.get('live_score'), meta.get('live_records') or [], meta.get('live_cumulative') or [])}
 
 {charts}
 

@@ -136,15 +136,25 @@ def score_probabilities(probabilities, results):
     return accuracy, loss
 
 
-def score_prediction_log(log, matches):
+def _scored_log(log, matches):
     if log is None or len(log) == 0:
         return None
     top = matches[matches['division'] == 'Premier League']
     joined = log.merge(top, on=['season', 'home_team_name', 'away_team_name'], how='inner')
     if len(joined) == 0:
         return None
+    order = [column for column in ['kickoff_utc', 'home_team_name'] if column in joined.columns]
+    joined = joined.sort_values(order, kind='mergesort').reset_index(drop=True)
     model_probs = joined[['p_away', 'p_draw', 'p_home']].astype(float).values
     model_probs = model_probs / model_probs.sum(axis=1, keepdims=True)
+    return joined, model_probs
+
+
+def score_prediction_log(log, matches):
+    scored = _scored_log(log, matches)
+    if scored is None:
+        return None
+    joined, model_probs = scored
     accuracy, loss = score_probabilities(model_probs, joined['result'])
     scored = {'matches': len(joined), 'accuracy': accuracy, 'log_loss': loss,
               'first': str(joined['predicted_on'].min()), 'book_accuracy': None, 'book_log_loss': None}
@@ -152,6 +162,66 @@ def score_prediction_log(log, matches):
     if len(with_odds) == len(joined):
         scored['book_accuracy'], scored['book_log_loss'] = score_probabilities(bookmaker_probabilities(with_odds), with_odds['result'])
     return scored
+
+
+def live_match_records(log, matches, schedule=None):
+    scored = _scored_log(log, matches)
+    if scored is None:
+        return []
+    joined, model_probs = scored
+    codes = outcome_codes(joined['result'])
+    priced = joined[['odds_home', 'odds_draw', 'odds_away']].notna().all(axis=1).values
+    book_probs = np.full(model_probs.shape, np.nan)
+    if priced.any():
+        book_probs[priced] = bookmaker_probabilities(joined[priced])
+    rounds = {}
+    if schedule is not None and len(schedule):
+        rounds = {(int(r.season), r.home_team_name, r.away_team_name): int(r.round) for r in schedule.itertuples()}
+    records = []
+    for i, row in enumerate(joined.itertuples()):
+        model_pick = int(model_probs[i].argmax())
+        book_pick = int(book_probs[i].argmax()) if priced[i] else None
+        records.append({
+            'round': rounds.get((int(row.season), row.home_team_name, row.away_team_name)),
+            'kickoff': str(row.kickoff_utc), 'home': row.home_team_name, 'away': row.away_team_name,
+            'score': f'{int(row.home_team_score)}-{int(row.away_team_score)}',
+            'p': [float(v) for v in model_probs[i]], 'book_p': [float(v) for v in book_probs[i]] if priced[i] else None,
+            'result': int(codes[i]), 'model_pick': model_pick, 'book_pick': book_pick,
+            'model_correct': model_pick == int(codes[i]),
+            'book_correct': (book_pick == int(codes[i])) if book_pick is not None else None,
+        })
+    return records
+
+
+def _record_loss(probabilities, code):
+    return float(-np.log(max(probabilities[code], 1e-15)))
+
+
+def cumulative_track_record(records):
+    keys = sorted({r['round'] if r['round'] is not None else 0 for r in records})
+    rows = []
+    for key in keys:
+        upto = [r for r in records if (r['round'] if r['round'] is not None else 0) <= key]
+        priced = all(r['book_p'] is not None for r in upto)
+        rows.append({
+            'round': key if key else None, 'matches': len(upto),
+            'accuracy': float(np.mean([r['model_correct'] for r in upto])),
+            'log_loss': float(np.mean([_record_loss(r['p'], r['result']) for r in upto])),
+            'book_accuracy': float(np.mean([r['book_correct'] for r in upto])) if priced else None,
+            'book_log_loss': float(np.mean([_record_loss(r['book_p'], r['result']) for r in upto])) if priced else None,
+        })
+    return rows
+
+
+def live_leader(live):
+    if not live or live.get('book_log_loss') is None:
+        return None
+    model, book = live['log_loss'], live['book_log_loss']
+    if book < model:
+        return 'bookmakers'
+    if model < book:
+        return 'model'
+    return 'level'
 
 
 def calibration_bins(probabilities, results, bins=(0.0, 0.2, 0.35, 0.5, 0.65, 1.0)):
