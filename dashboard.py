@@ -86,10 +86,12 @@ td.team a:hover { text-decoration: underline; }
 .poslabels { display: flex; gap: 3px; padding: 4px 12px 0; font-size: 10px; color: var(--muted); }
 .poslabels span { flex: 1; text-align: center; }
 .prose { max-width: 760px; }
+table.track td.team, table.track th { white-space: normal; min-width: 0; }
 .prose p, .prose li { color: var(--text); }
 @media (max-width: 760px) {
   body { padding: 20px 12px 48px; }
   th.hide, td.hide { display: none; }
+  table.track td, table.track th { padding-left: 6px; padding-right: 6px; font-size: 13px; }
 }
 """
 
@@ -263,7 +265,7 @@ def _yes_no(value):
     return '<span style="color:var(--accent)">yes</span>' if value else '<span style="color:var(--warn)">no</span>'
 
 
-def track_record_verdict(live):
+def track_record_verdict(live, gap=None):
     if not live:
         return ''
     if live.get('book_log_loss') is None:
@@ -279,7 +281,15 @@ def track_record_verdict(live):
                 f'{model:.3f} against the bookmakers\u2019 {book:.3f} (lower is better).')
     else:
         lead = f'<strong>The model and bookmakers are level</strong> on log loss over {live["matches"]} matches.'
-    return f'<p>{lead} {accuracy_note}</p>'
+    caution = ''
+    if gap is not None and not gap['firm']:
+        caution = (f'<p><strong>Sample too small for a firm conclusion.</strong> The log loss gap of {abs(gap["gap"]):.3f} is inside '
+                   f'the \u00b1{gap["margin"]:.3f} range that chance alone could produce over {gap["matches"]} matches, so either side '
+                   'could be ahead after more rounds.</p>')
+    elif gap is not None:
+        caution = (f'<p class="legend">The gap of {abs(gap["gap"]):.3f} is larger than the \u00b1{gap["margin"]:.3f} '
+                   f'that chance alone would usually produce over {gap["matches"]} matches.</p>')
+    return f'<p>{lead} {accuracy_note}</p>{caution}'
 
 
 def track_record_chart(cumulative):
@@ -328,14 +338,17 @@ def track_record_table(records):
         book = _outcome_label(r['book_pick'], r['home'], r['away']) if r['book_pick'] is not None else '-'
         rows.append(f'<tr><td class="rank">{r["round"] if r["round"] is not None else "-"}</td>'
                     f'<td class="team">{html.escape(str(r["home"]))} v {html.escape(str(r["away"]))}</td>'
-                    f'<td class="team">{_outcome_label(r["model_pick"], r["home"], r["away"])}</td>'
-                    f'<td>{p_home * 100:.0f}%</td><td>{p_draw * 100:.0f}%</td><td>{p_away * 100:.0f}%</td>'
-                    f'<td class="team group">{book}</td>'
+                    f'<td class="team hide">{_outcome_label(r["model_pick"], r["home"], r["away"])}</td>'
+                    f'<td class="hide">{p_home * 100:.0f}%</td><td class="hide">{p_draw * 100:.0f}%</td>'
+                    f'<td class="hide">{p_away * 100:.0f}%</td><td class="team group hide">{book}</td>'
                     f'<td class="team group">{r["score"]} {_outcome_label(r["result"], r["home"], r["away"])}</td>'
                     f'<td>{_yes_no(r["model_correct"])}</td><td>{_yes_no(r["book_correct"])}</td></tr>')
-    return ('<div class="scroll"><table><thead><tr><th class="rank">Rd</th><th class="team">Match</th><th class="team">Model pick</th>'
-            '<th>Home</th><th>Draw</th><th>Away</th><th class="team group">Bookmaker pick</th><th class="team group">Result</th>'
-            f'<th>Model right</th><th>Book right</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>')
+    return ('<div class="scroll"><table class="track"><thead><tr><th class="rank">Rd</th><th class="team">Match</th><th class="team hide">Model pick</th>'
+            '<th class="hide">Home</th><th class="hide">Draw</th><th class="hide">Away</th>'
+            '<th class="team group hide">Bookmaker pick</th><th class="team group">Result</th>'
+            f'<th>Model right</th><th>Book right</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
+            '<p class="legend">Model right and Book right: whether each side\u2019s most likely result happened. On a phone the '
+            'probability and pick columns are hidden; the Accuracy page on a wider screen shows them all.</p>')
 
 
 TRACK_RECORD_NOTE = ('Each model prediction is the last one saved before kick-off, which can be up to four days earlier. '
@@ -343,7 +356,7 @@ TRACK_RECORD_NOTE = ('Each model prediction is the last one saved before kick-of
                      'team news. Log loss rewards honest probabilities and punishes confident misses.')
 
 
-def track_record_section(live, records, cumulative, recent_rounds=2, prefix=''):
+def track_record_section(live, records, cumulative, recent_rounds=2, prefix='', gap=None):
     heading = '<h2 id="track-record">Live track record</h2>'
     if not live:
         return (heading + '<p class="muted">Live tracking has started. Scores appear here once the first predicted matches are played.</p>')
@@ -363,7 +376,7 @@ def track_record_section(live, records, cumulative, recent_rounds=2, prefix=''):
         shown = [r for r in records if r['round'] in latest] or records
     more = (f'<p class="legend">Latest {recent_rounds} rounds shown. The full round-by-round record and the long-run backtest are on the '
             f'<a href="{prefix}accuracy.html#track-record">Accuracy page</a>.</p>') if recent_rounds else ''
-    return (heading + cards + track_record_verdict(live) + track_record_chart(cumulative) + track_record_table(shown) + more
+    return (heading + cards + track_record_verdict(live, gap) + track_record_chart(cumulative) + track_record_table(shown) + more
             + f'<p class="legend">{TRACK_RECORD_NOTE}</p>')
 
 
@@ -498,7 +511,7 @@ def build_page(projection, headline_season, meta):
 {table_html}
 <p class="legend">{note}</p>
 
-{track_record_section(meta.get('live_score'), meta.get('live_records') or [], meta.get('live_cumulative') or [])}
+{track_record_section(meta.get('live_score'), meta.get('live_records') or [], meta.get('live_cumulative') or [], gap=meta.get('live_gap'))}
 
 {charts}
 

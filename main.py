@@ -13,7 +13,8 @@ from schedule import load_schedule, SCHEDULE_PATH
 from insights import (position_probabilities, points_ranges, upcoming_fixtures, remaining_for_team, match_stakes,
                       update_prediction_log, score_prediction_log, score_probabilities, bookmaker_probabilities,
                       calibration_bins, elo_history, recent_results, outcome_codes, live_match_records,
-                      cumulative_track_record, simulated_fixture_probabilities, club_scenarios, PREDICTION_LOG_PATH)
+                      cumulative_track_record, simulated_fixture_probabilities, club_scenarios, log_loss_gap,
+                      PREDICTION_LOG_PATH)
 from site_builder import write_site
 
 DATA_PATH = "data/matches.csv"
@@ -347,6 +348,7 @@ def main():
         'live_score': score_prediction_log(prediction_log, df),
         'live_records': live_records,
         'live_cumulative': cumulative_track_record(live_records),
+        'live_gap': log_loss_gap(live_records),
         'generated': datetime.date.today().isoformat(),
     }
     write_site(projection, headline_season, meta, DOCS_DIR)

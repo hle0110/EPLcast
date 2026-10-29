@@ -954,3 +954,33 @@ def test_club_scenarios_ignore_fixtures_beyond_the_horizon():
     assert all(item['swing'] < 1.0 for item in stay_up['key_fixtures'])
     assert ('T6', 'T0') not in {(item['home'], item['away']) for item in stay_up['key_fixtures']}
 
+
+def test_log_loss_gap_matches_hand_calculation():
+    log, results, schedule = _live_log_and_results()
+    records = insights.live_match_records(log, results, schedule)
+    gap = insights.log_loss_gap(records)
+    diffs = np.array([-np.log(r['p'][r['result']]) + np.log(r['book_p'][r['result']]) for r in records])
+    assert gap['matches'] == 4
+    assert gap['gap'] == pytest.approx(diffs.mean())
+    assert gap['margin'] == pytest.approx(1.96 * diffs.std(ddof=1) / 2)
+    assert gap['firm'] == (abs(diffs.mean()) > 1.96 * diffs.std(ddof=1) / 2)
+
+
+def test_track_record_flags_a_sample_too_small_for_a_verdict():
+    live = {'matches': 30, 'accuracy': 0.5, 'log_loss': 1.004, 'first': '2026-10-06', 'book_accuracy': 0.5, 'book_log_loss': 0.951}
+    noisy = {'matches': 30, 'gap': 0.053, 'margin': 0.058, 'firm': False}
+    clear = {'matches': 300, 'gap': 0.053, 'margin': 0.018, 'firm': True}
+    assert 'Sample too small for a firm conclusion' in dashboard.track_record_verdict(live, noisy)
+    assert 'Sample too small' not in dashboard.track_record_verdict(live, clear)
+    assert 'Bookmakers are ahead' in dashboard.track_record_verdict(live, noisy)
+
+
+def test_track_record_table_keeps_who_was_right_on_phones():
+    log, results, schedule = _live_log_and_results()
+    table = dashboard.track_record_table(insights.live_match_records(log, results, schedule))
+    import re
+    header = table.split('</thead>')[0]
+    cells = re.findall(r'<th([^>]*)>([^<]*)</th>', header)
+    labels = [label for attributes, label in cells if 'hide' not in attributes]
+    assert labels == ['Rd', 'Match', 'Result', 'Model right', 'Book right']
+

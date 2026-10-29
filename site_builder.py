@@ -127,7 +127,7 @@ def build_accuracy_page(meta):
             f'<p class="legend">Accuracy counts how often the most likely result happened. Log loss rewards honest probabilities '
             f'and punishes confident misses; lower is better, and guessing a third for everything scores 1.099. Bookmaker figures '
             f'use the average closing odds with the margin removed. They are the benchmark, not a target the model is tuned to.</p>'
-            f'{calibration}{track_record_section(meta.get("live_score"), meta.get("live_records") or [], meta.get("live_cumulative") or [], recent_rounds=0)}')
+            f'{calibration}{track_record_section(meta.get("live_score"), meta.get("live_records") or [], meta.get("live_cumulative") or [], recent_rounds=0, gap=meta.get("live_gap"))}')
     description = f'EPLcast accuracy: {_percent(metrics["accuracy"])} over {metrics["matches"]:,} held-out Premier League matches, compared with bookmakers.'
     return page_shell('EPLcast - accuracy', description, body, 'accuracy.html')
 
@@ -259,7 +259,8 @@ def _scenarios_block(team, scenarios, remaining):
                         + ''.join(_scenario_fixture(team, item, kickoffs) for item in entry['key_fixtures']) + '</ul>')
         items.append(f'<div class="scenario"><h3>{title} <span class="muted">now {_pct(entry["probability"])}</span></h3>'
                      f'{line}{record}{fixtures}</div>')
-    return ('<h2>What they need</h2>' + ''.join(items)
+    return ('<h2>What they need</h2><p class="sub">Model estimates from every simulated season, not certainties. '
+            'They change after every round as real results come in.</p>' + ''.join(items)
             + '<p class="legend">Worked out from every simulated season, not written by hand. Each figure needs at least 100 '
               'simulations behind it, otherwise it is left out. A result and the final outcome are linked partly because a side that wins '
               'one game tends to be stronger in that simulation, so these show what goes with success rather than a guarantee.</p>')
@@ -297,7 +298,7 @@ def build_club_page(team, record, standing, detail, form, season):
                             f'<td>{lose * 100:.0f}%</td></tr>')
     fixtures = ('<h2>Remaining fixtures</h2><div class="scroll"><table><thead><tr><th class="team">Kick-off</th>'
                 '<th class="team">Opponent</th><th>Win</th><th>Draw</th><th>Lose</th></tr></thead>'
-                f'<tbody>{"".join(fixture_rows)}</tbody></table></div><p class="legend">How often each result happened across '
+                f'<tbody>{"".join(fixture_rows)}</tbody></table></div><p class="legend">Model estimates: how often each result happened across '
                 'every simulated season. Ratings and form move as simulated results come in, so later fixtures carry that uncertainty. '
                 'The Matches page shows the model\u2019s direct probabilities for the next round, which can differ by about a point.</p>') if fixture_rows else ''
 

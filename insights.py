@@ -296,6 +296,16 @@ def cumulative_track_record(records):
     return rows
 
 
+def log_loss_gap(records):
+    priced = [r for r in records if r['book_p'] is not None]
+    if len(priced) < 2:
+        return None
+    diffs = np.array([_record_loss(r['p'], r['result']) - _record_loss(r['book_p'], r['result']) for r in priced])
+    gap = float(diffs.mean())
+    margin = float(1.96 * diffs.std(ddof=1) / np.sqrt(len(diffs)))
+    return {'matches': len(diffs), 'gap': gap, 'margin': margin, 'firm': abs(gap) > margin}
+
+
 def live_leader(live):
     if not live or live.get('book_log_loss') is None:
         return None
