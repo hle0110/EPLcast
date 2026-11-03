@@ -1,12 +1,12 @@
 {
- "generated": "2026-10-30",
+ "generated": "2026-11-03",
  "held_out": {
-  "matches": 1220,
-  "accuracy": 0.5303,
-  "log_loss": 0.9819,
-  "baseline": 0.4287,
-  "book_accuracy": 0.5451,
-  "book_log_loss": 0.9634
+  "matches": 1230,
+  "accuracy": 0.5285,
+  "log_loss": 0.9831,
+  "baseline": 0.4293,
+  "book_accuracy": 0.5447,
+  "book_log_loss": 0.9641
  },
  "seasons": [
   {
@@ -41,39 +41,39 @@
   },
   {
    "season": "2026-27",
-   "matches": 80,
-   "baseline": 0.3875,
-   "accuracy": 0.4375,
-   "log_loss": 1.0451,
-   "book_accuracy": 0.475,
-   "book_log_loss": 1.0159,
+   "matches": 90,
+   "baseline": 0.4,
+   "accuracy": 0.4222,
+   "log_loss": 1.0546,
+   "book_accuracy": 0.4778,
+   "book_log_loss": 1.0191,
    "draw_factor": 1.1
   }
  ],
  "calibration": [
   {
    "range": "0-20%",
-   "predicted": 0.1456,
-   "observed": 0.1527,
-   "count": 773
+   "predicted": 0.1457,
+   "observed": 0.1537,
+   "count": 774
   },
   {
    "range": "20-35%",
-   "predicted": 0.2594,
-   "observed": 0.2675,
-   "count": 1589
+   "predicted": 0.2597,
+   "observed": 0.268,
+   "count": 1608
   },
   {
    "range": "35-50%",
-   "predicted": 0.4243,
-   "observed": 0.421,
-   "count": 601
+   "predicted": 0.4242,
+   "observed": 0.4187,
+   "count": 609
   },
   {
    "range": "50-65%",
-   "predicted": 0.5711,
-   "observed": 0.5452,
-   "count": 431
+   "predicted": 0.571,
+   "observed": 0.545,
+   "count": 433
   },
   {
    "range": "65-100%",
@@ -83,11 +83,11 @@
   }
  ],
  "live": {
-  "matches": 30,
-  "accuracy": 0.5,
-  "log_loss": 1.0038,
+  "matches": 40,
+  "accuracy": 0.45,
+  "log_loss": 1.0353,
   "first": "2026-10-06",
   "book_accuracy": 0.5,
-  "book_log_loss": 0.9508
+  "book_log_loss": 0.9742
  }
 }
