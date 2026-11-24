@@ -199,36 +199,36 @@ season,round,kickoff_utc,home_team_name,away_team_name
 2026,20,2027-01-06 19:30,Ipswich Town,Coventry City
 2026,20,2027-01-06 20:15,Leeds United,Manchester City
 2026,20,2027-01-07 20:00,Manchester United,Newcastle United
-2026,21,2027-01-16 15:00,Aston Villa,Manchester United
-2026,21,2027-01-16 15:00,Bournemouth,Ipswich Town
-2026,21,2027-01-16 15:00,Brentford,Brighton & Hove Albion
+2026,21,2027-01-16 12:30,Coventry City,Everton
 2026,21,2027-01-16 15:00,Chelsea,Sunderland
-2026,21,2027-01-16 15:00,Coventry City,Everton
 2026,21,2027-01-16 15:00,Hull City,Arsenal
 2026,21,2027-01-16 15:00,Liverpool,Crystal Palace
 2026,21,2027-01-16 15:00,Manchester City,Nottingham Forest
 2026,21,2027-01-16 15:00,Newcastle United,Fulham
-2026,21,2027-01-16 15:00,Tottenham Hotspur,Leeds United
-2026,22,2027-01-23 15:00,Arsenal,Newcastle United
-2026,22,2027-01-23 15:00,Brighton & Hove Albion,Manchester City
-2026,22,2027-01-23 15:00,Crystal Palace,Tottenham Hotspur
-2026,22,2027-01-23 15:00,Everton,Brentford
+2026,21,2027-01-16 17:30,Aston Villa,Manchester United
+2026,21,2027-01-17 14:00,Bournemouth,Ipswich Town
+2026,21,2027-01-17 16:30,Tottenham Hotspur,Leeds United
+2026,21,2027-01-18 20:00,Brentford,Brighton & Hove Albion
 2026,22,2027-01-23 15:00,Fulham,Aston Villa
 2026,22,2027-01-23 15:00,Ipswich Town,Hull City
-2026,22,2027-01-23 15:00,Leeds United,Chelsea
-2026,22,2027-01-23 15:00,Manchester United,Liverpool
-2026,22,2027-01-23 15:00,Nottingham Forest,Bournemouth
-2026,22,2027-01-23 15:00,Sunderland,Coventry City
+2026,22,2027-01-23 17:30,Arsenal,Newcastle United
+2026,22,2027-01-23 20:00,Brighton & Hove Albion,Manchester City
+2026,22,2027-01-24 14:00,Crystal Palace,Tottenham Hotspur
+2026,22,2027-01-24 14:00,Everton,Brentford
+2026,22,2027-01-24 14:00,Nottingham Forest,Bournemouth
+2026,22,2027-01-24 14:00,Sunderland,Coventry City
+2026,22,2027-01-24 16:30,Manchester United,Liverpool
+2026,22,2027-01-25 20:00,Leeds United,Chelsea
+2026,23,2027-01-30 12:30,Liverpool,Everton
 2026,23,2027-01-30 15:00,Aston Villa,Ipswich Town
-2026,23,2027-01-30 15:00,Bournemouth,Fulham
-2026,23,2027-01-30 15:00,Brentford,Manchester United
-2026,23,2027-01-30 15:00,Chelsea,Nottingham Forest
-2026,23,2027-01-30 15:00,Coventry City,Leeds United
-2026,23,2027-01-30 15:00,Hull City,Crystal Palace
-2026,23,2027-01-30 15:00,Liverpool,Everton
-2026,23,2027-01-30 15:00,Manchester City,Arsenal
 2026,23,2027-01-30 15:00,Newcastle United,Brighton & Hove Albion
-2026,23,2027-01-30 15:00,Tottenham Hotspur,Sunderland
+2026,23,2027-01-30 17:30,Chelsea,Nottingham Forest
+2026,23,2027-01-31 14:00,Bournemouth,Fulham
+2026,23,2027-01-31 14:00,Coventry City,Leeds United
+2026,23,2027-01-31 14:00,Hull City,Crystal Palace
+2026,23,2027-01-31 14:00,Tottenham Hotspur,Sunderland
+2026,23,2027-01-31 16:30,Manchester City,Arsenal
+2026,23,2027-02-01 20:00,Brentford,Manchester United
 2026,24,2027-02-06 15:00,Arsenal,Liverpool
 2026,24,2027-02-06 15:00,Brighton & Hove Albion,Hull City
 2026,24,2027-02-06 15:00,Crystal Palace,Coventry City
